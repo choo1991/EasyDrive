@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.hardware.*;
 
 public class SensorActivity extends Activity implements SensorEventListener {
@@ -42,6 +43,24 @@ public class SensorActivity extends Activity implements SensorEventListener {
     	float z = event.values[2];
     	data += "x: " + x + " y: " + y + " z: " + z + "\n\n";
     	
+    	if(x > 5)
+    	{
+	    	//feedback popup test
+			Context context = getApplicationContext();
+			CharSequence text = "Hello toast!";
+			int duration = Toast.LENGTH_SHORT;
+			
+	    	Toast toast = Toast.makeText(context, text, duration);
+			toast.show();   
+			
+			// Create the text view
+		    TextView textView = new TextView(this);
+		    textView.setTextSize(20);
+		    textView.setText(data);
+
+		    // Set the text view as the activity layout
+		    setContentView(textView);
+    	}
 		// Create the text view
 	    TextView textView = new TextView(this);
 	    textView.setTextSize(8);
