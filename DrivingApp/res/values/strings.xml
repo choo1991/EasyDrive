@@ -6,5 +6,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="start_accel">Start Accelerometer</string>
     <string name="title_activity_sensor">SensorActivity</string>
+    <string name="app_status">App Status</string>
+    <string name="silenced">Silenced When Active</string>
+    <string name="change_pattern">Change Unlock Pattern</string>
+    <string name="disable_speed">Change Disable Speed</string>
+    <string name="disable_times">Change Disable Times</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
 
 </resources>
