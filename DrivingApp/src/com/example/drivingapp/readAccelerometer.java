@@ -10,6 +10,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     String data = "";
 	private Handler handler;
 	Intent sensorIntent;
+	Boolean flag = false;
 	
 	public readAccelerometer() {
 		super("readAccelerometer");
@@ -42,6 +44,8 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		super.onCreate();
 	}
 	
+	//the "main" for a service that isn't bound
+	//it destroys itself after this method finishes executing
 	protected void onHandleIntent(Intent intent) {
 		//get sensor service
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -85,13 +89,26 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     	float z = event.values[2];
     	//data += "x: " + x + " y: " + y + " z: " + z + "\n\n";
     	
-    	if(x > 5) {
-    		startActivity(sensorIntent);
+    	if(x > 5 && !flag) {
+    		flag = true;
+    		//sensorIntent.addCategory(Intent.CATEGORY_HOME);
+    		startActivity(sensorIntent); //are we generating many instances?
     		//call in order to stop this service since we don't need it anymore
     		//the other activity will continue on as expected
-    		stopSelf(); 
+    		//don't need
+    		//stopSelf(); 
+    		
+    		//feedback popup test
+			Context context = getApplicationContext();
+			CharSequence text = "Hello toast!";
+			int duration = Toast.LENGTH_SHORT;
+			
+	    	Toast toast = Toast.makeText(context, text, duration);
+			toast.show();   
+			
+
     	}
     }
 	
-	
+    
 }

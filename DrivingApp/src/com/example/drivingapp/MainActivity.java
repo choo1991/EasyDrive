@@ -1,5 +1,6 @@
 package com.example.drivingapp;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +15,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initLocationManager();
+        //initLocationManager();
     }
 
 
@@ -41,6 +42,7 @@ public class MainActivity extends Activity {
 
     }
     
+    /*
     private void initLocationManager() {
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -94,7 +96,7 @@ public class MainActivity extends Activity {
 		// 10 mph ~ 4.4 meters per second
 		// this is 
 		if (speed > 4.5) {
-			initCustomLockScreen();
+			initCustomLockScreen(); 
 		}
 	}
 	
@@ -116,4 +118,6 @@ public class MainActivity extends Activity {
 		locationManager.removeUpdates(locationListener);
 
 	}
+	
+	*/
 }
