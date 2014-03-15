@@ -1,9 +1,16 @@
 package com.example.drivingapp;
 
+import java.util.List;
+
+import com.example.drivingapp.SensorActivity;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.IntentService;
+import android.app.ActivityManager.RunningTaskInfo;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -23,8 +30,9 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     String data = "";
 	private Handler handler;
 	Intent sensorIntent;
-	Boolean flag = false;
-	
+	static Boolean flag = false;
+    CheckTopActivity checkTopAct;
+    
 	public readAccelerometer() {
 		super("readAccelerometer");
 	}
@@ -40,6 +48,9 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		//this flag is required when a new activity is started outside of an activity,
 		//such as a service like this
 		sensorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		
+		//runnable tasks sent to handler
+		checkTopAct = new CheckTopActivity();
 		
 		super.onCreate();
 	}
@@ -57,6 +68,15 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		//of whether or not the activity is active
 	    mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);  
 		
+	  //feedback popup test
+	  		Context context = getApplicationContext();
+	  		CharSequence text = "Hello toast X!";
+	  		int duration = Toast.LENGTH_SHORT;
+	  		
+	      	Toast toast = Toast.makeText(context, text, duration);
+	  		toast.show();  
+	  		
+	  		
 	    //toast's new thread is bound to the main UI thread
 		handler.post(new Runnable() { 
             @Override 
@@ -71,10 +91,54 @@ public class readAccelerometer extends IntentService implements SensorEventListe
         		} 
 		});   
 		
+		//check top activity
+		//handler.postDelayed(checkTopAct, 500);
+		
+		ActivityManager manager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+		
 		//sustain thy self
-		while(true) {}
+		while(true) {
+			List<RunningTaskInfo> runningTasks = manager.getRunningTasks(20);
+	        if (runningTasks != null && runningTasks.size() > 0) {
+	            ComponentName topActivity = runningTasks.get(0).topActivity;
+	            // Here you can get the TopActivity for every 500ms
+	            if(!topActivity.getPackageName().equals(getPackageName())){
+	            	//feedback popup test
+	            	/*
+	    			Context context = getApplicationContext();
+	    			CharSequence text = getPackageName().toString(); //name of our app's package
+	    			int duration = Toast.LENGTH_SHORT;
+	    			
+	    	    	Toast toast = Toast.makeText(context, text, duration);
+	    			toast.show();
+	    			*/
+	            	
+	    			for(RunningTaskInfo taskInfo : runningTasks) {
+	    				if(taskInfo.topActivity.getPackageName().equals(getPackageName())) {
+	    					
+	    					/*runningTasks.set(0, taskInfo);
+	    					
+	    					Context context2 = getApplicationContext();
+	    	    			CharSequence text2 = "XX".toString(); //name of our app's package
+	    	    			int duration2 = Toast.LENGTH_SHORT;
+	    	    			
+	    	    	    	Toast toast2 = Toast.makeText(context2, text2, duration2);
+	    	    			toast2.show();
+	    	    			*/
+	    					flag = true;
+	    					startActivity(sensorIntent);
+	    					break; //just to be safe
+	    				}
+	    			}
+	    			
+	            }
+	        }
+		}
 	}
 	
+	
+    
 	@Override
   	public final void onAccuracyChanged(Sensor sensor, int accuracy) {
 	    // Do something here if sensor accuracy changes.
@@ -90,6 +154,8 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     	//data += "x: " + x + " y: " + y + " z: " + z + "\n\n";
     	
     	if(x > 5 && !flag) {
+    		//multiple sensorIntents are started unless we control it somehow,
+    		//such as with a flag or something
     		flag = true;
     		//sensorIntent.addCategory(Intent.CATEGORY_HOME);
     		startActivity(sensorIntent); //are we generating many instances?
@@ -100,15 +166,61 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     		
     		//feedback popup test
 			Context context = getApplicationContext();
-			CharSequence text = "Hello toast!";
+			CharSequence text = "Hello toast toast!" + x;
 			int duration = Toast.LENGTH_SHORT;
 			
 	    	Toast toast = Toast.makeText(context, text, duration);
 			toast.show();   
-			
-
+		
     	}
     }
-	
-    
+
+    //detects when the app this service belongs to isn't the one that is currently
+    //active on the user's screen (index 0 of running tasks), and by active this doesn't
+    //necessarily mean that it's visible on screen, just the last recent active app that
+    //is still being persisted. Either way we want our app on top.
+    //and this code actually works o_O
+    //http://stackoverflow.com/questions/20740440/how-to-check-the-top-activity-from-android-app-in-background-service
+    //http://stackoverflow.com/questions/4278535/disable-home-button-in-android-toddler-app
+	private class CheckTopActivity implements Runnable {
+	    @Override
+	    public void run() {
+	        ActivityManager manager = (ActivityManager) getApplicationContext()
+	                .getSystemService(Context.ACTIVITY_SERVICE);
+	        List<RunningTaskInfo> runningTasks = manager.getRunningTasks(20);
+	        if (runningTasks != null && runningTasks.size() > 0) {
+	            ComponentName topActivity = runningTasks.get(0).topActivity;
+	            // Here you can get the TopActivity for every 500ms
+	            if(!topActivity.getPackageName().equals(getPackageName())){
+	            	//feedback popup test
+	    			Context context = getApplicationContext();
+	    			CharSequence text = getPackageName().toString(); //name of our app's package
+	    			int duration = Toast.LENGTH_SHORT;
+	    			
+	    	    	Toast toast = Toast.makeText(context, text, duration);
+	    			toast.show();
+	    			
+	    			for(RunningTaskInfo taskInfo : runningTasks) {
+	    				if(taskInfo.topActivity.getPackageName().equals(getPackageName())) {
+	    					
+	    					/*runningTasks.set(0, taskInfo);
+	    					
+	    					Context context2 = getApplicationContext();
+	    	    			CharSequence text2 = "XX".toString(); //name of our app's package
+	    	    			int duration2 = Toast.LENGTH_SHORT;
+	    	    			
+	    	    	    	Toast toast2 = Toast.makeText(context2, text2, duration2);
+	    	    			toast2.show();
+	    	    			*/
+	    					flag = true;
+	    					startActivity(sensorIntent);
+	    					break; //just to be safe
+	    				}
+	    			}
+	    			
+	            }
+	            handler.postDelayed(this, 5500); //repeat
+	        }
+	    }
+	}
 }

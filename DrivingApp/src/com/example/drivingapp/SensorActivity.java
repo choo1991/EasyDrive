@@ -1,8 +1,13 @@
 package com.example.drivingapp;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.app.KeyguardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
@@ -12,12 +17,20 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.hardware.*;
+import android.os.Handler;
+import android.app.IntentService;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.view.View;
 
 public class SensorActivity extends Activity implements SensorEventListener {
 	  private SensorManager mSensorManager;
 	  private Sensor mAccel;
 	  String data = "";
-
+	  Handler handler;
+	  
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +96,7 @@ public class SensorActivity extends Activity implements SensorEventListener {
 				Adding these to manifest would be an option, but it could potential 
 				override user's default home setting
     		 * */
-    		 
+    		
     	}
     	/*
 		// Create the text view
@@ -119,7 +132,11 @@ public class SensorActivity extends Activity implements SensorEventListener {
 	
 	@Override
 	protected void onPause() {
+		//let service know it can generate new intents
+		readAccelerometer.flag = false;
 		super.onPause();
+		super.onDestroy(); //end this intent as service will generate new ones in future
+		
 		//unregister to save energy and battery, just leaving this here for now
 	    //mSensorManager.unregisterListener(this);
 	}
@@ -134,12 +151,19 @@ public class SensorActivity extends Activity implements SensorEventListener {
         if ((keyCode == KeyEvent.KEYCODE_HOME)) { //doesn't :(
             Toast.makeText(this, "You pressed the home button!", Toast.LENGTH_LONG).show();                     
             return true;
+        } else if ((keyCode == KeyEvent.KEYCODE_MENU)) { //doesn't work
+            Toast.makeText(this, "You pressed the menu button!", Toast.LENGTH_LONG).show();                     
+            return true;
         } else if ((keyCode == KeyEvent.KEYCODE_BACK)) { //works!!!! 
             Toast.makeText(this, "You pressed the back button!", Toast.LENGTH_LONG).show();                     
             return true;
+        } else  { //doesn't
+            Toast.makeText(this, "You " + KeyEvent.keyCodeToString(keyCode) + " button!", Toast.LENGTH_LONG).show();                     
+            return true;
         }
-        return super.onKeyDown(keyCode, event);
+        //return super.onKeyDown(keyCode, event);
     }
+	
 	
 	/*
 	 //Breaks the app
