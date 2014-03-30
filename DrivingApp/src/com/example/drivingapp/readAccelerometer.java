@@ -43,6 +43,22 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		//so that the methods that are posted to it are run in a thread that's
 		//bound to the main UI thread instead of this service's new thread
 		handler = new Handler();
+		//intentservices handle their main functionality through onHandleIntent()
+		//which is run on a different thread, whereas regular services are
+		//run on the same thread
+		
+		//services can run concurrently but use the same thread in which it was declared
+		//intentservices don't use the main thread (but must be triggered from it)
+		//but can't run concurrently. Every onHandleIntent is a worker thread
+		//that is queued in a consecutive order, so if one intentservice blocks,
+		//the rest can't run
+		
+		//services stop upon call to stopSelf()
+		//intentservices can stop either the same way or once onHandleIntent() is done
+		
+		//the only way to have a blocking service is to start a service in its own thread
+		
+		
 		
 		sensorIntent = new Intent(this, SensorActivity.class);
 		//this flag is required when a new activity is started outside of an activity,
@@ -50,7 +66,7 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		sensorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		
 		//runnable tasks sent to handler
-		checkTopAct = new CheckTopActivity();
+		//checkTopAct = new CheckTopActivity();
 		
 		super.onCreate();
 	}
@@ -92,13 +108,14 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		});   
 		
 		//check top activity
-		//handler.postDelayed(checkTopAct, 500);
+		handler.postDelayed(checkTopAct, 5000);
 		
 		ActivityManager manager = (ActivityManager) getApplicationContext()
                 .getSystemService(Context.ACTIVITY_SERVICE);
 		
 		//sustain thy self
 		while(true) {
+
 			List<RunningTaskInfo> runningTasks = manager.getRunningTasks(20);
 	        if (runningTasks != null && runningTasks.size() > 0) {
 	            ComponentName topActivity = runningTasks.get(0).topActivity;
@@ -126,8 +143,9 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 	    	    	    	Toast toast2 = Toast.makeText(context2, text2, duration2);
 	    	    			toast2.show();
 	    	    			*/
-	    					flag = true;
-	    					startActivity(sensorIntent);
+	    					//flag = true;
+	    					//startActivity(sensorIntent);
+	    					
 	    					break; //just to be safe
 	    				}
 	    			}
@@ -156,7 +174,7 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     	if(x > 5 && !flag) {
     		//multiple sensorIntents are started unless we control it somehow,
     		//such as with a flag or something
-    		flag = true;
+    		//flag = true;
     		//sensorIntent.addCategory(Intent.CATEGORY_HOME);
     		startActivity(sensorIntent); //are we generating many instances?
     		//call in order to stop this service since we don't need it anymore
@@ -185,6 +203,14 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 	private class CheckTopActivity implements Runnable {
 	    @Override
 	    public void run() {
+	    	Context context2 = getApplicationContext();
+			CharSequence text2 = "XX".toString(); //name of our app's package
+			int duration2 = Toast.LENGTH_SHORT;
+			
+	    	Toast toast2 = Toast.makeText(context2, text2, duration2);
+			toast2.show();
+			handler.postDelayed(this, 5500);
+	    	/*
 	        ActivityManager manager = (ActivityManager) getApplicationContext()
 	                .getSystemService(Context.ACTIVITY_SERVICE);
 	        List<RunningTaskInfo> runningTasks = manager.getRunningTasks(20);
@@ -211,7 +237,7 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 	    	    			
 	    	    	    	Toast toast2 = Toast.makeText(context2, text2, duration2);
 	    	    			toast2.show();
-	    	    			*/
+	    	    			
 	    					flag = true;
 	    					startActivity(sensorIntent);
 	    					break; //just to be safe
@@ -220,7 +246,7 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 	    			
 	            }
 	            handler.postDelayed(this, 5500); //repeat
-	        }
+	        }*/
 	    }
 	}
 }

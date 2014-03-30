@@ -46,7 +46,7 @@ public class SensorActivity extends Activity implements SensorEventListener {
 		 //activities don't destroy themselves, and currently this doesn't!
 		
 		//comment out since we don't need it. readAccel should be the only one listening
-	    mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);
+	    //mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);
 	}
 
 

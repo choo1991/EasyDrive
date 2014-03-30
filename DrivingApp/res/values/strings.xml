@@ -13,5 +13,7 @@
     <string name="disable_times">Change Disable Times</string>
     <string name="help">Help</string>
     <string name="about">About</string>
-
+    <string name="title_activity_speed_adjust">SpeedAdjustActivity</string>
+	<string name="OK">OK</string>
+    
 </resources>

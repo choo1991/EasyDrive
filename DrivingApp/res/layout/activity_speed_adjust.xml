@@ -6,15 +6,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".SensorActivity" >
+    tools:context=".SpeedAdjustActivity" >
 
     <TextView
+        android:id="@+id/speedDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
-    <EditText
+    <SeekBar 
+        android:id="@+id/speedBar" 
+        android:max="100" 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content"  
+        android:layout_alignParentLeft="true" 
+        android:layout_marginTop="26dp"></SeekBar>
+    
+    <Button
+        android:id="@+id/speedAdjustOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/hello_world" />
+        android:text="@string/OK"
+        android:onClick="setSpeed" />
+        
 </RelativeLayout>
