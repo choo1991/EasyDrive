@@ -5,6 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="start_accel">Start Accelerometer</string>
+    <string name="display_speed">Display Speed</string>
+    <string name="lock_screen">Start Lock Screen</string>
     <string name="title_activity_sensor">SensorActivity</string>
     <string name="app_status">App Status</string>
     <string name="silenced">Silenced When Active</string>
@@ -15,5 +17,7 @@
     <string name="about">About</string>
     <string name="title_activity_speed_adjust">SpeedAdjustActivity</string>
 	<string name="OK">OK</string>
+	<string name="unloack">Unlock</string>
+	<color name="mycolor1">#F5DC49</color>
     
 </resources>

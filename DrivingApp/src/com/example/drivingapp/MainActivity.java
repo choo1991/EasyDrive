@@ -1,17 +1,22 @@
 package com.example.drivingapp;
 
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
     @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainscreen);
@@ -36,10 +41,29 @@ public class MainActivity extends Activity {
     	
     	//Intent intentAccel = new Intent(this, SensorActivity.class);
     	//startActivity(intentAccel);
-    	
-    	Intent readAccel = new Intent(this, readAccelerometer.class);
-    	startService(readAccel);
+    	TextView test = (TextView) findViewById(R.id.tvSpeed);
+		test.setText("0 MPH");
+		initLocationManager();
+    	//Intent readAccel = new Intent(this, LockScreenAppActivity.class);
+    	//startActivity(readAccel);
 
+    }
+    
+    public void displaySpeed(View view)
+    {
+    	TextView test = (TextView) findViewById(R.id.tvSpeed);
+		test.setText("0 MPH");
+		initLocationManager();
+    }
+    
+    public void displayLockScreen(View view)
+    {
+    	TextView test = (TextView) findViewById(R.id.tvSpeed);
+		test.setText("Display Lock Screen Clicked!");
+    	Intent displayLockScreen = new Intent(this, LockScreenAppActivity.class);
+    	startActivity(displayLockScreen);
+		//Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.package.lockscreen");
+		//startActivity(LaunchIntent);
     }
     
     public void speedAdjust(View view) {
@@ -62,7 +86,7 @@ public class MainActivity extends Activity {
         }
     }
     
-    /*
+    
     private void initLocationManager() {
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -105,6 +129,10 @@ public class MainActivity extends Activity {
 		System.out.println("Time = " + location.getTime());
 		float speed = location.getSpeed();
 		System.out.println("Speed = " + speed);
+		String speedAsString = Float.toString(speed);
+
+		TextView test = (TextView) findViewById(R.id.tvSpeed);
+		test.setText(speedAsString);
 		checkIfDriving(location);
 	}
 	
@@ -116,7 +144,7 @@ public class MainActivity extends Activity {
 		// 10 mph ~ 4.4 meters per second
 		// this is 
 		if (speed > 4.5) {
-			initCustomLockScreen(); 
+			initCustomLockScreen(time); 
 		}
 	}
 	
@@ -126,18 +154,18 @@ public class MainActivity extends Activity {
 		
 		// disable location manager since we don't want to continue
 		// to check location after home screen is locked
-		disableLocationManager();
+		//disableLocationManager();
 	}
 	
 	// we need a method that will delay the lock screen for X minutes until it checks again
 	// for the phone moving more than 10 miles an hour (or whatever speed we choose)
 	// how can we say... in X hours, restart location manager?
-	private void disableLocationManager() {
+	/*private void disableLocationManager() {
 		// do we want to keep track of time here so the app knows how long to disable location checking
 		// and knows when to start checking for speed again
 		locationManager.removeUpdates(locationListener);
 
-	}
+	}*/
 	
-	*/
+	
 }

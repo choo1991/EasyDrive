@@ -80,5 +80,23 @@
         android:layout_above="@+id/button1"
         android:layout_toRightOf="@+id/button5"
         android:text="@string/about" />
+    
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView1"
+        android:layout_alignLeft="@+id/textView1"
+        android:onClick="displaySpeed"
+        android:text="@string/display_speed" />
+    
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_toRightOf="@+id/button5"
+        android:onClick="displayLockScreen"
+        android:text="@string/lock_screen" />
 
 </RelativeLayout>
