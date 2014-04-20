@@ -49,6 +49,11 @@ public class MainActivity extends Activity {
 
     }
     
+    public void openOptions(View view) {
+    	Intent options = new Intent(this, OptionsActivity.class);
+    	startActivity(options);
+    }
+    
     public void displaySpeed(View view)
     {
     	TextView test = (TextView) findViewById(R.id.tvSpeed);
@@ -65,27 +70,6 @@ public class MainActivity extends Activity {
 		//Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.package.lockscreen");
 		//startActivity(LaunchIntent);
     }
-    
-    public void speedAdjust(View view) {
-    	Intent i = new Intent(this, SpeedAdjustActivity.class);
-    	startActivityForResult(i, 1);
-    }
-    
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	// TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-        if(data.getExtras().containsKey(SpeedAdjustActivity.SPEED)){
-            //width.setText(data.getStringExtra("widthInfo"));
-        	Context context = getApplicationContext();
-	  		CharSequence text = "Speed Setting Is " + data.getIntExtra(SpeedAdjustActivity.SPEED, 0);
-	  		int duration = Toast.LENGTH_SHORT;
-	  		
-	      	Toast toast = Toast.makeText(context, text, duration);
-	  		toast.show();  
-        }
-    }
-    
     
     private void initLocationManager() {
 		// Acquire a reference to the system Location Manager

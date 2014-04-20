@@ -16,8 +16,17 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="title_activity_speed_adjust">SpeedAdjustActivity</string>
-	<string name="OK">OK</string>
-	<string name="unloack">Unlock</string>
-	<color name="mycolor1">#F5DC49</color>
-    
+    <string name="OK">OK</string>
+    <string name="unlock">Unlock</string>
+    <color name="mycolor1">#F5DC49</color>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_help">HelpActivity</string>
+    <string name="appStats">My Stats</string>
+    <string name="launch">Launch</string>
+    <string name="title_activity_options">OptionsActivity</string>
+    <string name="title_activity_stats">StatsActivity</string>
+    <string name="title_activity_set_apps">SetAppsActivity</string>
+	<string name="setApps">Set Apps</string>
+	<string name="options">Options</string>
+	
 </resources>

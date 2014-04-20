@@ -1,0 +1,39 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    	xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:paddingBottom="@dimen/activity_vertical_margin"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:paddingTop="@dimen/activity_vertical_margin"
+	    tools:context=".StatsActivity" >
+	
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Current View: Daily" 
+	        android:background="@drawable/rectangle"
+	        android:padding="20px"/>
+	    
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Time Traveled: 999 Hours" 
+	        android:background="@drawable/rectangle"
+	        android:padding="20px"
+	        android:paddingLeft="20px" />
+	    
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Phone Usage While Traveling: 200 Hours" 
+	        android:background="@drawable/rectangle"
+	        android:padding="20px"
+	        android:paddingLeft="20px" />
+	   
+	</LinearLayout>
+</ScrollView>
