@@ -14,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
+	//toggled in initLocationManager in this class when speed conditions met
+	//and in LockScreenAppActivity when the user kills the lock screen
+	public static boolean LOCK_SCREEN_ACTIVE = false;
     @Override
     
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +129,8 @@ public class MainActivity extends Activity {
 		// speed is returned in meters per second
 		// 10 mph ~ 4.4 meters per second
 		// this is 
-		if (speed > 4.5) {
+		if (speed > OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE) {
+			LOCK_SCREEN_ACTIVE = true;
 			initCustomLockScreen(time); 
 		}
 	}
@@ -139,6 +142,13 @@ public class MainActivity extends Activity {
 		// disable location manager since we don't want to continue
 		// to check location after home screen is locked
 		//disableLocationManager();
+		
+		//wasScreenOn=false;
+    	Intent intent11 = new Intent(this, LockScreenAppActivity.class);
+    	intent11.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+    	startActivity(intent11);
+
 	}
 	
 	// we need a method that will delay the lock screen for X minutes until it checks again
