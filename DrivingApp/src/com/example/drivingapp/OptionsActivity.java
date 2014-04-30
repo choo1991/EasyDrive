@@ -17,9 +17,9 @@ import android.widget.ToggleButton;
 public class OptionsActivity extends Activity {
 	
 	//set 10 as the default speed limit when the lock screen won't be active
-	public static int SPEED_LIMIT = 5;
+	public static int SPEED_LIMIT = 10;
 	
-	
+	public static boolean RINGER_MODE_SILENCED = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,11 @@ public class OptionsActivity extends Activity {
 		return true;
 	}
     
+	public void onResume() {
+		Switch s = ((Switch) findViewById(R.id.switch_silenced));
+		s.setChecked(RINGER_MODE_SILENCED);
+		super.onResume();
+	}
     public void speedAdjust(View view) {
     	Intent i = new Intent(this, SpeedAdjustActivity.class);
     	startActivityForResult(i, 1);
@@ -73,6 +78,7 @@ public class OptionsActivity extends Activity {
 	  		toast.show();  
 	  		 		
 	  		am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+	  		RINGER_MODE_SILENCED = true;
         } else {
         	Context context = getApplicationContext();
 	  		CharSequence text = "OFF";
@@ -105,6 +111,7 @@ public class OptionsActivity extends Activity {
     	startActivity(i);
     }
   
+    
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
     	//apparently intercepting either keycode volume button prevents
@@ -121,6 +128,8 @@ public class OptionsActivity extends Activity {
 	  		toast.show();  
         }
         super.onKeyDown(keyCode, event);
-        return true;
+        return true; //for volume down key, "true" will block regular action
+        //false will make the system handle the event
     }
+    
 }

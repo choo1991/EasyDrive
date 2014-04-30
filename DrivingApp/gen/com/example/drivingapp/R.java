@@ -103,8 +103,9 @@ public final class R {
         public static final int activity_set_apps=0x7f030006;
         public static final int activity_speed_adjust=0x7f030007;
         public static final int activity_stats=0x7f030008;
-        public static final int custom_lock_screen=0x7f030009;
-        public static final int main=0x7f03000a;
+        public static final int activity_volume_check_service=0x7f030009;
+        public static final int custom_lock_screen=0x7f03000a;
+        public static final int main=0x7f03000b;
     }
     public static final class menu {
         public static final int about=0x7f0a0000;
@@ -115,6 +116,7 @@ public final class R {
         public static final int set_apps=0x7f0a0005;
         public static final int speed_adjust=0x7f0a0006;
         public static final int stats=0x7f0a0007;
+        public static final int volume_check=0x7f0a0008;
     }
     public static final class string {
         public static final int OK=0x7f08000f;
@@ -132,27 +134,27 @@ public final class R {
         public static final int launch=0x7f080014;
         public static final int lock_screen=0x7f080005;
         public static final int options=0x7f080019;
-        public static final int pref_default_display_name=0x7f08001f;
-        public static final int pref_description_social_recommendations=0x7f08001d;
+        public static final int pref_default_display_name=0x7f080020;
+        public static final int pref_description_social_recommendations=0x7f08001e;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f080021;
+        public static final int pref_header_data_sync=0x7f080022;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f08001b;
+        public static final int pref_header_general=0x7f08001c;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f080024;
-        public static final int pref_ringtone_silent=0x7f080027;
-        public static final int pref_title_add_friends_to_messages=0x7f080020;
-        public static final int pref_title_display_name=0x7f08001e;
-        public static final int pref_title_new_message_notifications=0x7f080025;
-        public static final int pref_title_ringtone=0x7f080026;
-        public static final int pref_title_social_recommendations=0x7f08001c;
-        public static final int pref_title_sync_frequency=0x7f080022;
-        public static final int pref_title_system_sync_settings=0x7f080023;
-        public static final int pref_title_vibrate=0x7f080028;
+        public static final int pref_header_notifications=0x7f080025;
+        public static final int pref_ringtone_silent=0x7f080028;
+        public static final int pref_title_add_friends_to_messages=0x7f080021;
+        public static final int pref_title_display_name=0x7f08001f;
+        public static final int pref_title_new_message_notifications=0x7f080026;
+        public static final int pref_title_ringtone=0x7f080027;
+        public static final int pref_title_social_recommendations=0x7f08001d;
+        public static final int pref_title_sync_frequency=0x7f080023;
+        public static final int pref_title_system_sync_settings=0x7f080024;
+        public static final int pref_title_vibrate=0x7f080029;
         public static final int setApps=0x7f080018;
         public static final int silenced=0x7f080008;
         public static final int start_accel=0x7f080003;
@@ -162,8 +164,9 @@ public final class R {
         public static final int title_activity_sensor=0x7f080006;
         public static final int title_activity_set_apps=0x7f080017;
         public static final int title_activity_speed_adjust=0x7f08000e;
-        public static final int title_activity_speed_adjustment=0x7f08001a;
+        public static final int title_activity_speed_adjustment=0x7f08001b;
         public static final int title_activity_stats=0x7f080016;
+        public static final int title_activity_volume_check_service=0x7f08001a;
         public static final int unlock=0x7f080010;
     }
     public static final class style {

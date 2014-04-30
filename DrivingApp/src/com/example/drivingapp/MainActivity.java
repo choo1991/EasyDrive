@@ -3,6 +3,7 @@ package com.example.drivingapp;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -45,7 +46,13 @@ public class MainActivity extends Activity {
     	//startActivity(intentAccel);
     	TextView test = (TextView) findViewById(R.id.tvSpeed);
 		test.setText("0 MPH");
+		
 		initLocationManager();
+		
+		Intent service = new Intent(this, VolumeCheckService.class);
+		startService(service);
+		
+		
     	//Intent readAccel = new Intent(this, LockScreenAppActivity.class);
     	//startActivity(readAccel);
 
@@ -131,6 +138,22 @@ public class MainActivity extends Activity {
 		// this is 
 		if (speed > OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE) {
 			LOCK_SCREEN_ACTIVE = true;
+			
+			//
+			if(OptionsActivity.RINGER_MODE_SILENCED) {
+				//for phone volumes (notifications, alarms, calls, music, etc)
+		    	AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		    	am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+		    	
+		    	int vol = am.getStreamVolume(AudioManager.STREAM_RING);
+		    	
+		    	Context context = getApplicationContext();
+		  		CharSequence text = "Volume is " + vol;
+		  		int duration = Toast.LENGTH_SHORT;
+		  		
+		      	Toast toast = Toast.makeText(context, text, duration);
+		  		toast.show(); 
+			} 
 			initCustomLockScreen(time); 
 		}
 	}
@@ -147,6 +170,8 @@ public class MainActivity extends Activity {
     	Intent intent11 = new Intent(this, LockScreenAppActivity.class);
     	intent11.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+    	
+    	
     	startActivity(intent11);
 
 	}

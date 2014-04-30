@@ -4,12 +4,15 @@ import receiver.LockScreenReceiver;
 import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -67,7 +70,25 @@ public void onStart(Intent intent, int startId) {
 
 	super.onStart(intent, startId);
 }
-
+/*
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+	//apparently intercepting either keycode volume button prevents
+	//the user from changing the volume up or down
+    if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)){
+    	AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+    	int vol = am.getStreamVolume(AudioManager.STREAM_RING);
+    	
+    	Context context = getApplicationContext();
+  		CharSequence text = "Volume: " + vol;
+  		int duration = Toast.LENGTH_SHORT;
+  		
+      	Toast toast = Toast.makeText(context, text, duration);
+  		toast.show();  
+    }
+    super.onKeyDown(keyCode, event);
+    return true;
+}
+*/
 /*class StateListener extends PhoneStateListener{
     @Override
     public void onCallStateChanged(int state, String incomingNumber) {

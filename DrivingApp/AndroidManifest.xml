@@ -73,13 +73,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
 
-            </intent-filter>
+            </intent-filter>
             -->
         </activity>
 
         <service android:name="com.example.drivingapp.MyService" >
         </service>
-
+		<service android:name="com.example.drivingapp.VolumeCheckService" >
+        </service>
+        
         <receiver
             android:name="receiver.LockScreenReceiver"
             android:enabled="true" >
@@ -107,6 +109,10 @@
         <activity
             android:name="com.example.drivingapp.StatsActivity"
             android:label="@string/title_activity_stats" >
+        </activity>
+        <activity
+            android:name="com.example.drivingapp.VolumeCheckService"
+            android:label="@string/title_activity_volume_check_service" >
         </activity>
     </application>
 
