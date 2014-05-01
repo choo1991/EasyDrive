@@ -30,11 +30,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!--         <activity
+            android:name="com.example.drivingapp.SensorActivity"
+            android:label="@string/title_activity_sensor" >
+            <intent-filter>
+				
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </activity> -->
+
         <activity
             android:name="com.example.drivingapp.SensorActivity"
             android:label="@string/title_activity_sensor" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.HOME" />
@@ -53,7 +63,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -62,19 +72,14 @@
             android:name="com.example.drivingapp.StartLockScreen"
             android:theme="@style/Theme.Transparent" >
 
-            <!--
+            
             <intent-filter >
-                <action android:name="android.intent.action.MAIN" />
-
-
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />-->
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
-
-
-            </intent-filter>
-            -->
+            </intent-filter>
+            
         </activity>
 
         <service android:name="com.example.drivingapp.MyService" >
@@ -114,6 +119,12 @@
             android:name="com.example.drivingapp.VolumeCheckService"
             android:label="@string/title_activity_volume_check_service" >
         </activity>
+        
+		<activity
+			android:name=".PrefsActivity"
+    		android:theme="@android:style/Theme.Black.NoTitleBar" >
+		</activity>
+        
     </application>
 
 </manifest>

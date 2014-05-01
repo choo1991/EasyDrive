@@ -10,10 +10,12 @@ package com.example.drivingapp;
 public final class R {
     public static final class array {
         public static final int androidcolors=0x7f060000;
-        public static final int pref_example_list_titles=0x7f060001;
-        public static final int pref_example_list_values=0x7f060002;
-        public static final int pref_sync_frequency_titles=0x7f060003;
-        public static final int pref_sync_frequency_values=0x7f060004;
+        public static final int pref_example_list_titles=0x7f060003;
+        public static final int pref_example_list_values=0x7f060004;
+        public static final int pref_sync_frequency_titles=0x7f060005;
+        public static final int pref_sync_frequency_values=0x7f060006;
+        public static final int speed_limit=0x7f060001;
+        public static final int speed_limit_values=0x7f060002;
     }
     public static final class attr {
     }
@@ -121,40 +123,46 @@ public final class R {
     public static final class string {
         public static final int OK=0x7f08000f;
         public static final int about=0x7f08000d;
+        public static final int about_app=0x7f08001f;
         public static final int action_settings=0x7f080001;
         public static final int appStats=0x7f080013;
         public static final int app_name=0x7f080000;
         public static final int app_status=0x7f080007;
+        public static final int change_app=0x7f08001e;
         public static final int change_pattern=0x7f080009;
+        public static final int change_speed=0x7f08001c;
+        public static final int change_speed_min=0x7f08001d;
         public static final int disable_speed=0x7f08000a;
         public static final int disable_times=0x7f08000b;
         public static final int display_speed=0x7f080004;
+        public static final int enabled=0x7f08001b;
         public static final int hello_world=0x7f080002;
         public static final int help=0x7f08000c;
         public static final int launch=0x7f080014;
+        public static final int launch_lock=0x7f080020;
         public static final int lock_screen=0x7f080005;
         public static final int options=0x7f080019;
-        public static final int pref_default_display_name=0x7f080020;
-        public static final int pref_description_social_recommendations=0x7f08001e;
+        public static final int pref_default_display_name=0x7f080026;
+        public static final int pref_description_social_recommendations=0x7f080024;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f080022;
+        public static final int pref_header_data_sync=0x7f080028;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f08001c;
+        public static final int pref_header_general=0x7f080022;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f080025;
-        public static final int pref_ringtone_silent=0x7f080028;
-        public static final int pref_title_add_friends_to_messages=0x7f080021;
-        public static final int pref_title_display_name=0x7f08001f;
-        public static final int pref_title_new_message_notifications=0x7f080026;
-        public static final int pref_title_ringtone=0x7f080027;
-        public static final int pref_title_social_recommendations=0x7f08001d;
-        public static final int pref_title_sync_frequency=0x7f080023;
-        public static final int pref_title_system_sync_settings=0x7f080024;
-        public static final int pref_title_vibrate=0x7f080029;
+        public static final int pref_header_notifications=0x7f08002b;
+        public static final int pref_ringtone_silent=0x7f08002e;
+        public static final int pref_title_add_friends_to_messages=0x7f080027;
+        public static final int pref_title_display_name=0x7f080025;
+        public static final int pref_title_new_message_notifications=0x7f08002c;
+        public static final int pref_title_ringtone=0x7f08002d;
+        public static final int pref_title_social_recommendations=0x7f080023;
+        public static final int pref_title_sync_frequency=0x7f080029;
+        public static final int pref_title_system_sync_settings=0x7f08002a;
+        public static final int pref_title_vibrate=0x7f08002f;
         public static final int setApps=0x7f080018;
         public static final int silenced=0x7f080008;
         public static final int start_accel=0x7f080003;
@@ -164,7 +172,7 @@ public final class R {
         public static final int title_activity_sensor=0x7f080006;
         public static final int title_activity_set_apps=0x7f080017;
         public static final int title_activity_speed_adjust=0x7f08000e;
-        public static final int title_activity_speed_adjustment=0x7f08001b;
+        public static final int title_activity_speed_adjustment=0x7f080021;
         public static final int title_activity_stats=0x7f080016;
         public static final int title_activity_volume_check_service=0x7f08001a;
         public static final int unlock=0x7f080010;
@@ -202,6 +210,7 @@ public final class R {
         public static final int pref_data_sync=0x7f040000;
         public static final int pref_general=0x7f040001;
         public static final int pref_headers=0x7f040002;
-        public static final int pref_notification=0x7f040003;
+        public static final int pref_main=0x7f040003;
+        public static final int pref_notification=0x7f040004;
     }
 }

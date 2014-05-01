@@ -31,5 +31,21 @@
     <string name="setApps">Set Apps</string>
     <string name="options">Options</string>
     <string name="title_activity_volume_check_service">VolumeCheckService</string>
+    <string name="enabled">Enabled</string>
+    <string name="change_speed">Change Activation Speed</string>
+    <string-array name="speed_limit">
+		<item name="5">5 MPH</item>
+		<item name="10">10 MPH</item>
+		<item name="15">15 MPH</item>
+    </string-array>
+    <string-array name="speed_limit_values">
+        <item name="5">5</item>
+		<item name="10">10</item>
+		<item name="15">15</item>
+    </string-array>
+    <string name="change_speed_min">Change Minimum Speed</string>
+    <string name="change_app">Change Default Applications</string>
+    <string name="about_app">About Application</string>
+    <string name="launch_lock">Launch Lockscreen</string>
 
 </resources>

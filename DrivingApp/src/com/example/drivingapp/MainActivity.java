@@ -5,9 +5,18 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,10 +31,45 @@ public class MainActivity extends Activity {
     
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mainscreen);
-        //initLocationManager();
-    }
+        
+        // Display the fragment as the main content.
+        android.app.FragmentManager FragmentManager = getFragmentManager();
+        FragmentTransaction FragmentTransaction = FragmentManager.beginTransaction();
+        PrefsFragment PrefsFragment = new PrefsFragment();
+        FragmentTransaction.replace(android.R.id.content, PrefsFragment);
+        FragmentTransaction.commit();
 
+    }
+   
+    // This is to see if the setting is preserved across exiting out of app and
+    // then coming back to it
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        Dialog dialog = new Dialog(this);
+        dialog.setTitle(retrieveSwitchPreference());
+        dialog.show();
+        dialog = null;
+    }
+    
+    // currently a test to see if it can return the current value of the switch
+    private String retrieveSwitchPreference() {
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+    	// acquire the set boolean for the preference with the key 'button_app_enabled_key'
+    	boolean switchBox = prefs.getBoolean("button_app_enabled_key", false);
+    	return String.valueOf(switchBox);
+}
+
+    public static class PrefsFragment extends PreferenceFragment {
+    	 
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+        	super.onCreate(savedInstanceState);
+        	// Load the preferences from an XML resource
+        	addPreferencesFromResource(R.xml.pref_main);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
