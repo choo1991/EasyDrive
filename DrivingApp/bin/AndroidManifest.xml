@@ -8,10 +8,12 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-sdk
+
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
@@ -82,7 +84,6 @@
             
         </activity>
         
-
 
         <service android:name="com.example.drivingapp.MyService" >
         </service>
