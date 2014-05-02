@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- <intent android:action=".ShowSettingsActivity"/> -->
+    
+	<intent android:action="android.intent.action.VIEW"
+		android:data="http://developer.android.com" />
+    
+	<SwitchPreference
+        android:key="button_app_enabled_key"
+        android:title="@string/enabled"
+        android:persistent="true"
+        android:summary="Storing whether the app is on or off." />
+    <ListPreference
+		android:key="button_speed_change_key"
+		android:persistent="true"
+		android:entries="@array/speed_limit"
+		android:summary="Change what speed is required to activate the application."
+		android:entryValues="@array/speed_limit_values"
+		android:title="@string/change_speed_min" />
+    <PreferenceScreen
+		android:key="button_change_applications"
+		android:title="@string/change_app">
+    </PreferenceScreen>
+    <PreferenceScreen
+		android:key="button_about_app"
+		android:title="@string/about_app">
+    </PreferenceScreen>
+    <PreferenceScreen
+		android:key="button_launch_lockscreen"
+		android:title="@string/launch_lock">
+    </PreferenceScreen>
+    
+</PreferenceScreen>

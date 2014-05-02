@@ -3,10 +3,20 @@ package com.example.drivingapp;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -15,15 +25,52 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
+	//toggled in initLocationManager in this class when speed conditions met
+	//and in LockScreenAppActivity when the user kills the lock screen
+	public static boolean LOCK_SCREEN_ACTIVE = false;
     @Override
     
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mainscreen);
-        //initLocationManager();
-    }
+        
+        // Display the fragment as the main content.
+        android.app.FragmentManager FragmentManager = getFragmentManager();
+        FragmentTransaction FragmentTransaction = FragmentManager.beginTransaction();
+        PrefsFragment PrefsFragment = new PrefsFragment();
+        FragmentTransaction.replace(android.R.id.content, PrefsFragment);
+        FragmentTransaction.commit();
 
+    }
+   
+    // This is to see if the setting is preserved across exiting out of app and
+    // then coming back to it
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        Dialog dialog = new Dialog(this);
+        dialog.setTitle(retrieveSwitchPreference());
+        dialog.show();
+        dialog = null;
+    }
+    
+    // currently a test to see if it can return the current value of the switch
+    private String retrieveSwitchPreference() {
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+    	// acquire the set boolean for the preference with the key 'button_app_enabled_key'
+    	boolean switchBox = prefs.getBoolean("button_app_enabled_key", false);
+    	return String.valueOf(switchBox);
+}
+
+    public static class PrefsFragment extends PreferenceFragment {
+    	 
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+        	super.onCreate(savedInstanceState);
+        	// Load the preferences from an XML resource
+        	addPreferencesFromResource(R.xml.pref_main);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,10 +91,21 @@ public class MainActivity extends Activity {
     	//startActivity(intentAccel);
     	TextView test = (TextView) findViewById(R.id.tvSpeed);
 		test.setText("0 MPH");
+		
 		initLocationManager();
+		
+		Intent service = new Intent(this, VolumeCheckService.class);
+		startService(service);
+		
+		
     	//Intent readAccel = new Intent(this, LockScreenAppActivity.class);
     	//startActivity(readAccel);
 
+    }
+    
+    public void openOptions(View view) {
+    	Intent options = new Intent(this, OptionsActivity.class);
+    	startActivity(options);
     }
     
     public void displaySpeed(View view)
@@ -66,27 +124,6 @@ public class MainActivity extends Activity {
 		//Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.package.lockscreen");
 		//startActivity(LaunchIntent);
     }
-    
-    public void speedAdjust(View view) {
-    	Intent i = new Intent(this, SpeedAdjustActivity.class);
-    	startActivityForResult(i, 1);
-    }
-    
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	// TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-        if(data.getExtras().containsKey(SpeedAdjustActivity.SPEED)){
-            //width.setText(data.getStringExtra("widthInfo"));
-        	Context context = getApplicationContext();
-	  		CharSequence text = "Speed Setting Is " + data.getIntExtra(SpeedAdjustActivity.SPEED, 0);
-	  		int duration = Toast.LENGTH_SHORT;
-	  		
-	      	Toast toast = Toast.makeText(context, text, duration);
-	  		toast.show();  
-        }
-    }
-    
     
     private void initLocationManager() {
 		// Acquire a reference to the system Location Manager
@@ -144,7 +181,24 @@ public class MainActivity extends Activity {
 		// speed is returned in meters per second
 		// 10 mph ~ 4.4 meters per second
 		// this is 
-		if (speed > 4.5) {
+		if (speed > OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE) {
+			LOCK_SCREEN_ACTIVE = true;
+			
+			//
+			if(OptionsActivity.RINGER_MODE_SILENCED) {
+				//for phone volumes (notifications, alarms, calls, music, etc)
+		    	AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		    	am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+		    	
+		    	int vol = am.getStreamVolume(AudioManager.STREAM_RING);
+		    	
+		    	Context context = getApplicationContext();
+		  		CharSequence text = "Volume is " + vol;
+		  		int duration = Toast.LENGTH_SHORT;
+		  		
+		      	Toast toast = Toast.makeText(context, text, duration);
+		  		toast.show(); 
+			} 
 			initCustomLockScreen(time); 
 		}
 	}
@@ -156,6 +210,15 @@ public class MainActivity extends Activity {
 		// disable location manager since we don't want to continue
 		// to check location after home screen is locked
 		//disableLocationManager();
+		
+		//wasScreenOn=false;
+    	Intent intent11 = new Intent(this, LockScreenAppActivity.class);
+    	intent11.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+    	
+    	
+    	startActivity(intent11);
+
 	}
 	
 	// we need a method that will delay the lock screen for X minutes until it checks again

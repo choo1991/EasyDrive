@@ -4,17 +4,36 @@ import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 
 import android.widget.Toast;
 
 import com.example.drivingapp.LockScreenAppActivity;
+import com.example.drivingapp.OptionsActivity;
+import com.example.drivingapp.SpeedAdjustActivity;
+
+import android.app.Activity;
 
 public class LockScreenReceiver extends BroadcastReceiver  {
 	 public static boolean wasScreenOn = true;
-
+	 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
+		//onReceive is called when screen is off and turns back based on testing
+		if(OptionsActivity.RINGER_MODE_SILENCED) {
+			//for phone volumes (notifications, alarms, calls, music, etc)
+	    	AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+	    	am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+	    	
+	    	int vol = am.getStreamVolume(AudioManager.STREAM_RING);
+	    	
+	  		CharSequence text = "Volume is " + vol;
+	  		int duration = Toast.LENGTH_SHORT;
+	  		
+	      	Toast toast = Toast.makeText(context, text, duration);
+	  		toast.show(); 
+		} 
 		//Toast.makeText(context, "" + "enterrrrrr", Toast.LENGTH_SHORT).show();
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
         	//Toast.makeText(context, "" + "screeen off", Toast.LENGTH_SHORT).show();
@@ -58,6 +77,4 @@ public class LockScreenReceiver extends BroadcastReceiver  {
        }
 
     }
-
-
 }

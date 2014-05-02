@@ -170,7 +170,8 @@ public class LockScreenAppActivity extends Activity {
 		            	 System.out.println("homeee"+home_y+"  "+(int)event.getRawY()+"  "+y_cord+" "+droidpos[1]);
 
 		            	 v.setVisibility(View.GONE);
-
+		            	 
+		            	 MainActivity.LOCK_SCREEN_ACTIVE = false;
 		            	// startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people/")));
 		                finish();
 		              }

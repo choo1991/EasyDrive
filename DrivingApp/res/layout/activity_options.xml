@@ -1,0 +1,93 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" 
+    android:id="@+id/optionscreen_layout">
+
+    <!--  android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" -->
+    
+    <Switch
+        android:id="@+id/switch_silenced"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/silenced"
+        android:onClick="switchSilenced" />
+
+    <!--  
+    <Switch
+        android:id="@+id/switch_appStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/app_status" />
+
+    <Button
+        android:id="@+id/button_changePattern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/switch2"
+        android:layout_below="@+id/switch2"
+        android:text="@string/change_pattern" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/hello_world" />
+	-->
+
+
+    <Button
+        android:id="@+id/button_speedAdjust"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_below="@+id/button2"
+        android:text="@string/disable_speed" 
+        android:onClick="speedAdjust"/>
+
+   
+    <Button
+        android:id="@+id/button_appStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_below="@+id/button3"
+        android:text="@string/appStats"
+        android:onClick="optionStats" />
+	
+    <Button
+        android:id="@+id/button_setApps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_toRightOf="@+id/button5"
+        android:text="@string/setApps" 
+        android:onClick="optionSetApps"/>
+    
+    <Button
+        android:id="@+id/button_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_alignLeft="@+id/button1"
+        android:text="@string/help" 
+        android:onClick="optionHelp"/>
+
+    <Button
+        android:id="@+id/button_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_toRightOf="@+id/button5"
+        android:text="@string/about" 
+        android:onClick="optionAbout"/>
+
+</TableLayout>
