@@ -8,6 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
+    <!-- 
     <Switch
         android:id="@+id/switch2"
         android:layout_width="wrap_content"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="@string/app_status" />
+        android:text="@string/app_status" /> -->
 
     <Button
         android:id="@+id/button2"
@@ -84,6 +85,8 @@
     
         <Button
         android:id="@+id/button7"
+        android:name="test"
+        android:label="@string/lock_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="displaySpeed"

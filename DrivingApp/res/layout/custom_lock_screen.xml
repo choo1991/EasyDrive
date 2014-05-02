@@ -9,13 +9,16 @@
         android:id="@+id/ll_custom_lock_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_gravity="center">
-        
-        
-        
         
     </LinearLayout>
     
-    
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="exitLockScreen"
+        android:text="@string/exit_screen" />
 
 </LinearLayout>

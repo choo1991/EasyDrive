@@ -1,8 +1,12 @@
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-android:background="@color/mycolor1"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"	
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+	android:background="@color/mycolor1"
     android:orientation="vertical"
      >
 
@@ -10,12 +14,12 @@ android:background="@color/mycolor1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
-        <ImageView
+         <ImageView
             android:id="@+id/droid"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/droidupdated" />
+            android:src="@drawable/droidupdated" /> 
     </RelativeLayout>
 
     <LinearLayout
@@ -35,5 +39,52 @@ android:background="@color/mycolor1"
             android:id="@+id/home"
             />
     </LinearLayout>
+    
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
+    
+    <Button
+        android:id="@+id/phoneButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:onClick="openApp"
+        android:text="@string/phone" />
+    
+    <Button
+        android:id="@+id/pandoraButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/phoneButton"
+        android:onClick="openApp"
+        android:text="@string/pandora" />
+        
+    <Button
+        android:id="@+id/mapsButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/pandoraButton"
+        android:onClick="openApp"
+        android:text="@string/maps" />
+        
+    <Button
+        android:id="@+id/shazamButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below ="@+id/mapsButton"
+        android:onClick="openApp"
+        android:text="@string/shazam" />
+            
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/shazamButton"
+        android:onClick="exitLockScreen"
+        android:text="@string/exit_screen" />
 
 </RelativeLayout>

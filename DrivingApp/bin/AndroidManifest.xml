@@ -77,6 +77,14 @@
 
             </intent-filter>
         --></activity>
+        
+        <activity
+    		android:name=".OtherAppActivity"
+    		android:label="@string/first_app_name_launcher" >
+    		<intent-filter>
+        		<action android:name="com.pandora.android.launch" />
+   			</intent-filter>
+		</activity>
 
         
         <service android:name=".MyService" >

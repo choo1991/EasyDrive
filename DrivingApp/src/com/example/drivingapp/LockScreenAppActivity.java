@@ -1,4 +1,7 @@
 package com.example.drivingapp;
+import java.text.DateFormat;
+import java.util.Date;
+
 import receiver.LockScreenReceiver;
 import android.app.Activity;
 import android.app.KeyguardManager;
@@ -6,9 +9,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.provider.ContactsContract;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
@@ -21,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -54,8 +60,8 @@ public class LockScreenAppActivity extends Activity {
     	   getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
                 
-
     	   setContentView(R.layout.main);
+
     	   droid =(ImageView)findViewById(R.id.droid);
 
 
@@ -117,8 +123,8 @@ public class LockScreenAppActivity extends Activity {
          LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(marginParams1);
 
          home.setLayoutParams(layout);
-
-
+  	   	 
+         displayTime();
 
          droid.setOnTouchListener(new View.OnTouchListener() {
 
@@ -403,15 +409,74 @@ public class LockScreenAppActivity extends Activity {
     return false;
     }
 
-	/*public void unloack(){
-
-          finish();
-
-	}*/
     public void onDestroy(){
        // k1.reenableKeyguard();
 
         super.onDestroy();
     }
+    
+    public void exitLockScreen(View view) {
+    	finish();
+    }
+    
+    public void displayTime() {
+    	String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+    	
+    	TextView textView = (TextView) findViewById(R.id.tvTime);
+    	textView.setText("EasyDrive -" + currentDateTimeString);	
+    }
+    
+    public void openApp(View view) {
+    	String packageName = "";
+    	switch(view.getId()){
+	        case R.id.phoneButton:
+	            packageName = "phone";
+	        	break;
+	        case R.id.pandoraButton:
+	        	packageName = "com.pandora.android";
+	        	TextView textView = (TextView) findViewById(R.id.tvTime);
+	        	textView.setText(packageName);
+	        	break;
+	        case R.id.mapsButton:
+	        	packageName = "com.google.android.apps.maps";
+	        	break;
+	        case R.id.shazamButton:
+	        	packageName = "com.shazam.android";
+	        	break;
+    	}
+    	launchExternalApp(packageName);
+    }
+    
+    public void openMusic(View view) {
+    	launchExternalApp("com.android.music");
+    }
+    
+    public void openMaps(View view) {
+    	launchExternalApp("com.android.maps");
+    }
+    
+    public void openShazam(View view) {
+    	view.getId();
+    }
+    
+    private void launchExternalApp(String packageName)
+    {
+    	Context context = getApplicationContext();
+    	//pandora: com.pandora.android
+    	Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
+    	if (packageName.equals("phone")) {
+    		intent = new Intent(Intent.ACTION_VIEW, ContactsContract.Contacts.CONTENT_URI);
+    	}
+    	if (intent != null)
+    	{
+    		startActivity(intent);
+    	} else {
+    		// do something
+    	}
+    }
+    
+    //public void openPhoneScreen(View view) {
+    	//open phone yo
+   // }
 
 }
