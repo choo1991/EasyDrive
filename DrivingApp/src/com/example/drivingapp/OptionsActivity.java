@@ -88,6 +88,7 @@ public class OptionsActivity extends Activity {
 	  		toast.show();  
 
 	  		am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+	  		RINGER_MODE_SILENCED = false;
         }
         
     }

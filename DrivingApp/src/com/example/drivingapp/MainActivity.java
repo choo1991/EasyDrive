@@ -33,13 +33,16 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        setContentView(R.layout.activity_mainscreen);
+        
+        /*
         // Display the fragment as the main content.
         android.app.FragmentManager FragmentManager = getFragmentManager();
         FragmentTransaction FragmentTransaction = FragmentManager.beginTransaction();
         PrefsFragment PrefsFragment = new PrefsFragment();
         FragmentTransaction.replace(android.R.id.content, PrefsFragment);
         FragmentTransaction.commit();
-
+*/
     }
    
     // This is to see if the setting is preserved across exiting out of app and

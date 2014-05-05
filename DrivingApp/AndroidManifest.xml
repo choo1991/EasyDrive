@@ -118,10 +118,10 @@
             android:name="com.example.drivingapp.StatsActivity"
             android:label="@string/title_activity_stats" >
         </activity>
-        <activity
+        <service
             android:name="com.example.drivingapp.VolumeCheckService"
             android:label="@string/title_activity_volume_check_service" >
-        </activity>
+        </service>
         
 		<activity
 			android:name=".PrefsActivity"
