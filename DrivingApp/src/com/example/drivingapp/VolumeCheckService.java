@@ -35,7 +35,7 @@ public class VolumeCheckService extends IntentService {
 		while(true) {
 			//continuously set the volume to silent when true
 			if(!handlerFlag) {
-				handler.postDelayed(sc, 3000);
+				handler.postDelayed(sc, 7000);
 				handlerFlag = true;
 			}
 			/*
@@ -68,11 +68,12 @@ public class VolumeCheckService extends IntentService {
 	}
 	
 	private class SilenceCheck implements Runnable {
-		public void run() {     
-			if(OptionsActivity.RINGER_MODE_SILENCED) {
+		public void run() {  
+			handlerFlag = false;
+			if(MainActivity.RINGER_MODE_SILENCED) {
 				//for phone volumes (notifications, alarms, calls, music, etc)
 		    	
-				handlerFlag = false;
+				
 				
 		    	//toast's new thread is bound to the main UI thread
 				handler.post(new Runnable() { 

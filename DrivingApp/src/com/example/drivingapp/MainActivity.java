@@ -5,8 +5,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,11 +18,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,21 +32,28 @@ public class MainActivity extends Activity {
 	//toggled in initLocationManager in this class when speed conditions met
 	//and in LockScreenAppActivity when the user kills the lock screen
 	public static boolean LOCK_SCREEN_ACTIVE = false;
+	
+	//if speed tracking/app enabled started
+	public static boolean APP_ENABLED = false;
+	
+	//OptionsActivity has its own copy, but for this class we'll just use this...
+	public static boolean RINGER_MODE_SILENCED = false;
+	
     @Override
     
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        setContentView(R.layout.activity_mainscreen);
+       // setContentView(R.layout.activity_mainscreen);
         
-        /*
+        
         // Display the fragment as the main content.
         android.app.FragmentManager FragmentManager = getFragmentManager();
         FragmentTransaction FragmentTransaction = FragmentManager.beginTransaction();
         PrefsFragment PrefsFragment = new PrefsFragment();
+        PrefsFragment.setActivity(this);
         FragmentTransaction.replace(android.R.id.content, PrefsFragment);
         FragmentTransaction.commit();
-*/
     }
    
     // This is to see if the setting is preserved across exiting out of app and
@@ -63,18 +74,101 @@ public class MainActivity extends Activity {
     	// acquire the set boolean for the preference with the key 'button_app_enabled_key'
     	boolean switchBox = prefs.getBoolean("button_app_enabled_key", false);
     	return String.valueOf(switchBox);
-}
+    }
 
-    public static class PrefsFragment extends PreferenceFragment {
+    public static class PrefsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
     	 
+    	MainActivity main;
+		SharedPreferences prefs;
+
+    	public void setActivity(MainActivity main) {
+    		this.main = main;
+    		prefs = PreferenceManager.getDefaultSharedPreferences(this.main.getApplicationContext());
+    		prefs.registerOnSharedPreferenceChangeListener(this);
+    	}
+    	
         @Override
         public void onCreate(Bundle savedInstanceState) {
         	super.onCreate(savedInstanceState);
         	// Load the preferences from an XML resource
         	addPreferencesFromResource(R.xml.pref_main);
+        	
+        	
+        }
+        
+      //accepts toggling from switch preference objects
+        public void onSharedPreferenceChanged(SharedPreferences preferenceScreen, String key) {
+        	//String key = preference.getKey();
+        	if(main == null) {
+        		try {
+					throw new Exception("NOOB SET TEH MAIN OBJECT!");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	if(key.equals("button_app_enabled_key")) {
+        		//only enable it once while app is active
+        		if(main.retrieveSwitchPreference().equals("true") && !APP_ENABLED) {
+        			main.enableApp();
+        			APP_ENABLED = true;
+        		}
+        	} else if(key.equals("button_enable_silencing")) {
+        		boolean silenced = prefs.getBoolean("button_enable_silencing", false);
+        		Dialog dialog = new Dialog(main);
+                dialog.setTitle(Boolean.toString(silenced));
+                dialog.show();
+                dialog = null;
+        		main.switchSilenced(silenced);
+        	} 
+        }
+    
+        //accepts clicks from preference screen objects
+        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        	String key = preference.getKey();
+        	if(main == null) {
+        		try {
+					throw new Exception("NOOB SET TEH MAIN OBJECT!");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	if(key.equals("button_speed_change_key")) {
+        		//change speed limit that activates lock screen
+            	String speed = prefs.getString("button_speed_change_key", "Current Limit: " + OptionsActivity.SPEED_LIMIT);
+            	OptionsActivity.SPEED_LIMIT = Integer.parseInt(speed);
+            	
+            	Dialog dialog = new Dialog(main);
+                dialog.setTitle(speed);
+                dialog.show();
+                dialog = null;
+            	
+        	} else if(key.equals("button_change_applications")) {
+        		main.optionSetApps();
+        		
+        	} else if(key.equals("button_about_app")) {
+        		//Intent options = new Intent(getActivity(), OptionsActivity.class);
+            	//startActivity(options);
+        		main.openOptions();
+        		
+        		//change to about later!
+        		
+        	} else if(key.equals("button_help_app")) {
+        		main.optionHelp();
+        		
+        	} else if(key.equals("button_launch_lockscreen")) {
+        		main.displayLockScreen();
+        	} 
+        	/*
+        	  else if(key.equals("STATS YO")) {
+        		main.optionStats();
+        	} 
+        	*/
+        	return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
     }
-
+ 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -106,9 +200,70 @@ public class MainActivity extends Activity {
 
     }
     
+    public void switchSilenced(boolean on) {
+       //for phone volumes (notifications, alarms, calls, music, etc)
+    	AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+    	
+        if (on) {
+        	Context context = getApplicationContext();
+	  		CharSequence text = "ON";
+	  		int duration = Toast.LENGTH_SHORT;
+	  		
+	      	Toast toast = Toast.makeText(context, text, duration);
+	  		toast.show();  
+	  		 		
+	  		am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+	  		RINGER_MODE_SILENCED = true;
+        } else {
+        	Context context = getApplicationContext();
+	  		CharSequence text = "OFF";
+	  		int duration = Toast.LENGTH_SHORT;
+	  		
+	      	Toast toast = Toast.makeText(context, text, duration);
+	  		toast.show();  
+
+	  		am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+	  		RINGER_MODE_SILENCED = false;
+        }
+        
+    }
+    
+    public void enableApp() {
+		initLocationManager();
+		
+		Intent service = new Intent(this, VolumeCheckService.class);
+		startService(service);
+
+    }
+  
     public void openOptions(View view) {
     	Intent options = new Intent(this, OptionsActivity.class);
     	startActivity(options);
+    }
+    
+    public void openOptions() {
+    	Intent options = new Intent(this, OptionsActivity.class);
+    	startActivity(options);
+    }
+    
+    public void optionAbout() {
+    	Intent i = new Intent(this, AboutActivity.class);
+    	startActivity(i);
+    }
+    
+    public void optionHelp() {
+    	Intent i = new Intent(this, HelpActivity.class);
+    	startActivity(i);
+    }
+    
+    public void optionStats() {
+    	Intent i = new Intent(this, StatsActivity.class);
+    	startActivity(i);
+    }
+    
+    public void optionSetApps() {
+    	Intent i = new Intent(this, SetAppsActivity.class);
+    	startActivity(i);
     }
     
     public void displaySpeed(View view)
@@ -117,7 +272,7 @@ public class MainActivity extends Activity {
 		test.setText("0 MPH");
 		initLocationManager();
     }
-    
+ 
     public void displayLockScreen(View view)
     {
     	TextView test = (TextView) findViewById(R.id.tvSpeed);
@@ -128,7 +283,37 @@ public class MainActivity extends Activity {
 		//startActivity(LaunchIntent);
     }
     
-    private void initLocationManager() {
+    
+    public void displayLockScreen()
+    {
+    	Intent displayLockScreen = new Intent(this, LockScreenAppActivity.class);
+    	startActivity(displayLockScreen);
+		//Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.package.lockscreen");
+		//startActivity(LaunchIntent);
+    }
+    
+    public void speedAdjust() {
+    	Intent i = new Intent(this, SpeedAdjustActivity.class);
+    	startActivityForResult(i, 1);
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	// TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data.getExtras().containsKey(SpeedAdjustActivity.SPEED)){
+            //width.setText(data.getStringExtra("widthInfo"));
+        	Context context = getApplicationContext();
+        	OptionsActivity.SPEED_LIMIT = data.getIntExtra(SpeedAdjustActivity.SPEED, 0);
+	  		CharSequence text = "Speed Setting Is " + OptionsActivity.SPEED_LIMIT;
+	  		int duration = Toast.LENGTH_SHORT;
+	  		
+	      	Toast toast = Toast.makeText(context, text, duration);
+	  		toast.show();  
+        }
+    }
+    
+    public void initLocationManager() {
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -172,8 +357,10 @@ public class MainActivity extends Activity {
 		System.out.println("Speed = " + speed);
 		String speedAsString = Float.toString(speed);
 
+		/*
 		TextView test = (TextView) findViewById(R.id.tvSpeed);
 		test.setText(speedAsString);
+		*/
 		checkIfDriving(location);
 	}
 	

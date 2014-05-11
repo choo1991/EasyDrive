@@ -10,6 +10,11 @@
         android:title="@string/enabled"
         android:persistent="true"
         android:summary="Storing whether the app is on or off." />
+	<SwitchPreference
+        android:key="button_enable_silencing"
+        android:title="@string/silenced"
+        android:persistent="true"
+        android:summary="Storing whether the ring volume is silenced or not." />
     <ListPreference
 		android:key="button_speed_change_key"
 		android:persistent="true"
@@ -17,6 +22,13 @@
 		android:summary="Change what speed is required to activate the application."
 		android:entryValues="@array/speed_limit_values"
 		android:title="@string/change_speed_min" />
+     <ListPreference
+		android:key="button_speed_change_key"
+		android:persistent="true"
+		android:entries="@array/speed_limit"
+		android:summary="Change what speed is required to activate the application."
+		android:entryValues="@array/speed_limit_values"
+		android:title="@string/change_speed_min" />	
     <PreferenceScreen
 		android:key="button_change_applications"
 		android:title="@string/change_app">
@@ -24,6 +36,10 @@
     <PreferenceScreen
 		android:key="button_about_app"
 		android:title="@string/about_app">
+    </PreferenceScreen>
+    <PreferenceScreen
+		android:key="button_help_app"
+		android:title="@string/help">
     </PreferenceScreen>
     <PreferenceScreen
 		android:key="button_launch_lockscreen"
