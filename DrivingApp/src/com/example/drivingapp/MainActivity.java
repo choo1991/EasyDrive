@@ -1,5 +1,9 @@
 package com.example.drivingapp;
 
+import java.util.List;
+
+import com.example.drivingapp.GPSLocationService.GPSBinder;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -10,21 +14,16 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,28 +31,24 @@ public class MainActivity extends Activity {
 	//toggled in initLocationManager in this class when speed conditions met
 	//and in LockScreenAppActivity when the user kills the lock screen
 	public static boolean LOCK_SCREEN_ACTIVE = false;
-	
 	//if speed tracking/app enabled started
 	public static boolean APP_ENABLED = false;
-	
 	//OptionsActivity has its own copy, but for this class we'll just use this...
 	public static boolean RINGER_MODE_SILENCED = false;
-	
+	private static final String LOG_TAG = "GPSDebugging";
     @Override
     
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-       // setContentView(R.layout.activity_mainscreen);
-        
-        
+        // setContentView(R.layout.activity_mainscreen);
         // Display the fragment as the main content.
         android.app.FragmentManager FragmentManager = getFragmentManager();
         FragmentTransaction FragmentTransaction = FragmentManager.beginTransaction();
         PrefsFragment PrefsFragment = new PrefsFragment();
         PrefsFragment.setActivity(this);
         FragmentTransaction.replace(android.R.id.content, PrefsFragment);
-        FragmentTransaction.commit();
+        FragmentTransaction.commit();   
+        Log.v(LOG_TAG, "Main Activity Created");
     }
    
     // This is to see if the setting is preserved across exiting out of app and
@@ -61,11 +56,11 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-
-        Dialog dialog = new Dialog(this);
-        dialog.setTitle(retrieveSwitchPreference());
-        dialog.show();
-        dialog = null;
+//        Dialog dialog = new Dialog(this);
+//        dialog.setTitle(retrieveSwitchPreference());
+//        dialog.show();
+//        dialog = null;
+        Log.v(LOG_TAG, "Main Activity Resumed");
     }
     
     // currently a test to see if it can return the current value of the switch
@@ -83,7 +78,7 @@ public class MainActivity extends Activity {
 
     	public void setActivity(MainActivity main) {
     		this.main = main;
-    		prefs = PreferenceManager.getDefaultSharedPreferences(this.main.getApplicationContext());
+    		prefs = PreferenceManager.getDefaultSharedPreferences(this.main.getBaseContext());
     		prefs.registerOnSharedPreferenceChangeListener(this);
     	}
     	
@@ -92,7 +87,6 @@ public class MainActivity extends Activity {
         	super.onCreate(savedInstanceState);
         	// Load the preferences from an XML resource
         	addPreferencesFromResource(R.xml.pref_main);
-        	
         	
         }
         
@@ -115,12 +109,28 @@ public class MainActivity extends Activity {
         		}
         	} else if(key.equals("button_enable_silencing")) {
         		boolean silenced = prefs.getBoolean("button_enable_silencing", false);
-        		Dialog dialog = new Dialog(main);
-                dialog.setTitle(Boolean.toString(silenced));
-                dialog.show();
-                dialog = null;
         		main.switchSilenced(silenced);
-        	} 
+        	} else if(key.equals("button_app_speed_display_key")) {
+        		if (prefs.getBoolean("button_app_speed_display_key", false)) {
+            		DataStorageClass testAddition = new DataStorageClass((long)6.7, 0.1f, 0.2f, 0.3f, 0.4f);
+            		Context tempContext = main;
+            		DataORM.insertData(tempContext, testAddition);
+        		} else {
+            		List<DataStorageClass> dsc = DataORM.getData(main);
+            		int length = dsc.size();
+            		Toast toast = Toast.makeText(main, Integer.toString(length), Toast.LENGTH_SHORT);
+            		toast.show();
+        		}
+        	} else if(key.equals("button_app_accel_display_key")) {
+        		boolean accel = prefs.getBoolean("button_app_accel_display_key", false);
+//        		Dialog dialog = new Dialog(main);
+//                dialog.setTitle("TODO - Show current XYZ");
+//        		dialog.setTitle(Boolean.toString(accel));
+//                dialog.show();
+//                dialog = null;
+                Toast toast3 = Toast.makeText(main.getBaseContext(), "accel", Toast.LENGTH_SHORT);
+        		toast3.show();
+        	}
         }
     
         //accepts clicks from preference screen objects
@@ -193,30 +203,25 @@ public class MainActivity extends Activity {
 		
 		Intent service = new Intent(this, VolumeCheckService.class);
 		startService(service);
-		
-		
     	//Intent readAccel = new Intent(this, LockScreenAppActivity.class);
     	//startActivity(readAccel);
 
     }
     
     public void switchSilenced(boolean on) {
-       //for phone volumes (notifications, alarms, calls, music, etc)
+    	//for phone volumes (notifications, alarms, calls, music, etc)
     	AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-    	
-        if (on) {
-        	Context context = getApplicationContext();
-	  		CharSequence text = "ON";
-	  		int duration = Toast.LENGTH_SHORT;
-	  		
-	      	Toast toast = Toast.makeText(context, text, duration);
-	  		toast.show();  
-	  		 		
-	  		am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-	  		RINGER_MODE_SILENCED = true;
+    	if (on) {
+			Context context = getBaseContext();
+			CharSequence text = "The phone will be silenced";
+			int duration = Toast.LENGTH_SHORT;
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();  	
+			am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+			RINGER_MODE_SILENCED = true;
         } else {
-        	Context context = getApplicationContext();
-	  		CharSequence text = "OFF";
+        	Context context = getBaseContext();
+	  		CharSequence text = "The phone will not be silenced";
 	  		int duration = Toast.LENGTH_SHORT;
 	  		
 	      	Toast toast = Toast.makeText(context, text, duration);
@@ -224,16 +229,13 @@ public class MainActivity extends Activity {
 
 	  		am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 	  		RINGER_MODE_SILENCED = false;
-        }
-        
+        }       
     }
     
     public void enableApp() {
 		initLocationManager();
-		
 		Intent service = new Intent(this, VolumeCheckService.class);
 		startService(service);
-
     }
   
     public void openOptions(View view) {
@@ -303,7 +305,7 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if(data.getExtras().containsKey(SpeedAdjustActivity.SPEED)){
             //width.setText(data.getStringExtra("widthInfo"));
-        	Context context = getApplicationContext();
+        	Context context = getBaseContext();
         	OptionsActivity.SPEED_LIMIT = data.getIntExtra(SpeedAdjustActivity.SPEED, 0);
 	  		CharSequence text = "Speed Setting Is " + OptionsActivity.SPEED_LIMIT;
 	  		int duration = Toast.LENGTH_SHORT;
@@ -313,10 +315,14 @@ public class MainActivity extends Activity {
         }
     }
     
+    // called everytime something is changed -- location manager starts for GPS/MPH
     public void initLocationManager() {
+    	Toast display = Toast.makeText(this, "Location Manager Initiated", Toast.LENGTH_SHORT);
+		display.show();
+		display = null;
+		
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
 		// Define a listener that responds to location updates
 		LocationListener locationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
@@ -348,11 +354,17 @@ public class MainActivity extends Activity {
 
 	private void makeUseOfNewLocation(Location location) {
 		// TODO Auto-generated method stub
-		System.out.println("Latitude = " + location.getLatitude());
-		System.out.println("Longitude = " + location.getLongitude());
-		System.out.println("Speed = " + location.getSpeed());
+		Log.v(LOG_TAG, ("Latitude = " + location.getLatitude()));
+		Log.v(LOG_TAG, ("Longitude = " + location.getLongitude()));
+		Log.v(LOG_TAG, ("Speed = " + location.getSpeed()));
+		
+//		System.out.println("Latitude = " + location.getLatitude());
+//		System.out.println("Longitude = " + location.getLongitude());
+//		System.out.println("Speed = " + location.getSpeed());
+		
 		// might be able to use time for determining speed
-		System.out.println("Time = " + location.getTime());
+		Log.v(LOG_TAG, ("Time = " + location.getTime()));
+//		System.out.println("Time = " + location.getTime());
 		float speed = location.getSpeed();
 		System.out.println("Speed = " + speed);
 		String speedAsString = Float.toString(speed);
@@ -362,6 +374,11 @@ public class MainActivity extends Activity {
 		test.setText(speedAsString);
 		*/
 		checkIfDriving(location);
+	}
+	
+	private static float returnCurrentSpeed(Location location) {
+		float speed = location.getSpeed();
+		return speed;
 	}
 	
 	private void checkIfDriving(Location location)
@@ -382,13 +399,13 @@ public class MainActivity extends Activity {
 		    	
 		    	int vol = am.getStreamVolume(AudioManager.STREAM_RING);
 		    	
-		    	Context context = getApplicationContext();
+		    	Context context = getBaseContext();
 		  		CharSequence text = "Volume is " + vol;
 		  		int duration = Toast.LENGTH_SHORT;
 		  		
 		      	Toast toast = Toast.makeText(context, text, duration);
-		  		toast.show(); 
-			} 
+		  		toast.show();
+			}
 			initCustomLockScreen(time); 
 		}
 	}

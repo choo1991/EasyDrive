@@ -17,6 +17,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -32,12 +33,15 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 	Intent sensorIntent;
 	static Boolean flag = false;
     CheckTopActivity checkTopAct;
+    private static float[] accelData;
+    private static final String LOG_TAG = "AccelActivity";
     
 	public readAccelerometer() {
 		super("readAccelerometer");
 	}
 
 	public void onCreate() {
+		Log.v(LOG_TAG, "readAccel created");
 		//onCreate is still run in the main UI thread before this service
 		//branches off into its own thread, so we have to create a handler in here
 		//so that the methods that are posted to it are run in a thread that's
@@ -69,6 +73,12 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		//checkTopAct = new CheckTopActivity();
 		
 		super.onCreate();
+		accelData = new float[3];
+		
+	}
+	
+	public static float[] returnAccelValues() {
+		return accelData;
 	}
 	
 	//the "main" for a service that isn't bound
@@ -108,7 +118,7 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		});   
 		
 		//check top activity
-		handler.postDelayed(checkTopAct, 5000);
+		handler.postDelayed(checkTopAct, 500);
 		
 		ActivityManager manager = (ActivityManager) getApplicationContext()
                 .getSystemService(Context.ACTIVITY_SERVICE);
@@ -164,11 +174,20 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 	
     @Override
     public final void onSensorChanged(SensorEvent event) {
+    	Log.v(LOG_TAG, "something changed within the sensor");
 	    // The accelerometer sensor returns a single value.
 		// Many sensors return 3 values, one for each axis (x,y, z in order) 
     	float x = event.values[0];
     	float y = event.values[1];
     	float z = event.values[2];
+    	Log.v(LOG_TAG,"Sensor changed");
+    	String tempArrayText = "X: " + x + " Y: " + y + " Z: " + z;
+		Toast display2 = Toast.makeText(getApplicationContext(), tempArrayText, Toast.LENGTH_SHORT);
+		display2.show();
+		
+    	accelData[0] = x;
+    	accelData[1] = y;
+    	accelData[2] = z;
     	//data += "x: " + x + " y: " + y + " z: " + z + "\n\n";
     	
     	if(x > 5 && !flag) {
@@ -186,7 +205,6 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 			Context context = getApplicationContext();
 			CharSequence text = "Hello toast toast!" + x;
 			int duration = Toast.LENGTH_SHORT;
-			
 	    	Toast toast = Toast.makeText(context, text, duration);
 			toast.show();   
 		

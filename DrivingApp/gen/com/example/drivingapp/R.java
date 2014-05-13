@@ -140,7 +140,9 @@ public final class R {
         public static final int change_speed_min=0x7f080024;
         public static final int disable_speed=0x7f08000a;
         public static final int disable_times=0x7f08000b;
+        public static final int display_accel=0x7f080029;
         public static final int display_speed=0x7f080004;
+        public static final int display_speed_data=0x7f080028;
         public static final int enabled=0x7f080022;
         public static final int exit_screen=0x7f080011;
         public static final int first_app_name_launcher=0x7f080017;
@@ -154,27 +156,27 @@ public final class R {
         public static final int options=0x7f080020;
         public static final int pandora=0x7f080013;
         public static final int phone=0x7f080012;
-        public static final int pref_default_display_name=0x7f08002d;
-        public static final int pref_description_social_recommendations=0x7f08002b;
+        public static final int pref_default_display_name=0x7f08002f;
+        public static final int pref_description_social_recommendations=0x7f08002d;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f08002f;
+        public static final int pref_header_data_sync=0x7f080031;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f080029;
+        public static final int pref_header_general=0x7f08002b;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f080032;
-        public static final int pref_ringtone_silent=0x7f080035;
-        public static final int pref_title_add_friends_to_messages=0x7f08002e;
-        public static final int pref_title_display_name=0x7f08002c;
-        public static final int pref_title_new_message_notifications=0x7f080033;
-        public static final int pref_title_ringtone=0x7f080034;
-        public static final int pref_title_social_recommendations=0x7f08002a;
-        public static final int pref_title_sync_frequency=0x7f080030;
-        public static final int pref_title_system_sync_settings=0x7f080031;
-        public static final int pref_title_vibrate=0x7f080036;
+        public static final int pref_header_notifications=0x7f080034;
+        public static final int pref_ringtone_silent=0x7f080037;
+        public static final int pref_title_add_friends_to_messages=0x7f080030;
+        public static final int pref_title_display_name=0x7f08002e;
+        public static final int pref_title_new_message_notifications=0x7f080035;
+        public static final int pref_title_ringtone=0x7f080036;
+        public static final int pref_title_social_recommendations=0x7f08002c;
+        public static final int pref_title_sync_frequency=0x7f080032;
+        public static final int pref_title_system_sync_settings=0x7f080033;
+        public static final int pref_title_vibrate=0x7f080038;
         public static final int setApps=0x7f08001f;
         public static final int shazam=0x7f080016;
         public static final int silenced=0x7f080008;
@@ -185,7 +187,7 @@ public final class R {
         public static final int title_activity_sensor=0x7f080006;
         public static final int title_activity_set_apps=0x7f08001e;
         public static final int title_activity_speed_adjust=0x7f08000e;
-        public static final int title_activity_speed_adjustment=0x7f080028;
+        public static final int title_activity_speed_adjustment=0x7f08002a;
         public static final int title_activity_stats=0x7f08001d;
         public static final int title_activity_volume_check_service=0x7f080021;
         public static final int unlock=0x7f080010;

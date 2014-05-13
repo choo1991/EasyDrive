@@ -53,5 +53,7 @@
     <string name="change_app">Change Default Applications</string>
     <string name="about_app">About Application</string>
     <string name="launch_lock">Launch Lockscreen</string>
+    <string name="display_speed_data">Display Speed</string>
+    <string name="display_accel">Display Accelerometer Data</string>
 
 </resources>
