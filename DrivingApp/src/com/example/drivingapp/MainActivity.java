@@ -1,5 +1,6 @@
 package com.example.drivingapp;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.example.drivingapp.GPSLocationService.GPSBinder;
@@ -112,7 +113,10 @@ public class MainActivity extends Activity {
         		main.switchSilenced(silenced);
         	} else if(key.equals("button_app_speed_display_key")) {
         		if (prefs.getBoolean("button_app_speed_display_key", false)) {
-            		DataStorageClass testAddition = new DataStorageClass((long)6.7, 0.1f, 0.2f, 0.3f, 0.4f);
+        			Calendar rightNow = Calendar.getInstance();
+        			long rightNowMilli = rightNow.getTimeInMillis();
+        			
+            		DataStorageClass testAddition = new DataStorageClass(rightNowMilli, 0.1f, 0.2f, 0.3f, 0.4f);
             		Context tempContext = main;
             		DataORM.insertData(tempContext, testAddition);
         		} else {
@@ -130,6 +134,8 @@ public class MainActivity extends Activity {
 //                dialog = null;
                 Toast toast3 = Toast.makeText(main.getBaseContext(), "accel", Toast.LENGTH_SHORT);
         		toast3.show();
+//        		InitializeChart chart = new InitializeChart();
+
         	}
         }
     
@@ -169,7 +175,11 @@ public class MainActivity extends Activity {
         		
         	} else if(key.equals("button_launch_lockscreen")) {
         		main.displayLockScreen();
-        	} 
+        	} else if(key.equals("button_show_chart")) {
+        		// take the user to the chart view and display stuff
+        		Log.i("LATEST_DEBUGGING", "Show chart button clicked");
+        		main.displayStats();
+        	}
         	/*
         	  else if(key.equals("STATS YO")) {
         		main.optionStats();
@@ -230,6 +240,13 @@ public class MainActivity extends Activity {
 	  		am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 	  		RINGER_MODE_SILENCED = false;
         }       
+    }
+    
+    public void displayStats() {
+    	Log.i("LATEST_DEBUGGING", "Entered display stats method");
+    	Intent i = new Intent(this, XYChartBuilder.class);
+    	Log.i("LATEST_DEBUGGING", "Created new intent to go to the class");
+    	startActivity(i);
     }
     
     public void enableApp() {

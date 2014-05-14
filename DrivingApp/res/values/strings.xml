@@ -55,5 +55,7 @@
     <string name="launch_lock">Launch Lockscreen</string>
     <string name="display_speed_data">Display Speed</string>
     <string name="display_accel">Display Accelerometer Data</string>
+    <string name="showChart">Update Chart</string>
+    <string name="show_chart">Show Driving Habits Chart</string>
 
 </resources>

@@ -21,12 +21,15 @@
         android:title="@string/display_speed_data"
         android:persistent="true"
         android:summary="Show speed of device via dialog for testing purposes only." />
-	<SwitchPreference
+	<!-- <SwitchPreference
         android:key="button_app_accel_display_key"
         android:title="@string/display_accel"
         android:persistent="true"
-        android:summary="Show x y z changes of device via dialog for testing purposes only." />
-	
+        android:summary="Show x y z changes of device via dialog for testing purposes only." /> -->
+	<PreferenceScreen
+		android:key="button_show_chart"
+		android:title="@string/show_chart">
+    </PreferenceScreen>
 	<ListPreference
 		android:key="button_speed_change_key"
 		android:persistent="true"

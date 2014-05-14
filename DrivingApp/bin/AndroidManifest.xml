@@ -128,6 +128,9 @@
     		android:theme="@android:style/Theme.Black.NoTitleBar" >
 		</activity>
         
+		<activity android:name="com.example.drivingapp.XYChartBuilder" />
+		<!--<activity android:name="org.achartengine.GraphicalActivity" />-->
+		
     </application>
 
 </manifest>
