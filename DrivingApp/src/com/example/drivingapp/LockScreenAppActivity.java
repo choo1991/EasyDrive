@@ -1,11 +1,15 @@
 package com.example.drivingapp;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 import receiver.LockScreenReceiver;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -16,6 +20,7 @@ import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +37,10 @@ import android.widget.RelativeLayout.LayoutParams;
 
 public class LockScreenAppActivity extends Activity {
 
+	//made static so that it can be referenced in order to prevent the lock screen from popping 
+	//up when the user is in the allowed app
+	public static String RUNNING_TASK = "";
+	
     /** Called when the activity is first created. */
 	  KeyguardManager.KeyguardLock k1;
 	   boolean inDragMode;
@@ -417,6 +426,7 @@ public class LockScreenAppActivity extends Activity {
     }
     
     public void exitLockScreen(View view) {
+    	MainActivity.LOCK_SCREEN_ACTIVE = false;
     	finish();
     }
     
@@ -428,6 +438,7 @@ public class LockScreenAppActivity extends Activity {
     }
     
     public void openApp(View view) {
+    	MainActivity.LOCK_SCREEN_ACTIVE = false;
     	String packageName = "";
     	switch(view.getId()){
 	        case R.id.phoneButton:
@@ -471,6 +482,23 @@ public class LockScreenAppActivity extends Activity {
     	if (intent != null)
     	{
     		startActivity(intent);
+    		ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+    		// get the info from the currently running task
+		    List< ActivityManager.RunningTaskInfo > taskInfo = am.getRunningTasks(1); 
+
+		    Log.d("topActivity", "CURRENT Activity ::"
+		             + taskInfo.get(0).topActivity.getClassName());
+
+		    ComponentName componentInfo = taskInfo.get(0).topActivity;
+		    String pk = componentInfo.getPackageName();
+    		 
+		    
+    		Dialog dialog = new Dialog(this);
+            dialog.setTitle(pk);
+            dialog.show();
+            dialog = null;
+            
+            RUNNING_TASK = pk;
     	} else {
     		// do something
     	}

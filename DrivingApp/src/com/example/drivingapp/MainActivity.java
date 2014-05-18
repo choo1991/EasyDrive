@@ -15,8 +15,10 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -152,13 +154,13 @@ public class MainActivity extends Activity {
         	}
         	if(key.equals("button_speed_change_key")) {
         		//change speed limit that activates lock screen
-            	String speed = prefs.getString("button_speed_change_key", "Current Limit: " + OptionsActivity.SPEED_LIMIT);
+            	String speed = prefs.getString("button_speed_change_key", Integer.toString(OptionsActivity.SPEED_LIMIT));
             	OptionsActivity.SPEED_LIMIT = Integer.parseInt(speed);
-            	
+            	/*
             	Dialog dialog = new Dialog(main);
                 dialog.setTitle(speed);
                 dialog.show();
-                dialog = null;
+                dialog = null;*/
             	
         	} else if(key.equals("button_change_applications")) {
         		main.optionSetApps();
@@ -171,6 +173,23 @@ public class MainActivity extends Activity {
         		//change to about later!
         		
         	} else if(key.equals("button_help_app")) {
+        		/*
+        		ActivityManager am = (ActivityManager) main.getSystemService(ACTIVITY_SERVICE);
+        		// get the info from the currently running task
+        	    List< ActivityManager.RunningTaskInfo > taskInfo = am.getRunningTasks(1); 
+
+        	    Log.d("topActivity", "CURRENT Activity ::"
+        	             + taskInfo.get(0).topActivity.getClassName());
+
+        	    ComponentName componentInfo = taskInfo.get(0).topActivity;
+        	    String pk = componentInfo.getPackageName();
+        		 
+        	    
+        		Dialog dialog = new Dialog(main);
+                dialog.setTitle(pk);
+                dialog.show();
+                dialog = null;
+                */
         		main.optionHelp();
         		
         	} else if(key.equals("button_launch_lockscreen")) {
@@ -405,7 +424,29 @@ public class MainActivity extends Activity {
 		// speed is returned in meters per second
 		// 10 mph ~ 4.4 meters per second
 		// this is 
-		if (speed > OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE) {
+		
+		ActivityManager aManager = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+		// get the info from the currently running task
+	    List< ActivityManager.RunningTaskInfo > taskInfo = aManager.getRunningTasks(1); 
+
+	    Log.d("topActivity", "CURRENT Activity ::"
+	             + taskInfo.get(0).topActivity.getClassName());
+
+	    ComponentName componentInfo = taskInfo.get(0).topActivity;
+	    String pk = componentInfo.getPackageName();
+		 
+	    /*
+		Dialog dialog = new Dialog(main);
+        dialog.setTitle(pk);
+        dialog.show();
+        dialog = null;*/
+	    
+	    //only activate lock screen if the user is over the speed limit and
+	    //it isn't already active and the currently running task isn't
+	    //either this app itself or one of the selected apps present from the lock screen
+		if (speed > OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE && 
+				!pk.equals(LockScreenAppActivity.RUNNING_TASK) &&
+				!pk.equals("com.example.drivingapp")) {
 			LOCK_SCREEN_ACTIVE = true;
 			
 			//
