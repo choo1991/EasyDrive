@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.widget.Toast;
 
 import com.example.drivingapp.LockScreenAppActivity;
+import com.example.drivingapp.MainActivity;
 import com.example.drivingapp.OptionsActivity;
 import com.example.drivingapp.SpeedAdjustActivity;
 
@@ -19,7 +20,18 @@ public class LockScreenReceiver extends BroadcastReceiver  {
 	 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-
+		//needs testing
+		if(MainActivity.POSTPONE_APP > 0) {
+			
+			try {
+				Thread.sleep(MainActivity.POSTPONE_APP);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			MainActivity.POSTPONE_APP = 0;
+		}
+		
 		//onReceive is called when screen is off and turns back based on testing
 		if(OptionsActivity.RINGER_MODE_SILENCED) {
 			//for phone volumes (notifications, alarms, calls, music, etc)
@@ -41,6 +53,7 @@ public class LockScreenReceiver extends BroadcastReceiver  {
         	wasScreenOn=false;
         	Intent intent11 = new Intent(context,LockScreenAppActivity.class);
         	intent11.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        	intent11.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         	context.startActivity(intent11);
 
@@ -67,6 +80,7 @@ public class LockScreenReceiver extends BroadcastReceiver  {
         	Intent intent11 = new Intent(context, LockScreenAppActivity.class);
 
         	intent11.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        	intent11.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
            context.startActivity(intent11);
 
         	//  Intent intent = new Intent(context, LockPage.class);
