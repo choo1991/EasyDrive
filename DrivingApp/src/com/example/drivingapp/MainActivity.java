@@ -1,10 +1,9 @@
 package com.example.drivingapp;
 
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import com.example.drivingapp.GPSLocationService.GPSBinder;
 
 import android.location.Location;
 import android.location.LocationListener;
@@ -24,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -39,27 +39,15 @@ public class MainActivity extends Activity {
 	//OptionsActivity has its own copy, but for this class we'll just use this...
 	public static boolean RINGER_MODE_SILENCED = false;
 	private static final String LOG_TAG = "GPSDebugging";
-	public static Map<String, String> CustomAppsList;
-	static {
-		Map<String, String> tempMap = new HashMap<String, String>();
-		tempMap.put("com.pandora.android", "Pandora");
-		tempMap.put("com.google.android.apps.maps", "Google Maps");
-		tempMap.put("com.shazam.android", "Shazam");
-		tempMap.put("com.android.phone", "Phone");
-		tempMap.put("com.amazon.mp3", "Amazon MP3");
-		tempMap.put("com.google.android.music", "Google Play Music");
-		CustomAppsList = Collections.unmodifiableMap(tempMap);
-	}
-	public static String[] CurrentApps;
-	static {
-		//change this to add the values stored in preferences
-		CurrentApps = new String[3];
-		CurrentApps[0] = "com.android.phone";
-		CurrentApps[1] = "com.pandora.android";
-		CurrentApps[2] = "com.google.android.apps.maps";
-	}
+	
+	public static boolean TERMINATE_APP = false;
+	public static int POSTPONE_APP = 0;
+
+	//moved up here from initCustomLockScreen so that the intent can be reordered
+	//from other methods
+	Intent intent11;
+	
     @Override
-    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.activity_mainscreen);
@@ -86,7 +74,7 @@ public class MainActivity extends Activity {
     }
     
     // currently a test to see if it can return the current value of the switch
-    public String retrieveSwitchPreference() {
+    private String retrieveSwitchPreference() {
     	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
     	// acquire the set boolean for the preference with the key 'button_app_enabled_key'
     	boolean switchBox = prefs.getBoolean("button_app_enabled_key", false);
@@ -218,11 +206,16 @@ public class MainActivity extends Activity {
         		Log.i("LATEST_DEBUGGING", "Show chart button clicked");
         		main.displayStats();
         	}
-        	/*
-        	  else if(key.equals("STATS YO")) {
-        		main.optionStats();
+        	else if(key.equals("button_terminate_app")) {
+        		TERMINATE_APP = true;
+        		//need to end services too
+        		main.finish();
+        	} else if(key.equals("button_temp_lock_off")) {
+        		String time = prefs.getString("button_temp_lock_off", "0");
+        		POSTPONE_APP = Integer.parseInt(time);
+        	
         	} 
-        	*/
+        	
         	return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
     }
@@ -460,14 +453,30 @@ public class MainActivity extends Activity {
         dialog.show();
         dialog = null;*/
 	    
+	    Log.v(LOG_TAG, ("LOCK_SCREEN_ACTIVE = " + LOCK_SCREEN_ACTIVE));
+	    Log.v(LOG_TAG, ("RUNNING_TASK = " + LockScreenAppActivity.RUNNING_TASK));
 	    //only activate lock screen if the user is over the speed limit and
 	    //it isn't already active and the currently running task isn't
 	    //either this app itself or one of the selected apps present from the lock screen
-		if (speed > OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE && 
-				!pk.equals(LockScreenAppActivity.RUNNING_TASK) &&
+		
+	    /*
+	    ///condition works, just needs to reordered
+	    if(!pk.equals(LockScreenAppActivity.RUNNING_TASK) &&
 				!pk.equals("com.example.drivingapp")) {
+	    	intent11
+	    	Log.d(LOG_TAG, ("REORDER?"));
+	    	//startActivity(intent11);
+	    }
+	    */
+	    if (speed >= OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE
+	    		&& !pk.equals(LockScreenAppActivity.RUNNING_TASK) &&
+				!pk.equals("com.example.drivingapp")) {
+				
+	    /*
+	    if (speed > OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE) {
+	    */
 			LOCK_SCREEN_ACTIVE = true;
-			
+			Log.d(LOG_TAG, ("SCREEN CREATED"));
 			//
 			if(OptionsActivity.RINGER_MODE_SILENCED) {
 				//for phone volumes (notifications, alarms, calls, music, etc)
@@ -496,9 +505,9 @@ public class MainActivity extends Activity {
 		//disableLocationManager();
 		
 		//wasScreenOn=false;
-    	Intent intent11 = new Intent(this, LockScreenAppActivity.class);
+    	intent11 = new Intent(this, LockScreenAppActivity.class);
     	intent11.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
+    	//intent11.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
     	
     	
     	startActivity(intent11);

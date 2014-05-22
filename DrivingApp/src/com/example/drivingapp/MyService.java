@@ -1,5 +1,7 @@
 package com.example.drivingapp;
 
+//import com.example.drivingapp.VolumeCheckService.SilenceCheck;
+
 import receiver.LockScreenReceiver;
 import android.app.KeyguardManager;
 import android.app.Service;
@@ -70,6 +72,19 @@ public void onStart(Intent intent, int startId) {
 
 	super.onStart(intent, startId);
 }
+
+/*
+protected void onHandleIntent(Intent intent) {
+	
+	//infinite loop
+	while(true) {
+		//continuously set the volume to silent when true
+		if(MainActivity.TERMINATE_APP) {
+			stopSelf();
+		}
+	}
+}
+*/
 /*
 public boolean onKeyDown(int keyCode, KeyEvent event) {
 	//apparently intercepting either keycode volume button prevents

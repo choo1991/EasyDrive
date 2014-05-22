@@ -37,6 +37,13 @@
 		android:summary="Change what speed is required to activate the application."
 		android:entryValues="@array/speed_limit_values"
 		android:title="@string/change_speed_min" />	
+	<ListPreference
+		android:key="button_temp_lock_off"
+		android:persistent="true"
+		android:entries="@array/lock_off_time"
+		android:summary="Temporarily halt the lock screen from appearing"
+		android:entryValues="@array/lock_off_time_values"
+		android:title="@string/change_temp_lock_off" />	
 	<PreferenceScreen
 		android:key="button_change_applications"
 		android:title="@string/change_app">
@@ -53,5 +60,8 @@
 		android:key="button_launch_lockscreen"
 		android:title="@string/launch_lock">
     </PreferenceScreen>
-    
+    <PreferenceScreen
+		android:key="button_terminate_app"
+		android:title="@string/terminate_app">
+    </PreferenceScreen>
 </PreferenceScreen>
