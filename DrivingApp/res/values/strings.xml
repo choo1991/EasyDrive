@@ -25,9 +25,12 @@
 	<string name="maps">Maps</string>
 	<string name="shazam">Shazam</string>
 	<string name="first_app_name_launcher">Pandora</string>
-		
+	<string name="amazonMp3">Amazon Mp3</string>
+	<string name="spotify">Spotify</string>
+	<string name="googlePlayMusic">Google Play Music</string>
+
 	<color name="mycolor1">#585858 </color>
-	    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_help">HelpActivity</string>
     <string name="appStats">My Stats</string>
     <string name="launch">Launch</string>
@@ -57,5 +60,10 @@
     <string name="display_accel">Display Accelerometer Data</string>
     <string name="showChart">Update Chart</string>
     <string name="show_chart">Show Driving Habits Chart</string>
+    <string name="categoryMusic">Music</string>
+    <string name="categoryNavigation">Navigation</string>
+    <string name="categoryPhone">Phone</string>
+    <string name="chooseCategory">Choose a Category</string>
+    <string name="chooseMusicApp">Choose a Music App</string>  
 
 </resources>

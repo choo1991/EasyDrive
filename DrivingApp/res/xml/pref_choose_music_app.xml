@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<intent android:action="android.intent.action.VIEW"
+		android:data="http://developer.android.com" />
+    
+	<PreferenceScreen
+	    android:id="@+id/app_pandora"
+		android:key="app_pandora"
+		android:title="@string/pandora">
+    </PreferenceScreen>
+	<PreferenceScreen
+		android:key="app_shazam"
+		android:title="@string/shazam">
+	</PreferenceScreen>
+	<PreferenceScreen
+		android:key="app_spotify"
+		android:title="@string/spotify">
+    </PreferenceScreen>
+    <PreferenceScreen
+		android:key="app_amazon_mp3"
+		android:title="@string/amazonMp3">
+    </PreferenceScreen>
+    <PreferenceScreen
+		android:key="app_googlePlayMusic"
+		android:title="@string/googlePlayMusic">
+    </PreferenceScreen>
+
+</PreferenceScreen>

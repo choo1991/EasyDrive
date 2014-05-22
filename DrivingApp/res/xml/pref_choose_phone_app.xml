@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<intent android:action="android.intent.action.VIEW"
+		android:data="http://developer.android.com" />
+    
+	<PreferenceScreen
+		android:key="app_phone"
+		android:title="@string/phone">
+    </PreferenceScreen>
+    
+</PreferenceScreen>

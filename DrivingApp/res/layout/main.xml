@@ -16,7 +16,7 @@
 
          <ImageView
             android:id="@+id/droid"
-
+			android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/droidupdated" /> 
@@ -34,8 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/homeupdated"
-            android:visibility="visible"
-
+            android:visibility="invisible"
             android:id="@+id/home"
             />
     </LinearLayout>
@@ -45,46 +44,101 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"/>
-    
-    <Button
-        android:id="@+id/phoneButton"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
-        android:onClick="openApp"
-        android:text="@string/phone" />
-    
-    <Button
-        android:id="@+id/pandoraButton"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/phoneButton"
-        android:onClick="openApp"
-        android:text="@string/pandora" />
+ 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
         
-    <Button
-        android:id="@+id/mapsButton"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/pandoraButton"
-        android:onClick="openApp"
-        android:text="@string/maps" />
-        
-    <Button
-        android:id="@+id/shazamButton"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_below ="@+id/mapsButton"
-        android:onClick="openApp"
-        android:text="@string/shazam" />
-            
-    <Button
-        android:id="@+id/exitButton"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/shazamButton"
-        android:onClick="exitLockScreen"
-        android:text="@string/exit_screen" />
+	    <Button
+	        android:id="@+id/phoneButton"
+	        android:layout_width="150dp"
+	        android:layout_height="80dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerInParent="true"
+	        android:layout_marginTop="100dp"
+	        android:onClick="openApp"
+	        android:text="@string/phone" />
+	    
+	    <ImageView
+	        android:id="@+id/phoneIcon"
+	        android:layout_width="150dp"
+	        android:layout_height="60dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginTop="110dp"
+	        android:layout_marginLeft="20dp"
+	        android:layout_toLeftOf="@id/phoneButton"
+	        android:visibility="visible"
+	    />
+	    
+	    <Button
+	        android:id="@+id/pandoraButton"
+	        android:layout_width="150dp"
+	        android:layout_height="80dp"
+	        android:layout_below="@+id/phoneButton"
+	        android:layout_centerInParent="true"
+	        android:onClick="openApp"
+	        android:text="@string/pandora" />
+	        
+	   	<ImageView
+	        android:id="@+id/pandoraIcon"
+	        android:layout_width="150dp"
+	        android:layout_height="60dp"
+	        android:layout_toLeftOf="@id/pandoraButton"
+	        android:layout_below="@+id/phoneButton"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginLeft="20dp"
+	        android:visibility="visible"
+	    />
+	   	
+	    <Button
+	        android:id="@+id/mapsButton"
+	        android:layout_width="150dp"
+	        android:layout_height="80dp"
+	        android:layout_below="@+id/pandoraButton"
+	        android:layout_centerInParent="true"
+	        android:onClick="openApp"
+	        android:text="@string/maps" />
+	    
+	    <ImageView
+	        android:id="@+id/mapsIcon"
+	        android:layout_width="150dp"
+	        android:layout_height="60dp"
+	        android:layout_below="@+id/pandoraButton"
+	        android:layout_toLeftOf="@id/mapsButton"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginLeft="20dp"
+	        android:visibility="visible"
+	    />
+	    
+	    <Button
+	        android:id="@+id/shazamButton"
+	        android:layout_width="150dp"
+	        android:layout_height="80dp"
+	        android:layout_below ="@+id/mapsButton"
+	        android:layout_centerInParent="true"
+	        android:onClick="openApp"
+	        android:text="@string/shazam" />
+	    
+	    <ImageView
+	        android:id="@+id/shazamIcon"
+	        android:layout_width="150dp"
+	        android:layout_height="60dp"
+	        android:layout_below="@+id/mapsButton"
+	        android:layout_toLeftOf="@id/shazamButton"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginLeft="20dp"
+	        android:visibility="visible"
+	    />
+	                
+	    <Button
+	        android:id="@+id/exitButton"
+	        android:layout_width="150dp"
+	        android:layout_height="80dp"
+	        android:layout_below="@+id/shazamButton"
+	        android:layout_centerInParent="true"
+	        android:onClick="exitLockScreen"
+	        android:text="@string/exit_screen" />
+	    
+	    </RelativeLayout>
 
 </RelativeLayout>

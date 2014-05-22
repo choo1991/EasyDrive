@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -123,8 +125,9 @@ public class LockScreenAppActivity extends Activity {
          LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(marginParams1);
 
          home.setLayoutParams(layout);
-  	   	 
+         
          displayTime();
+         getAppIcons();
 
          droid.setOnTouchListener(new View.OnTouchListener() {
 
@@ -421,22 +424,52 @@ public class LockScreenAppActivity extends Activity {
     }
     
     public void displayTime() {
-    	String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-    	
-    	TextView textView = (TextView) findViewById(R.id.tvTime);
-    	textView.setText("EasyDrive -" + currentDateTimeString);	
+			    	String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+			    	
+			    	TextView textView = (TextView) findViewById(R.id.tvTime);
+			    	textView.setText("EasyDrive -" + currentDateTimeString);
     }
+    
+    public void getAppIcons() {
+		try {
+			// May want to maintain a list of apps on the screen, then do a foreach loop to assign
+			// drawable icons to each app
+			Drawable firstIcon = getPackageManager().getApplicationIcon("com.android.phone");
+			Drawable secondIcon = getPackageManager().getApplicationIcon("com.pandora.android");
+			Drawable thirdIcon = getPackageManager().getApplicationIcon("com.google.android.apps.maps");
+			Drawable fourthIcon = getPackageManager().getApplicationIcon("com.shazam.android");
+
+			ImageView firstIconView =(ImageView)findViewById(R.id.phoneIcon);
+			ImageView secondIconView =(ImageView)findViewById(R.id.pandoraIcon);
+			ImageView thirdIconView =(ImageView)findViewById(R.id.mapsIcon);
+			ImageView fourthIconView =(ImageView)findViewById(R.id.shazamIcon);
+			
+//			Button firstIconButton =(Button)findViewById(R.id.phoneButton);
+
+			//firstIconButton.setBackgroundDrawable(firstIcon);
+			//firstIconButton
+			//firstIcon.setBounds(firstIconButton.getLeft(), firstIconButton.getTop(), 
+				//				firstIconButton.getLeft()+10, firstIconButton.getTop()-10);
+			//firstIconButton.setCompoundDrawables(firstIcon, null, null, null);
+			firstIconView.setImageDrawable(firstIcon);
+			secondIconView.setImageDrawable(secondIcon);
+			thirdIconView.setImageDrawable(thirdIcon);
+			fourthIconView.setImageDrawable(fourthIcon);
+
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }	
     
     public void openApp(View view) {
     	String packageName = "";
     	switch(view.getId()){
 	        case R.id.phoneButton:
-	            packageName = "phone";
+	            packageName = "com.android.phone";
 	        	break;
 	        case R.id.pandoraButton:
 	        	packageName = "com.pandora.android";
-	        	TextView textView = (TextView) findViewById(R.id.tvTime);
-	        	textView.setText(packageName);
 	        	break;
 	        case R.id.mapsButton:
 	        	packageName = "com.google.android.apps.maps";
@@ -448,24 +481,11 @@ public class LockScreenAppActivity extends Activity {
     	launchExternalApp(packageName);
     }
     
-    public void openMusic(View view) {
-    	launchExternalApp("com.android.music");
-    }
-    
-    public void openMaps(View view) {
-    	launchExternalApp("com.android.maps");
-    }
-    
-    public void openShazam(View view) {
-    	view.getId();
-    }
-    
     private void launchExternalApp(String packageName)
     {
     	Context context = getApplicationContext();
-    	//pandora: com.pandora.android
     	Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
-    	if (packageName.equals("phone")) {
+    	if (packageName.equals("com.android.phone")) {
     		intent = new Intent(Intent.ACTION_VIEW, ContactsContract.Contacts.CONTENT_URI);
     	}
     	if (intent != null)

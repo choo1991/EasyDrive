@@ -130,7 +130,22 @@
         
 		<activity android:name="com.example.drivingapp.XYChartBuilder" />
 		<!--<activity android:name="org.achartengine.GraphicalActivity" />-->
-		
+        <activity
+            android:name="com.example.drivingapp.ChooseCategory"
+            android:label="@string/chooseCategory" >
+        </activity>
+        <activity
+            android:name="com.example.drivingapp.ChooseMusicApp"
+            android:label="@string/chooseMusicApp" >
+        </activity>
+        <activity
+            android:name="com.example.drivingapp.ChooseNavigationApp"
+            android:label="@string/chooseMusicApp" >
+        </activity>
+        <activity
+            android:name="com.example.drivingapp.ChoosePhoneApp"
+            android:label="@string/chooseMusicApp" >
+        </activity>
     </application>
 
 </manifest>

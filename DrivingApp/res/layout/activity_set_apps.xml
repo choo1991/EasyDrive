@@ -10,74 +10,114 @@
 
     <TableRow
         android:background="@color/blue">
+
         <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set App 1" 
-        android:layout_weight="1" />
+            android:id="@id/app1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Set App 1" 
+            android:onClick="changeApp" />
+
         <ImageView
-        android:id="@+id/imageView_launch_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:src="@drawable/ic_launcher" />
+            android:id="@+id/firstImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+
     </TableRow>
     <TableRow>
+
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Current App 1" 
-        android:background="@color/darkblue"
-        android:layout_weight="1"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkblue"
+            android:text="Current App: " />
+
+        <TextView
+            android:id="@+id/customApp1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkblue"
+            android:text="Custom App1 " />
+
     </TableRow>
     
     <TableRow
         android:background="@color/green">
+
         <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set App 2" 
-        android:layout_weight="1" />
+            android:id="@+id/app2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Set App 2"
+            android:onClick="changeApp" />
+
         <ImageView
-        android:id="@+id/imageView_launch_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:src="@drawable/ic_launcher" />
+            android:id="@+id/secondImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+
     </TableRow>
     <TableRow>
+
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Current App 2" 
-        android:background="@color/darkgreen"
-        android:layout_weight="1"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkgreen"
+            android:text="Current App:" />
+
+        <TextView
+            android:id="@+id/customApp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkgreen"
+            android:text="Custom App2" />
+
     </TableRow>
     
     <TableRow
         android:background="@color/red">
+
         <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set App 3" 
-        android:layout_weight="1" />
+            android:id="@+id/app3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Set App 3"
+            android:onClick="changeApp" />
+
         <ImageView
-        android:id="@+id/imageView_launch_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:src="@drawable/ic_launcher" />
+            android:id="@+id/thirdImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+
     </TableRow>
     <TableRow>
+
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Current App 3" 
-        android:background="@color/darkred"
-        android:layout_weight="1"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkred"
+            android:text="Current App:" />
+
+        <TextView
+            android:id="@+id/customApp3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkred"
+            android:text="Custom App3" />
+
     </TableRow>
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
 
     
 </TableLayout>

@@ -67,7 +67,7 @@
         android:id="@+id/button_setApps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/app1"
         android:layout_toRightOf="@+id/button5"
         android:text="@string/setApps" 
         android:onClick="optionSetApps"/>
@@ -76,8 +76,8 @@
         android:id="@+id/button_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/button1"
+        android:layout_above="@+id/app1"
+        android:layout_alignLeft="@+id/app1"
         android:text="@string/help" 
         android:onClick="optionHelp"/>
 
@@ -85,7 +85,7 @@
         android:id="@+id/button_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/app1"
         android:layout_toRightOf="@+id/button5"
         android:text="@string/about" 
         android:onClick="optionAbout"/>
