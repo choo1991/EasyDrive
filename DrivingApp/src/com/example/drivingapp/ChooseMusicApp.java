@@ -69,7 +69,7 @@ public class ChooseMusicApp extends Activity {
         		choose.selectApp("com.shazam.android");
         	} else if (key.equals("app_spotify")) {
         		choose.selectApp("com.spotify.mobile.android.ui");
-        	} else if (key.equals("app_amazonMp3")) {
+        	} else if (key.equals("app_amazon_mp3")) {
         		choose.selectApp("com.amazon.mp3");
         	} else if (key.equals("app_googlePlayMusic")) {
         		choose.selectApp("com.google.android.music");

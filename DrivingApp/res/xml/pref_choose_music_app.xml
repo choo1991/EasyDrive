@@ -18,7 +18,7 @@
 		android:title="@string/spotify">
     </PreferenceScreen>
     <PreferenceScreen
-		android:key="app_amazon_mp3"
+		android:key="app_amazonMp3"
 		android:title="@string/amazonMp3">
     </PreferenceScreen>
     <PreferenceScreen

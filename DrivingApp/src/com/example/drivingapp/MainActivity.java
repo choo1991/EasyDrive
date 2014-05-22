@@ -2,6 +2,9 @@ package com.example.drivingapp;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.example.drivingapp.GPSLocationService.GPSBinder;
 
@@ -42,7 +45,25 @@ public class MainActivity extends Activity {
 	
 	public static boolean TERMINATE_APP = false;
 	public static int POSTPONE_APP = 0;
-
+	public static Map<String, String> CustomAppsList;
+	static {
+		Map<String, String> tempMap = new HashMap<String, String>();
+		tempMap.put("com.pandora.android", "Pandora");
+		tempMap.put("com.google.android.apps.maps", "Google Maps");
+		tempMap.put("com.shazam.android", "Shazam");
+		tempMap.put("com.android.phone", "Phone");
+		tempMap.put("com.amazon.mp3", "Amazon MP3");
+		tempMap.put("com.google.android.music", "Google Play Music");
+		CustomAppsList = Collections.unmodifiableMap(tempMap);
+	}
+	public static String[] CurrentApps;
+	static {
+		//change this to add the values stored in preferences
+		CurrentApps = new String[3];
+		CurrentApps[0] = "com.android.phone";
+		CurrentApps[1] = "com.pandora.android";
+		CurrentApps[2] = "com.google.android.apps.maps";
+	}
 	//moved up here from initCustomLockScreen so that the intent can be reordered
 	//from other methods
 	Intent intent11;
