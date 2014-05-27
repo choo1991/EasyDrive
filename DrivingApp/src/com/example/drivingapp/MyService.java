@@ -73,7 +73,6 @@ public void onStart(Intent intent, int startId) {
 	super.onStart(intent, startId);
 }
 
-/*
 protected void onHandleIntent(Intent intent) {
 	
 	//infinite loop
@@ -84,7 +83,7 @@ protected void onHandleIntent(Intent intent) {
 		}
 	}
 }
-*/
+
 /*
 public boolean onKeyDown(int keyCode, KeyEvent event) {
 	//apparently intercepting either keycode volume button prevents

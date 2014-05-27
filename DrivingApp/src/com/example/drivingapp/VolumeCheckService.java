@@ -34,6 +34,10 @@ public class VolumeCheckService extends IntentService {
 		//infinite loop
 		while(true) {
 			//continuously set the volume to silent when true
+			if(MainActivity.TERMINATE_APP) {
+				stopSelf();
+			}
+			//continuously set the volume to silent when true
 			if(!handlerFlag) {
 				handler.postDelayed(sc, 7000);
 				handlerFlag = true;
