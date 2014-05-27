@@ -67,6 +67,8 @@ public class LockScreenAppActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
 
+    	MainActivity.LOCK_SCREEN_ACTIVE = true;
+    	
     	   super.onCreate(savedInstanceState);
     	   getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN);
 

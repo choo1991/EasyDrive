@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.drivingapp.LockScreenAppActivity;
@@ -20,6 +21,7 @@ public class LockScreenReceiver extends BroadcastReceiver  {
 	 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		Log.v("LOG_TAG", Boolean.toString(MainActivity.ABOVE_SPEED_LIMIT));
 		//needs testing
 		if(MainActivity.POSTPONE_APP > 0) {
 			
@@ -47,7 +49,7 @@ public class LockScreenReceiver extends BroadcastReceiver  {
 	  		toast.show(); 
 		} 
 		//Toast.makeText(context, "" + "enterrrrrr", Toast.LENGTH_SHORT).show();
-        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF) && MainActivity.ABOVE_SPEED_LIMIT) {
         	//Toast.makeText(context, "" + "screeen off", Toast.LENGTH_SHORT).show();
 
         	wasScreenOn=false;
@@ -70,7 +72,7 @@ public class LockScreenReceiver extends BroadcastReceiver  {
             // and do whatever you need to do here
            // wasScreenOn = true;
         }
-       else if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED))
+       else if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED) && MainActivity.ABOVE_SPEED_LIMIT)
         {
       /*  	KeyguardManager.KeyguardLock k1;
         	KeyguardManager km =(KeyguardManager)context.getSystemService(context.KEYGUARD_SERVICE);

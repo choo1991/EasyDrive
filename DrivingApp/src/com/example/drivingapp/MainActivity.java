@@ -44,7 +44,13 @@ public class MainActivity extends Activity {
 	private static final String LOG_TAG = "GPSDebugging";
 	
 	public static boolean TERMINATE_APP = false;
+	
+	public static boolean ABOVE_SPEED_LIMIT = false;
+	
+	public static boolean INITIAL_CREATION = false;
+	
 	public static int POSTPONE_APP = 0;
+	
 	public static Map<String, String> CustomAppsList;
 	static {
 		Map<String, String> tempMap = new HashMap<String, String>();
@@ -166,9 +172,32 @@ public class MainActivity extends Activity {
         		toast3.show();
 //        		InitializeChart chart = new InitializeChart();
 
-        	}
+        	} else if(key.equals("button_speed_change_key")) { 
+          		//change speed limit that activates lock screen
+            	String speed = prefs.getString("button_speed_change_key", Integer.toString(OptionsActivity.SPEED_LIMIT));
+            	//int speed = preferenceScreen.getInt("button_speed_change_key", 0);
+            	Log.v("LOG_TAG", "Before: " + Integer.toString(OptionsActivity.SPEED_LIMIT));
+            	OptionsActivity.SPEED_LIMIT = Integer.parseInt(speed);
+            	Log.v("LOG_TAG", "After: " + Integer.toString(OptionsActivity.SPEED_LIMIT));
+           		
+            	
+        	} else if(key.equals("button_temp_lock_off")) {
+        		String time = prefs.getString("button_temp_lock_off", "0");
+        		POSTPONE_APP = Integer.parseInt(time);
+        		Log.i("LOG_TAG", Integer.toString(POSTPONE_APP));
+        	} 
         }
-    
+        
+        public boolean onPreferenceChange(Preference preference, Object newVal) {
+        	//change speed limit that activates lock screen
+        	//String speed = prefs.getString("button_speed_change_key", Integer.toString(OptionsActivity.SPEED_LIMIT));
+        	Log.v("LOG_TAG", "Before X: " + Integer.toString(OptionsActivity.SPEED_LIMIT));
+        	OptionsActivity.SPEED_LIMIT = Integer.parseInt((String)newVal);
+        	Log.v("LOG_TAG", "After X: " + Integer.toString(OptionsActivity.SPEED_LIMIT));
+        		
+        	return false;
+    	}
+        
         //accepts clicks from preference screen objects
         public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         	String key = preference.getKey();
@@ -180,17 +209,7 @@ public class MainActivity extends Activity {
 					e.printStackTrace();
 				}
         	}
-        	if(key.equals("button_speed_change_key")) {
-        		//change speed limit that activates lock screen
-            	String speed = prefs.getString("button_speed_change_key", Integer.toString(OptionsActivity.SPEED_LIMIT));
-            	OptionsActivity.SPEED_LIMIT = Integer.parseInt(speed);
-            	/*
-            	Dialog dialog = new Dialog(main);
-                dialog.setTitle(speed);
-                dialog.show();
-                dialog = null;*/
-            	
-        	} else if(key.equals("button_change_applications")) {
+        	if(key.equals("button_change_applications")) {
         		main.optionSetApps();
         		
         	} else if(key.equals("button_about_app")) {
@@ -231,10 +250,6 @@ public class MainActivity extends Activity {
         		TERMINATE_APP = true;
         		//need to end services too
         		main.finish();
-        	} else if(key.equals("button_temp_lock_off")) {
-        		String time = prefs.getString("button_temp_lock_off", "0");
-        		POSTPONE_APP = Integer.parseInt(time);
-        	
         	} 
         	
         	return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -390,13 +405,19 @@ public class MainActivity extends Activity {
 		display.show();
 		display = null;
 		
+		Log.v("LOG_TAG", "initLocationManager");
+        
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		// Define a listener that responds to location updates
+		
 		LocationListener locationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
+				Log.v("LOG_TAG", "pre-onLocationChanged");
+
 				// Called when a new location is found by the network location provider.
 				makeUseOfNewLocation(location);
+				Log.v("LOG_TAG", "onLocationChanged");
 			}
 
 			public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -426,7 +447,7 @@ public class MainActivity extends Activity {
 		Log.v(LOG_TAG, ("Latitude = " + location.getLatitude()));
 		Log.v(LOG_TAG, ("Longitude = " + location.getLongitude()));
 		Log.v(LOG_TAG, ("Speed = " + location.getSpeed()));
-		
+	
 //		System.out.println("Latitude = " + location.getLatitude());
 //		System.out.println("Longitude = " + location.getLongitude());
 //		System.out.println("Speed = " + location.getSpeed());
@@ -462,7 +483,7 @@ public class MainActivity extends Activity {
 		// get the info from the currently running task
 	    List< ActivityManager.RunningTaskInfo > taskInfo = aManager.getRunningTasks(1); 
 
-	    Log.d("topActivity", "CURRENT Activity ::"
+	    Log.v("topActivity", "CURRENT Activity ::"
 	             + taskInfo.get(0).topActivity.getClassName());
 
 	    ComponentName componentInfo = taskInfo.get(0).topActivity;
@@ -489,15 +510,21 @@ public class MainActivity extends Activity {
 	    	//startActivity(intent11);
 	    }
 	    */
+	    /*
 	    if (speed >= OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE
 	    		&& !pk.equals(LockScreenAppActivity.RUNNING_TASK) &&
 				!pk.equals("com.example.drivingapp")) {
-				
-	    /*
-	    if (speed > OptionsActivity.SPEED_LIMIT && !LOCK_SCREEN_ACTIVE) {
-	    */
+			*/	
+	    if(speed >= OptionsActivity.SPEED_LIMIT) {
+	    	ABOVE_SPEED_LIMIT = true;
+	    } else {
+	    	ABOVE_SPEED_LIMIT = false;
+	    }
+	    
+	    if (ABOVE_SPEED_LIMIT && !LOCK_SCREEN_ACTIVE) {
+	    	
 			LOCK_SCREEN_ACTIVE = true;
-			Log.d(LOG_TAG, ("SCREEN CREATED"));
+			Log.v(LOG_TAG, ("SCREEN CREATED"));
 			//
 			if(OptionsActivity.RINGER_MODE_SILENCED) {
 				//for phone volumes (notifications, alarms, calls, music, etc)
@@ -513,7 +540,10 @@ public class MainActivity extends Activity {
 		      	Toast toast = Toast.makeText(context, text, duration);
 		  		toast.show();
 			}
-			initCustomLockScreen(time); 
+			if(!INITIAL_CREATION) {
+				initCustomLockScreen(time);
+				INITIAL_CREATION = true;
+			}
 		}
 	}
 	
