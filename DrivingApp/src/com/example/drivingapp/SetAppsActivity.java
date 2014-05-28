@@ -78,6 +78,7 @@ public class SetAppsActivity extends Activity {
 	        	startActivity(i3);
 	        	break;
 		}
+		finish();
 	}
 
 }

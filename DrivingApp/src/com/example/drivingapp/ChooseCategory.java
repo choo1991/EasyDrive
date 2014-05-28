@@ -33,15 +33,19 @@ public class ChooseCategory extends Activity {
 	public void chooseMusicApp() {
 		Intent i = new Intent(this, ChooseMusicApp.class);
     	startActivity(i);
+    	finish();
 	}
 	
     public void chooseNavigationApp() {
 		Intent i = new Intent(this, ChooseNavigationApp.class);
-    	startActivity(i);    }
-    
+    	startActivity(i);    
+    	finish();
+    }
+     
     public void choosePhoneApp() {
 		Intent i = new Intent(this, ChoosePhoneApp.class);
     	startActivity(i);
+    	finish();
     }
 	
     public static class PrefsFragment extends PreferenceFragment {

@@ -31,6 +31,7 @@ public class ChooseNavigationApp extends Activity {
 			MainActivity.CurrentApps[SetAppsActivity.selectedApp] = packageName;
 			Intent i = new Intent(this, SetAppsActivity.class);
 	    	startActivity(i);
+	    	finish();
     	} else {
     		// alert that they don't have that app... 
     	}
