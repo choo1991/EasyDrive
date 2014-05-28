@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
 		tempMap.put("com.shazam.android", "Shazam");
 		tempMap.put("com.android.phone", "Phone");
 		tempMap.put("com.amazon.mp3", "Amazon MP3");
+		tempMap.put("com.spotify.mobile.android.ui", "Spotify");
 		tempMap.put("com.google.android.music", "Google Play Music");
 		CustomAppsList = Collections.unmodifiableMap(tempMap);
 	}

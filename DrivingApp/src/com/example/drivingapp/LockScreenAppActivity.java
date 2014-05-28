@@ -2,6 +2,7 @@ package com.example.drivingapp;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import receiver.LockScreenReceiver;
 import android.app.Activity;
@@ -446,27 +447,44 @@ public class LockScreenAppActivity extends Activity {
 		try {
 			// May want to maintain a list of apps on the screen, then do a foreach loop to assign
 			// drawable icons to each app
-			Drawable firstIcon = getPackageManager().getApplicationIcon("com.android.phone");
-			Drawable secondIcon = getPackageManager().getApplicationIcon("com.pandora.android");
-			Drawable thirdIcon = getPackageManager().getApplicationIcon("com.google.android.apps.maps");
-			Drawable fourthIcon = getPackageManager().getApplicationIcon("com.shazam.android");
-
-			ImageView firstIconView =(ImageView)findViewById(R.id.phoneIcon);
-			ImageView secondIconView =(ImageView)findViewById(R.id.pandoraIcon);
-			ImageView thirdIconView =(ImageView)findViewById(R.id.mapsIcon);
-			ImageView fourthIconView =(ImageView)findViewById(R.id.shazamIcon);
+			String[] currentApps = MainActivity.CurrentApps;
+			Map<String, String> customAppsList = MainActivity.CustomAppsList;
 			
-//			Button firstIconButton =(Button)findViewById(R.id.phoneButton);
+			Drawable firstIcon = getPackageManager().getApplicationIcon("com.android.phone");
+			Drawable secondIcon = getPackageManager().getApplicationIcon(currentApps[0]);
+			Drawable thirdIcon = getPackageManager().getApplicationIcon(currentApps[1]);
+			Drawable fourthIcon = getPackageManager().getApplicationIcon(currentApps[2]);
 
+			ImageView firstIconView =(ImageView)findViewById(R.id.firstIcon);
+			ImageView secondIconView =(ImageView)findViewById(R.id.secondIcon);
+			ImageView thirdIconView =(ImageView)findViewById(R.id.thirdIcon);
+			ImageView fourthIconView =(ImageView)findViewById(R.id.fourthIcon);
+			
+			//Button firstButton =(Button)findViewById(R.id.firstButton);
+			Button secondButton =(Button)findViewById(R.id.secondButton);
+			Button thirdButton =(Button)findViewById(R.id.thirdButton);
+			Button fourthButton =(Button)findViewById(R.id.fourthButton);
+			
+			secondButton.setText(customAppsList.get(currentApps[0]));
+			thirdButton.setText(customAppsList.get(currentApps[1]));
+			fourthButton.setText(customAppsList.get(currentApps[2]));
 			//firstIconButton.setBackgroundDrawable(firstIcon);
 			//firstIconButton
 			//firstIcon.setBounds(firstIconButton.getLeft(), firstIconButton.getTop(), 
 				//				firstIconButton.getLeft()+10, firstIconButton.getTop()-10);
 			//firstIconButton.setCompoundDrawables(firstIcon, null, null, null);
-			firstIconView.setImageDrawable(firstIcon);
-			secondIconView.setImageDrawable(secondIcon);
-			thirdIconView.setImageDrawable(thirdIcon);
-			fourthIconView.setImageDrawable(fourthIcon);
+			if (firstIcon != null) {
+				firstIconView.setImageDrawable(firstIcon);
+			}
+			if (secondIcon != null) {
+				secondIconView.setImageDrawable(secondIcon);
+			}
+			if (thirdIcon != null) {
+				thirdIconView.setImageDrawable(thirdIcon);
+			}
+			if (fourthIcon != null) {
+				fourthIconView.setImageDrawable(fourthIcon);
+			}
 
 		} catch (NameNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -478,17 +496,17 @@ public class LockScreenAppActivity extends Activity {
     	MainActivity.LOCK_SCREEN_ACTIVE = false;
     	String packageName = "";
     	switch(view.getId()){
-	        case R.id.phoneButton:
+	        case R.id.firstButton:
 	            packageName = "com.android.phone";
 	        	break;
-	        case R.id.pandoraButton:
-	        	packageName = "com.pandora.android";
+	        case R.id.secondButton:
+	        	packageName = MainActivity.CurrentApps[0];
 	        	break;
-	        case R.id.mapsButton:
-	        	packageName = "com.google.android.apps.maps";
+	        case R.id.thirdButton:
+	        	packageName = MainActivity.CurrentApps[1];
 	        	break;
-	        case R.id.shazamButton:
-	        	packageName = "com.shazam.android";
+	        case R.id.fourthButton:
+	        	packageName = MainActivity.CurrentApps[2];
 	        	break;
     	}
     	launchExternalApp(packageName);
