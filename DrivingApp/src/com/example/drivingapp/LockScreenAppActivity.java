@@ -1,5 +1,6 @@
 package com.example.drivingapp;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,10 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.KeyguardManager;
+import android.appwidget.AppWidgetHost;
+import android.appwidget.AppWidgetHostView;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -27,6 +32,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.ViewGroup.MarginLayoutParams;
@@ -43,20 +49,22 @@ public class LockScreenAppActivity extends Activity {
 	//made static so that it can be referenced in order to prevent the lock screen from popping 
 	//up when the user is in the allowed app
 	public static String RUNNING_TASK = "";
+	AppWidgetManager mAppWidgetManager;
+	AppWidgetHost mAppWidgetHost;
 	
     /** Called when the activity is first created. */
-	  KeyguardManager.KeyguardLock k1;
-	   boolean inDragMode;
- 	   int selectedImageViewX;
- 	   int selectedImageViewY;
- 	   int windowwidth;
- 	   int windowheight;
- 	   ImageView droid,phone,home;
- 	  //int phone_x,phone_y;
- 	   int home_x,home_y;
- 	   int[] droidpos;
+	KeyguardManager.KeyguardLock k1;
+	boolean inDragMode;
+ 	int selectedImageViewX;
+ 	int selectedImageViewY;
+ 	int windowwidth;
+ 	int windowheight;
+ 	ImageView droid,phone,home;
+ 	//int phone_x,phone_y;
+ 	int home_x,home_y;
+ 	int[] droidpos;
 
- 	  private LayoutParams layoutParams;
+ 	private LayoutParams layoutParams;
 
 //	  @Override
 //	 public void onAttachedToWindow() {
@@ -65,38 +73,58 @@ public class LockScreenAppActivity extends Activity {
 //
 //          super.onAttachedToWindow();
 //	 }
+ 	public void onCreate(Bundle savedInstanceState) {
+ 		MainActivity.LOCK_SCREEN_ACTIVE = true;
+ 		super.onCreate(savedInstanceState);
+    	getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setTheme(android.R.style.Theme_Holo);
+		setContentView(R.layout.main);
+		
+//		droid =(ImageView)findViewById(R.id.droid);
+//		System.out.println("measured width"+droid.getMeasuredWidth());
+//		System.out.println(" width"+droid.getWidth());
 
-    public void onCreate(Bundle savedInstanceState) {
+		mAppWidgetManager = AppWidgetManager.getInstance(this);
+		int APPWIDGET_HOST_ID = 0;
+		mAppWidgetHost = new AppWidgetHost(this, APPWIDGET_HOST_ID);
+		AppWidgetProviderInfo newAppWidgetProviderInfo = new AppWidgetProviderInfo();
+		
+		int appWidgetId = mAppWidgetHost.allocateAppWidgetId();
+		// Get the list of installed widgets
+		List<AppWidgetProviderInfo> appWidgetInfos = new ArrayList<AppWidgetProviderInfo>();
+		appWidgetInfos = mAppWidgetManager.getInstalledProviders();
+		
+		for(int j = 0; j < appWidgetInfos.size(); j++) {
+		    if (appWidgetInfos.get(j).provider.getPackageName().equals("com.google.android.deskclock") && appWidgetInfos.get(j).provider.getClassName().equals("com.android.alarmclock.DigitalAppWidgetProvider")) {
+		        Log.i("Widgets", "clock widget exists");
+		    	// Get the full info of the required widget
+		        Log.i("Widgets", "get app widget info");
+		        newAppWidgetProviderInfo = appWidgetInfos.get(j);
+		        break;
+		    }
+//			Log.i("Widgets", appWidgetInfos.get(j).provider.getPackageName());
+//			Log.i("Widgets", appWidgetInfos.get(j).provider.getClassName());
+		 }
 
-    	MainActivity.LOCK_SCREEN_ACTIVE = true;
-    	
-    	   super.onCreate(savedInstanceState);
-    	   getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		/* To ensure that the app does not crash if the phone does not have a Google default
+		 * clock widget, check to see if there's anything in AppWidgetProviderInfo
+		 *  */
+		
+		// Create Widget
+		AppWidgetHostView hostView = mAppWidgetHost.createView(this, appWidgetId, newAppWidgetProviderInfo);
+		hostView.setAppWidget(appWidgetId, newAppWidgetProviderInfo);
+		// Add it to your layout
+		LinearLayout ll = (LinearLayout) findViewById(R.id.clockWidgetLocation);
+		ll.addView(hostView);
 
-                
-    	   setContentView(R.layout.main);
-
-    	   droid =(ImageView)findViewById(R.id.droid);
-
-
-
-    	   System.out.println("measured width"+droid.getMeasuredWidth());
-    	   System.out.println(" width"+droid.getWidth());
-
-
-    	   if(getIntent()!=null&&getIntent().hasExtra("kill")&&getIntent().getExtras().getInt("kill")==1){
-    	      // Toast.makeText(this, "" + "kill activityy", Toast.LENGTH_SHORT).show();
-    	        	finish();
-    	    	}
-
+		if(getIntent()!=null&&getIntent().hasExtra("kill")&&getIntent().getExtras().getInt("kill")==1){
+			// Toast.makeText(this, "" + "kill activityy", Toast.LENGTH_SHORT).show();
+			finish();
+		}
         try{
-     // initialize receiver
-
-
-        startService(new Intent(this,MyService.class));
-
-
-
+        	// initialize receiver
+        	startService(new Intent(this,MyService.class));
 
   /*      KeyguardManager km =(KeyguardManager)getSystemService(KEYGUARD_SERVICE);
         k1 = km.newKeyguardLock("IN");
@@ -110,14 +138,14 @@ public class LockScreenAppActivity extends Activity {
         windowheight=getWindowManager().getDefaultDisplay().getHeight();
         System.out.println("windowheight"+windowheight);
 
-        MarginLayoutParams marginParams2 = new MarginLayoutParams(droid.getLayoutParams());
+//        MarginLayoutParams marginParams2 = new MarginLayoutParams(droid.getLayoutParams());
 
-        marginParams2.setMargins((windowwidth/24)*10,((windowheight/32)*8),0,0);
+//        marginParams2.setMargins((windowwidth/24)*10,((windowheight/32)*8),0,0);
 
         //marginParams2.setMargins(((windowwidth-droid.getWidth())/2),((windowheight/32)*8),0,0);
-        RelativeLayout.LayoutParams layoutdroid = new RelativeLayout.LayoutParams(marginParams2);
+//        RelativeLayout.LayoutParams layoutdroid = new RelativeLayout.LayoutParams(marginParams2);
 
-        droid.setLayoutParams(layoutdroid);
+//        droid.setLayoutParams(layoutdroid);
 
         /* phone =(ImageView)findViewById(R.id.phone);
         MarginLayoutParams marginParams = new MarginLayoutParams(phone.getLayoutParams());
@@ -126,19 +154,19 @@ public class LockScreenAppActivity extends Activity {
          phone.setLayoutParams(layoutParams1);
 */
 
-         LinearLayout homelinear = (LinearLayout)findViewById(R.id.homelinearlayout);
-         homelinear.setPadding(0,0,0,(windowheight/32)*3);
-         home =(ImageView)findViewById(R.id.home);
+//         LinearLayout homelinear = (LinearLayout)findViewById(R.id.homelinearlayout);
+//         homelinear.setPadding(0,0,0,(windowheight/32)*3);
+//         home =(ImageView)findViewById(R.id.home);
 
-         MarginLayoutParams marginParams1 = new MarginLayoutParams(home.getLayoutParams());
+//         MarginLayoutParams marginParams1 = new MarginLayoutParams(home.getLayoutParams());
 
-         marginParams1.setMargins((windowwidth/24)*10,0,(windowheight/32)*8,0);
+//         marginParams1.setMargins((windowwidth/24)*10,0,(windowheight/32)*8,0);
         // marginParams1.setMargins(((windowwidth-home.getWidth())/2),0,(windowheight/32)*10,0);
-         LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(marginParams1);
+//         LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(marginParams1);
 
-         home.setLayoutParams(layout);
+//         home.setLayoutParams(layout);
          
-         displayTime();
+//         displayTime();
          getAppIcons();
 
          droid.setOnTouchListener(new View.OnTouchListener() {
@@ -213,14 +241,8 @@ public class LockScreenAppActivity extends Activity {
 			            	 		" overlapps");
 		              }*/
 		            // v.invalidate();
-
-
-
-
 		             break;
 		         case MotionEvent.ACTION_UP:
-
-
 		        	    int x_cord1 = (int)event.getRawX();
 			             int y_cord2 = (int)event.getRawY();
 
@@ -242,32 +264,20 @@ public class LockScreenAppActivity extends Activity {
 
 
 			             }
-
-
-
-
 		         }
-
 				return true;
 			}
 		});
-
 /*
         Button close =(Button)findViewById(R.id.lockk);
         close.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
             	//k1.reenableKeyguard();
             //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people/")));
-
-
                 finish();
             }
         });
 */
-
-
-
        //PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
 
       // PowerManager.WakeLock w1 =pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP|PowerManager.FULL_WAKE_LOCK,"MyApp");
@@ -276,12 +286,10 @@ public class LockScreenAppActivity extends Activity {
         }catch (Exception e) {
 			// TODO: handle exception
 		}
-
     }
     class StateListener extends PhoneStateListener{
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
-
             super.onCallStateChanged(state, incomingNumber);
             switch(state){
                 case TelephonyManager.CALL_STATE_RINGING:
@@ -289,17 +297,14 @@ public class LockScreenAppActivity extends Activity {
                 case TelephonyManager.CALL_STATE_OFFHOOK:
                     System.out.println("call Activity off hook");
                 	finish();
-
-
-
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
                     break;
             }
         }
     };
-    public void onSlideTouch( View view, MotionEvent event )
-    {
+    
+    public void onSlideTouch(View view, MotionEvent event) {
     	 switch(event.getAction())
          {
          case MotionEvent.ACTION_DOWN:
@@ -318,10 +323,6 @@ public class LockScreenAppActivity extends Activity {
              break;
          default:
              break;
-
-
-
-
          }
 
         //When the user pushes down on an ImageView
@@ -365,8 +366,13 @@ public class LockScreenAppActivity extends Activity {
                 }
             }
         }*/
-
     }
+    
+    @Override
+	protected void onStart() {
+		super.onStart();
+		mAppWidgetHost.startListening();
+	}
 
     @Override
     public void onBackPressed() {
@@ -378,7 +384,6 @@ public class LockScreenAppActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-
         // Don't hang around.
        // finish();
     }
@@ -386,29 +391,21 @@ public class LockScreenAppActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-
         // Don't hang around.
        // finish();
+        mAppWidgetHost.stopListening();
     }
 
-
-
-
-
     @Override
-  public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
-
+    public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
     	if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)||(keyCode == KeyEvent.KEYCODE_POWER)||(keyCode == KeyEvent.KEYCODE_VOLUME_UP)||(keyCode == KeyEvent.KEYCODE_CAMERA)) {
-    	    //this is where I can do my stuff
-    	    return true; //because I handled the event
+    		//this is where I can do my stuff
+    		return true; //because I handled the event
     	}
-       if((keyCode == KeyEvent.KEYCODE_HOME)){
-
-    	   return true;
+    	if((keyCode == KeyEvent.KEYCODE_HOME)){
+    	    return true;
         }
-
-	return false;
-
+    	return false;
     }
 
     public boolean dispatchKeyEvent(KeyEvent event) {
@@ -417,9 +414,8 @@ public class LockScreenAppActivity extends Activity {
     	    //startActivity(i);
     	    return false;
     	}
-    	 if((event.getKeyCode() == KeyEvent.KEYCODE_HOME)){
-
-           System.out.println("alokkkkkkkkkkkkkkkkk");
+    	if((event.getKeyCode() == KeyEvent.KEYCODE_HOME)){
+//           System.out.println("alokkkkkkkkkkkkkkkkk");
       	   return true;
          }
     return false;
@@ -427,7 +423,6 @@ public class LockScreenAppActivity extends Activity {
 
     public void onDestroy(){
        // k1.reenableKeyguard();
-
         super.onDestroy();
     }
     
@@ -436,12 +431,12 @@ public class LockScreenAppActivity extends Activity {
     	finish();
     }
     
-    public void displayTime() {
-			    	String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-			    	
-			    	TextView textView = (TextView) findViewById(R.id.tvTime);
-			    	textView.setText("EasyDrive -" + currentDateTimeString);
-    }
+//    public void displayTime() {
+//			    	String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+//			    	
+//			    	TextView textView = (TextView) findViewById(R.id.tvTime);
+//			    	textView.setText("EasyDrive -" + currentDateTimeString);
+//    }
     
     public void getAppIcons() {
 		try {
@@ -471,7 +466,7 @@ public class LockScreenAppActivity extends Activity {
 			//firstIconButton.setBackgroundDrawable(firstIcon);
 			//firstIconButton
 			//firstIcon.setBounds(firstIconButton.getLeft(), firstIconButton.getTop(), 
-				//				firstIconButton.getLeft()+10, firstIconButton.getTop()-10);
+			//firstIconButton.getLeft()+10, firstIconButton.getTop()-10);
 			//firstIconButton.setCompoundDrawables(firstIcon, null, null, null);
 			if (firstIcon != null) {
 				firstIconView.setImageDrawable(firstIcon);
@@ -512,8 +507,7 @@ public class LockScreenAppActivity extends Activity {
     	launchExternalApp(packageName);
     }
     
-    private void launchExternalApp(String packageName)
-    {
+    private void launchExternalApp(String packageName) {
     	Context context = getApplicationContext();
     	Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
     	if (packageName.equals("com.android.phone")) {
@@ -531,8 +525,6 @@ public class LockScreenAppActivity extends Activity {
 
 		    ComponentName componentInfo = taskInfo.get(0).topActivity;
 		    String pk = componentInfo.getPackageName();
-    		 
-		    
     		Dialog dialog = new Dialog(this);
             dialog.setTitle(pk);
             dialog.show();
@@ -543,9 +535,7 @@ public class LockScreenAppActivity extends Activity {
     		// do something
     	}
     }
-    
     //public void openPhoneScreen(View view) {
     	//open phone yo
    // }
-
 }

@@ -79,4 +79,8 @@
     <string name="show_chart">Show Driving Habits Chart</string>
 	<string name="terminate_app">Terminate App</string>
 	<string name="change_temp_lock_off">Postpone LockScreen</string>
+	<string name="phoneIcon">Phone Image Icon</string>
+	<string name="secondIcon">Second Image Icon</string>
+	<string name="thirdIcon">Third Image Icon</string>
+	<string name="fourthIcon">Fourth Image Icon</string>
 </resources>

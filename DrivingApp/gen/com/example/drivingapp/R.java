@@ -43,6 +43,9 @@ public final class R {
          */
         public static final int activity_horizontal_margin=0x7f070000;
         public static final int activity_vertical_margin=0x7f070001;
+        public static final int button_height=0x7f070004;
+        public static final int button_width=0x7f070003;
+        public static final int icon_margin=0x7f070002;
     }
     public static final class drawable {
         public static final int border_rectangle=0x7f020000;
@@ -73,11 +76,11 @@ public final class R {
         public static final int TextView01=0x7f0b0019;
         public static final int TextView02=0x7f0b001d;
         public static final int TextView03=0x7f0b0021;
-        public static final int action_settings=0x7f0b0038;
+        public static final int action_settings=0x7f0b0037;
         public static final int app1=0x7f0b0001;
         public static final int app2=0x7f0b001b;
         public static final int app3=0x7f0b001f;
-        public static final int app_pandora=0x7f0b0036;
+        public static final int app_pandora=0x7f0b0033;
         public static final int button2=0x7f0b0011;
         public static final int button3=0x7f0b0013;
         public static final int button5=0x7f0b0004;
@@ -89,20 +92,20 @@ public final class R {
         public static final int button_options=0x7f0b0007;
         public static final int button_setApps=0x7f0b0014;
         public static final int button_speedAdjust=0x7f0b0010;
-        public static final int category_music=0x7f0b0035;
+        public static final int category_music=0x7f0b0032;
         public static final int chart_area=0x7f0b0026;
+        public static final int clockWidgetLocation=0x7f0b0029;
         public static final int customApp1=0x7f0b0018;
         public static final int customApp2=0x7f0b001c;
         public static final int customApp3=0x7f0b0020;
-        public static final int droid=0x7f0b0029;
+        public static final int droid=0x7f0b0034;
         public static final int exitButton=0x7f0b0028;
-        public static final int firstButton=0x7f0b002d;
-        public static final int firstIcon=0x7f0b002e;
+        public static final int firstButton=0x7f0b002b;
+        public static final int firstIcon=0x7f0b002a;
         public static final int firstImage=0x7f0b0005;
-        public static final int fourthButton=0x7f0b0033;
-        public static final int fourthIcon=0x7f0b0034;
-        public static final int home=0x7f0b002b;
-        public static final int homelinearlayout=0x7f0b002a;
+        public static final int fourthButton=0x7f0b0030;
+        public static final int fourthIcon=0x7f0b0031;
+        public static final int home=0x7f0b0035;
         public static final int ivAmazonMp3=0x7f0b000b;
         public static final int ivGooglePlayMusic=0x7f0b000c;
         public static final int ivMaps=0x7f0b000d;
@@ -112,9 +115,9 @@ public final class R {
         public static final int ivSpotify=0x7f0b0009;
         public static final int ll_custom_lock_screen=0x7f0b0027;
         public static final int optionscreen_layout=0x7f0b000e;
-        public static final int phone=0x7f0b0037;
-        public static final int secondButton=0x7f0b002f;
-        public static final int secondIcon=0x7f0b0030;
+        public static final int phone=0x7f0b0036;
+        public static final int secondButton=0x7f0b002c;
+        public static final int secondIcon=0x7f0b002d;
         public static final int secondImage=0x7f0b001a;
         public static final int show_chart=0x7f0b0025;
         public static final int speedAdjustOK=0x7f0b0024;
@@ -122,11 +125,10 @@ public final class R {
         public static final int speedDisplay=0x7f0b0022;
         public static final int switch_silenced=0x7f0b000f;
         public static final int textView1=0x7f0b0000;
-        public static final int thirdButton=0x7f0b0031;
-        public static final int thirdIcon=0x7f0b0032;
+        public static final int thirdButton=0x7f0b002e;
+        public static final int thirdIcon=0x7f0b002f;
         public static final int thirdImage=0x7f0b001e;
         public static final int tvSpeed=0x7f0b0006;
-        public static final int tvTime=0x7f0b002c;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;
@@ -185,6 +187,7 @@ public final class R {
         public static final int enabled=0x7f08002a;
         public static final int exit_screen=0x7f080011;
         public static final int first_app_name_launcher=0x7f080017;
+        public static final int fourthIcon=0x7f080039;
         public static final int googlePlayMusic=0x7f080019;
         public static final int hello_world=0x7f080002;
         public static final int help=0x7f08000c;
@@ -196,27 +199,29 @@ public final class R {
         public static final int options=0x7f080028;
         public static final int pandora=0x7f080013;
         public static final int phone=0x7f080012;
-        public static final int pref_default_display_name=0x7f08003b;
-        public static final int pref_description_social_recommendations=0x7f080039;
+        public static final int phoneIcon=0x7f080036;
+        public static final int pref_default_display_name=0x7f08003f;
+        public static final int pref_description_social_recommendations=0x7f08003d;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f08003d;
+        public static final int pref_header_data_sync=0x7f080041;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f080037;
+        public static final int pref_header_general=0x7f08003b;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f080040;
-        public static final int pref_ringtone_silent=0x7f080043;
-        public static final int pref_title_add_friends_to_messages=0x7f08003c;
-        public static final int pref_title_display_name=0x7f08003a;
-        public static final int pref_title_new_message_notifications=0x7f080041;
-        public static final int pref_title_ringtone=0x7f080042;
-        public static final int pref_title_social_recommendations=0x7f080038;
-        public static final int pref_title_sync_frequency=0x7f08003e;
-        public static final int pref_title_system_sync_settings=0x7f08003f;
-        public static final int pref_title_vibrate=0x7f080044;
+        public static final int pref_header_notifications=0x7f080044;
+        public static final int pref_ringtone_silent=0x7f080047;
+        public static final int pref_title_add_friends_to_messages=0x7f080040;
+        public static final int pref_title_display_name=0x7f08003e;
+        public static final int pref_title_new_message_notifications=0x7f080045;
+        public static final int pref_title_ringtone=0x7f080046;
+        public static final int pref_title_social_recommendations=0x7f08003c;
+        public static final int pref_title_sync_frequency=0x7f080042;
+        public static final int pref_title_system_sync_settings=0x7f080043;
+        public static final int pref_title_vibrate=0x7f080048;
+        public static final int secondIcon=0x7f080037;
         public static final int setApps=0x7f080027;
         public static final int shazam=0x7f080016;
         public static final int showChart=0x7f080032;
@@ -225,13 +230,14 @@ public final class R {
         public static final int spotify=0x7f08001a;
         public static final int start_accel=0x7f080003;
         public static final int terminate_app=0x7f080034;
+        public static final int thirdIcon=0x7f080038;
         public static final int title_activity_about=0x7f080020;
         public static final int title_activity_help=0x7f080021;
         public static final int title_activity_options=0x7f080024;
         public static final int title_activity_sensor=0x7f080006;
         public static final int title_activity_set_apps=0x7f080026;
         public static final int title_activity_speed_adjust=0x7f08000e;
-        public static final int title_activity_speed_adjustment=0x7f080036;
+        public static final int title_activity_speed_adjustment=0x7f08003a;
         public static final int title_activity_stats=0x7f080025;
         public static final int title_activity_volume_check_service=0x7f080029;
         public static final int unlock=0x7f080010;
