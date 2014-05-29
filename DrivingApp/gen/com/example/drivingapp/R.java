@@ -49,7 +49,7 @@ public final class R {
     }
     public static final class drawable {
         public static final int border_rectangle=0x7f020000;
-        public static final int caricon=0x7f020001;
+        public static final int car_icon=0x7f020001;
         public static final int droid=0x7f020002;
         public static final int droid1=0x7f020003;
         public static final int droidupdated=0x7f020004;

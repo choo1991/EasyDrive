@@ -20,7 +20,7 @@
     <application
         android:allowBackup="true"
         android:hasCode="true"
-        android:icon="@drawable/caricon"
+        android:icon="@drawable/car_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
