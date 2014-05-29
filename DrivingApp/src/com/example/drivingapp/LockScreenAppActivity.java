@@ -540,7 +540,7 @@ public class LockScreenAppActivity extends Activity {
             RUNNING_TASK = pk;
     	} else {
     		Dialog dialog = new Dialog(this);
-            dialog.setTitle("You do not have this app");
+            dialog.setTitle("This app is not installed.");
             dialog.show();
             //dialog = null;
     	}

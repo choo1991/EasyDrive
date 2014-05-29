@@ -25,8 +25,6 @@ public class ChooseMusicApp extends Activity {
 	}
 	
 	public void selectApp(String packageName) {
-		// set preference to equal the phone
-
     	Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
     	if (intent != null)
     	{
@@ -36,7 +34,7 @@ public class ChooseMusicApp extends Activity {
         	finish();
     	} else {
     		Dialog dialog = new Dialog(this);
-            dialog.setTitle("You do not have this app");
+            dialog.setTitle("This app is not installed.");
             dialog.show();
     	}
 	}

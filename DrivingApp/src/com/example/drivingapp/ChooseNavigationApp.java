@@ -24,7 +24,6 @@ public class ChooseNavigationApp extends Activity {
 	}
 	
 	public void selectMaps(String packageName) {
-		// TODO: store preferences
     	Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
     	if (intent != null)
     	{
@@ -34,7 +33,7 @@ public class ChooseNavigationApp extends Activity {
 	    	finish();
     	} else {
     		Dialog dialog = new Dialog(this);
-            dialog.setTitle("You do not have this app");
+            dialog.setTitle("This app is not installed.");
             dialog.show();
     	}
 	}
