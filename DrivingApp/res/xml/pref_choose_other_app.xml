@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<intent android:action="android.intent.action.VIEW"
+		android:data="http://developer.android.com" />
+    
+	<PreferenceScreen
+		android:key="app_yelp"
+		android:title="@string/yelp">
+    </PreferenceScreen>
+    
+	<PreferenceScreen
+		android:key="app_gas_buddy"
+		android:title="@string/gasBuddy">
+    </PreferenceScreen>
+    
+</PreferenceScreen>
