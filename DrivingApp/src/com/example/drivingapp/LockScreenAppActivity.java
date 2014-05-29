@@ -95,8 +95,8 @@ public class LockScreenAppActivity extends Activity {
 		List<AppWidgetProviderInfo> appWidgetInfos = new ArrayList<AppWidgetProviderInfo>();
 		appWidgetInfos = mAppWidgetManager.getInstalledProviders();
 		
-		for(int j = 0; j < appWidgetInfos.size(); j++) {
-		    if (appWidgetInfos.get(j).provider.getPackageName().equals("com.google.android.deskclock") && appWidgetInfos.get(j).provider.getClassName().equals("com.android.alarmclock.DigitalAppWidgetProvider")) {
+		for(int j = 0; j < appWidgetInfos.size(); j++) {				
+		    if ((appWidgetInfos.get(j).provider.getPackageName().equals("com.google.android.deskclock") || appWidgetInfos.get(j).provider.getPackageName().equals("com.android.deskclock")) && appWidgetInfos.get(j).provider.getClassName().equals("com.android.alarmclock.DigitalAppWidgetProvider")) {
 		        Log.i("Widgets", "clock widget exists");
 		    	// Get the full info of the required widget
 		        Log.i("Widgets", "get app widget info");
@@ -444,51 +444,57 @@ public class LockScreenAppActivity extends Activity {
 //    }
     
     public void getAppIcons() {
+		// May want to maintain a list of apps on the screen, then do a foreach loop to assign
+		// drawable icons to each app
+		String[] currentApps = MainActivity.CurrentApps;
+		Map<String, String> customAppsList = MainActivity.CustomAppsList;
+		
+		Drawable firstIcon = null;
+		Drawable secondIcon = null;
+		Drawable thirdIcon = null;
+		Drawable fourthIcon = null;
 		try {
-			// May want to maintain a list of apps on the screen, then do a foreach loop to assign
-			// drawable icons to each app
-			String[] currentApps = MainActivity.CurrentApps;
-			Map<String, String> customAppsList = MainActivity.CustomAppsList;
-			
-			Drawable firstIcon = getPackageManager().getApplicationIcon("com.android.phone");
-			Drawable secondIcon = getPackageManager().getApplicationIcon(currentApps[0]);
-			Drawable thirdIcon = getPackageManager().getApplicationIcon(currentApps[1]);
-			Drawable fourthIcon = getPackageManager().getApplicationIcon(currentApps[2]);
+			firstIcon = getPackageManager().getApplicationIcon("com.android.phone");
+		} catch (Exception e) {
+		}
+		try {
+			secondIcon = getPackageManager().getApplicationIcon(currentApps[0]);
+		} catch (Exception e) {
+		}
+		try {
+			thirdIcon = getPackageManager().getApplicationIcon(currentApps[1]);
+		} catch (Exception e) {
+		}
+		try {
+			fourthIcon = getPackageManager().getApplicationIcon(currentApps[2]);
+		} catch (Exception e) {
+		}
+		
+		ImageView firstIconView =(ImageView)findViewById(R.id.firstIcon);
+		ImageView secondIconView =(ImageView)findViewById(R.id.secondIcon);
+		ImageView thirdIconView =(ImageView)findViewById(R.id.thirdIcon);
+		ImageView fourthIconView =(ImageView)findViewById(R.id.fourthIcon);
+		
+		//Button firstButton =(Button)findViewById(R.id.firstButton);
+		Button secondButton =(Button)findViewById(R.id.secondButton);
+		Button thirdButton =(Button)findViewById(R.id.thirdButton);
+		Button fourthButton =(Button)findViewById(R.id.fourthButton);
+		
+		secondButton.setText(customAppsList.get(currentApps[0]));
+		thirdButton.setText(customAppsList.get(currentApps[1]));
+		fourthButton.setText(customAppsList.get(currentApps[2]));
 
-			ImageView firstIconView =(ImageView)findViewById(R.id.firstIcon);
-			ImageView secondIconView =(ImageView)findViewById(R.id.secondIcon);
-			ImageView thirdIconView =(ImageView)findViewById(R.id.thirdIcon);
-			ImageView fourthIconView =(ImageView)findViewById(R.id.fourthIcon);
-			
-			//Button firstButton =(Button)findViewById(R.id.firstButton);
-			Button secondButton =(Button)findViewById(R.id.secondButton);
-			Button thirdButton =(Button)findViewById(R.id.thirdButton);
-			Button fourthButton =(Button)findViewById(R.id.fourthButton);
-			
-			secondButton.setText(customAppsList.get(currentApps[0]));
-			thirdButton.setText(customAppsList.get(currentApps[1]));
-			fourthButton.setText(customAppsList.get(currentApps[2]));
-			//firstIconButton.setBackgroundDrawable(firstIcon);
-			//firstIconButton
-			//firstIcon.setBounds(firstIconButton.getLeft(), firstIconButton.getTop(), 
-			//firstIconButton.getLeft()+10, firstIconButton.getTop()-10);
-			//firstIconButton.setCompoundDrawables(firstIcon, null, null, null);
-			if (firstIcon != null) {
-				firstIconView.setImageDrawable(firstIcon);
-			}
-			if (secondIcon != null) {
-				secondIconView.setImageDrawable(secondIcon);
-			}
-			if (thirdIcon != null) {
-				thirdIconView.setImageDrawable(thirdIcon);
-			}
-			if (fourthIcon != null) {
-				fourthIconView.setImageDrawable(fourthIcon);
-			}
-
-		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (firstIcon != null) {
+			firstIconView.setImageDrawable(firstIcon);
+		}
+		if (secondIcon != null) {
+			secondIconView.setImageDrawable(secondIcon);
+		}
+		if (thirdIcon != null) {
+			thirdIconView.setImageDrawable(thirdIcon);
+		}
+		if (fourthIcon != null) {
+			fourthIconView.setImageDrawable(fourthIcon);
 		}
     }	
     
@@ -530,14 +536,13 @@ public class LockScreenAppActivity extends Activity {
 
 		    ComponentName componentInfo = taskInfo.get(0).topActivity;
 		    String pk = componentInfo.getPackageName();
-    		Dialog dialog = new Dialog(this);
-            dialog.setTitle(pk);
-            dialog.show();
-            dialog = null;
             
             RUNNING_TASK = pk;
     	} else {
-    		// do something
+    		Dialog dialog = new Dialog(this);
+            dialog.setTitle("You do not have this app");
+            dialog.show();
+            //dialog = null;
     	}
     }
     //public void openPhoneScreen(View view) {
