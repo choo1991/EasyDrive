@@ -140,11 +140,11 @@
         </activity>
         <activity
             android:name="com.example.drivingapp.ChooseNavigationApp"
-            android:label="@string/chooseMusicApp" >
+            android:label="@string/chooseNavigationApp" >
         </activity>
         <activity
             android:name="com.example.drivingapp.ChooseOtherApp"
-            android:label="@string/chooseMusicApp" >
+            android:label="@string/chooseOtherApp" >
         </activity>
     </application>
 

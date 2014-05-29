@@ -46,7 +46,8 @@
 		android:title="@string/change_temp_lock_off" />	
 	<PreferenceScreen
 		android:key="button_change_applications"
-		android:title="@string/change_app">
+		android:title="@string/change_app"
+		android:summary="Change which apps appear on the Lockscreen" >
 	</PreferenceScreen>
     <PreferenceScreen
 		android:key="button_about_app"

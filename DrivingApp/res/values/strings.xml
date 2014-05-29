@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">DrivingApp</string>
+    <string name="app_name">EasyDrive</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="start_accel">Start Accelerometer</string>
@@ -38,15 +38,18 @@
 	<string name="categoryOther">Other</string>
 	<string name="chooseCategory">Choose a Category</string>
 	<string name="chooseMusicApp">Choose a Music App</string>
-		
+	<string name="chooseNavigationApp">Choose a Navigation App</string>
+	<string name="chooseOtherApp">Choose Other App</string>
+	<string name="drivingHabitsPage">Driving Habits</string>
+			
 	<color name="mycolor1">#585858 </color>
-	    <string name="title_activity_about">AboutActivity</string>
-    <string name="title_activity_help">HelpActivity</string>
+	<string name="title_activity_about">About Application</string>
+    <string name="title_activity_help">Help</string>
     <string name="appStats">My Stats</string>
     <string name="launch">Launch</string>
-    <string name="title_activity_options">OptionsActivity</string>
-    <string name="title_activity_stats">StatsActivity</string>
-    <string name="title_activity_set_apps">SetAppsActivity</string>
+    <string name="title_activity_options">Options</string>
+    <string name="title_activity_stats">Stats</string>
+    <string name="title_activity_set_apps">Customize Default Applications</string>
     <string name="setApps">Set Apps</string>
     <string name="options">Options</string>
     <string name="title_activity_volume_check_service">VolumeCheckService</string>
