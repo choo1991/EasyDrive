@@ -49,7 +49,7 @@
     <string name="launch">Launch</string>
     <string name="title_activity_options">Options</string>
     <string name="title_activity_stats">Stats</string>
-    <string name="title_activity_set_apps">Customize Default Applications</string>
+    <string name="title_activity_set_apps">Change Default Applications</string>
     <string name="setApps">Set Apps</string>
     <string name="options">Options</string>
     <string name="title_activity_volume_check_service">VolumeCheckService</string>
