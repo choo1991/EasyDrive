@@ -1,6 +1,7 @@
 package com.example.drivingapp;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -32,7 +33,9 @@ public class ChooseNavigationApp extends Activity {
 	    	startActivity(i);
 	    	finish();
     	} else {
-    		// alert that they don't have that app... 
+    		Dialog dialog = new Dialog(this);
+            dialog.setTitle("You do not have this app");
+            dialog.show();
     	}
 	}
 	   
