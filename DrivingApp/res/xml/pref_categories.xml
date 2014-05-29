@@ -14,7 +14,7 @@
 		android:title="@string/categoryNavigation">
 	</PreferenceScreen>
     <PreferenceScreen
-		android:key="category_phone"
-		android:title="@string/categoryPhone">
+		android:key="category_other"
+		android:title="@string/categoryOther">
     </PreferenceScreen>
 </PreferenceScreen>

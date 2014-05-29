@@ -43,7 +43,7 @@ public class ChooseCategory extends Activity {
     }
      
     public void choosePhoneApp() {
-		Intent i = new Intent(this, ChoosePhoneApp.class);
+		Intent i = new Intent(this, ChooseOtherApp.class);
     	startActivity(i);
     	finish();
     }
@@ -77,7 +77,7 @@ public class ChooseCategory extends Activity {
         		choose.chooseMusicApp();
         	} else if (key.equals("category_navigation")) {
         		choose.chooseNavigationApp();
-        	} else if (key.equals("category_phone")) {
+        	} else if (key.equals("category_other")) {
         		choose.choosePhoneApp();
         	}
         	return super.onPreferenceTreeClick(preferenceScreen, preference);

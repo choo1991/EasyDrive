@@ -28,9 +28,14 @@
 	<string name="amazonMp3">Amazon Mp3</string>
 	<string name="googlePlayMusic">Google Play Music</string>
 	<string name="spotify">Spotify</string>
+	<string name="iHeartRadio">iHeartRadio</string>
+	<string name="yelp">Yelp</string>
+	<string name="gasBuddy">GasBuddy</string>
+	<string name="soundCloud">SoundCloud</string>
+	<string name="waze">Waze</string>
 	<string name="categoryMusic">Music</string>
 	<string name="categoryNavigation">Navigation</string>
-	<string name="categoryPhone">Phone</string>
+	<string name="categoryOther">Other</string>
 	<string name="chooseCategory">Choose a Category</string>
 	<string name="chooseMusicApp">Choose a Music App</string>
 		

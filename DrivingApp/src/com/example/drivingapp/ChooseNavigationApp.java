@@ -22,9 +22,8 @@ public class ChooseNavigationApp extends Activity {
         prefsFragment.setActivity(this);
 	}
 	
-	public void selectMaps() {
+	public void selectMaps(String packageName) {
 		// TODO: store preferences
-		String packageName = "com.google.android.apps.maps";
     	Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
     	if (intent != null)
     	{
@@ -64,18 +63,31 @@ public class ChooseNavigationApp extends Activity {
 				}
         	}
         	if(key.equals("app_googleMaps")) {
-        		choose.selectMaps();
-        	} 
+        		choose.selectMaps("com.google.android.apps.maps");
+        	} else if (key.equals("app_waze")) {
+        		choose.selectMaps("com.waze");
+        	}
         	return super.onPreferenceTreeClick(preferenceScreen, preference);
     	}
     	
     	private void getNavigationIcons() {
     		ImageView firstImage = (ImageView)choose.findViewById(R.id.ivMaps);
+    		ImageView secondImage = (ImageView)choose.findViewById(R.id.ivWaze);
+
     		String googleMapKey = "com.google.android.apps.maps";
+    		String wazeKey = "com.waze";
+
     		Drawable firstIcon;
+    		Drawable secondIcon;
     		try {
 				firstIcon = choose.getPackageManager().getApplicationIcon(googleMapKey);
 				firstImage.setImageDrawable(firstIcon);
+    		} catch(NameNotFoundException e) {
+    		
+    		}
+    		try {
+    			secondIcon = choose.getPackageManager().getApplicationIcon(wazeKey);
+				secondImage.setImageDrawable(secondIcon);
     		} catch(NameNotFoundException e) {
     		
     		}

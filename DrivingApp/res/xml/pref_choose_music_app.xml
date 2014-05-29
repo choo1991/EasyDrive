@@ -25,5 +25,12 @@
 		android:key="app_googlePlayMusic"
 		android:title="@string/googlePlayMusic">
     </PreferenceScreen>
-
+    <PreferenceScreen
+		android:key="app_soundCloud"
+		android:title="@string/soundCloud">
+    </PreferenceScreen>
+    <PreferenceScreen
+		android:key="app_iHeartRadio"
+		android:title="@string/iHeartRadio">
+    </PreferenceScreen>
 </PreferenceScreen>

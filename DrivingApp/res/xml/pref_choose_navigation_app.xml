@@ -9,4 +9,9 @@
 		android:title="@string/maps">
     </PreferenceScreen>
     
+	<PreferenceScreen
+		android:key="app_waze"
+		android:title="@string/waze">
+    </PreferenceScreen>
+    
 </PreferenceScreen>

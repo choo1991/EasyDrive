@@ -74,6 +74,10 @@ public class ChooseMusicApp extends Activity {
         		choose.selectApp("com.amazon.mp3");
         	} else if (key.equals("app_googlePlayMusic")) {
         		choose.selectApp("com.google.android.music");
+        	} else if (key.equals("app_soundCloud")) {
+        		choose.selectApp("com.soundcloud.android");
+        	} else if (key.equals("app_iHeartRadio")) {
+        		choose.selectApp("com.clearchannel.iheartradio.controller");
         	}
         	return super.onPreferenceTreeClick(preferenceScreen, preference);
     	}
@@ -84,29 +88,63 @@ public class ChooseMusicApp extends Activity {
     		ImageView thirdImage = (ImageView)choose.findViewById(R.id.ivSpotify);
     		ImageView fourthImage = (ImageView)choose.findViewById(R.id.ivAmazonMp3);
     		ImageView fifthImage = (ImageView)choose.findViewById(R.id.ivGooglePlayMusic);
-
+    		ImageView sixthImage = (ImageView)choose.findViewById(R.id.ivSoundCloud);
+    		ImageView seventhImage = (ImageView)choose.findViewById(R.id.ivIHeartRadio);
+    		
 			String pandoraKey = "com.pandora.android";
 			String shazamKey = "com.shazam.android";
 			String spotifyKey = "com.spotify.mobile.android.ui";
 			String amazonMp3Key = "com.amazon.mp3";
 			String googlePlayMusicKey = "com.google.android.music";
+			String soundCloudKey = "com.soundcloud.android";
+			String iHeartRadioKey = "com.clearchannel.iheartradio.controller";
 
 			Drawable firstIcon;
 			Drawable secondIcon;
 			Drawable thirdIcon;
 			Drawable fourthIcon;
 			Drawable fifthIcon;
+			Drawable sixthIcon;
+			Drawable seventhIcon;
 			try {
 				firstIcon = choose.getPackageManager().getApplicationIcon(pandoraKey);
 				firstImage.setImageDrawable(firstIcon);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+			}
+			try {
 				secondIcon = choose.getPackageManager().getApplicationIcon(shazamKey);
 				secondImage.setImageDrawable(secondIcon);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+			}
+			try {
 				thirdIcon = choose.getPackageManager().getApplicationIcon(spotifyKey);
 				thirdImage.setImageDrawable(thirdIcon);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+			}
+			try {
 				fourthIcon	= choose.getPackageManager().getApplicationIcon(amazonMp3Key);
 				fourthImage.setImageDrawable(fourthIcon);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+			}
+			try {
 				fifthIcon = choose.getPackageManager().getApplicationIcon(googlePlayMusicKey);
 				fifthImage.setImageDrawable(fifthIcon);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+			}
+			try {
+				sixthIcon = choose.getPackageManager().getApplicationIcon(soundCloudKey);
+				sixthImage.setImageDrawable(sixthIcon);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+			}
+			try {
+				seventhIcon = choose.getPackageManager().getApplicationIcon(iHeartRadioKey);
+				seventhImage.setImageDrawable(seventhIcon);
 			} catch (NameNotFoundException e) {
 				// TODO Auto-generated catch block
 			}

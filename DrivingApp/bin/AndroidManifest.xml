@@ -143,7 +143,7 @@
             android:label="@string/chooseMusicApp" >
         </activity>
         <activity
-            android:name="com.example.drivingapp.ChoosePhoneApp"
+            android:name="com.example.drivingapp.ChooseOtherApp"
             android:label="@string/chooseMusicApp" >
         </activity>
     </application>
