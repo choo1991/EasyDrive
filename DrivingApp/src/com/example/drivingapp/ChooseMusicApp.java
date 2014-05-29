@@ -38,6 +38,14 @@ public class ChooseMusicApp extends Activity {
     	}
 	}
 	
+   @Override
+    public void onBackPressed()
+    {
+    	Intent i = new Intent(this, ChooseCategory.class);
+    	startActivity(i);
+    	finish();
+    }
+	
     public static class PrefsFragment extends PreferenceFragment {
     	SharedPreferences prefs;
     	ChooseMusicApp choose;

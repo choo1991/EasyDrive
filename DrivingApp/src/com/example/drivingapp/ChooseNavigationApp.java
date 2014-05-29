@@ -35,6 +35,14 @@ public class ChooseNavigationApp extends Activity {
     		// alert that they don't have that app... 
     	}
 	}
+	   
+	@Override
+    public void onBackPressed()
+    {
+    	Intent i = new Intent(this, ChooseCategory.class);
+    	startActivity(i);
+    	finish();
+    }
 	
     public static class PrefsFragment extends PreferenceFragment {
     	SharedPreferences prefs;

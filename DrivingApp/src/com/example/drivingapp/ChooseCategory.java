@@ -47,6 +47,14 @@ public class ChooseCategory extends Activity {
     	startActivity(i);
     	finish();
     }
+    
+    @Override
+    public void onBackPressed()
+    {
+    	Intent i = new Intent(this, SetAppsActivity.class);
+    	startActivity(i);
+    	finish();
+    }
 	
     public static class PrefsFragment extends PreferenceFragment {
     	
