@@ -101,22 +101,14 @@ public class LockScreenAppActivity extends Activity {
 		    	// Get the full info of the required widget
 		        Log.i("Widgets", "get app widget info");
 		        newAppWidgetProviderInfo = appWidgetInfos.get(j);
+		        addClockWidget(appWidgetId, newAppWidgetProviderInfo);
 		        break;
 		    }
 //			Log.i("Widgets", appWidgetInfos.get(j).provider.getPackageName());
 //			Log.i("Widgets", appWidgetInfos.get(j).provider.getClassName());
 		 }
 
-		/* To ensure that the app does not crash if the phone does not have a Google default
-		 * clock widget, check to see if there's anything in AppWidgetProviderInfo
-		 *  */
 		
-		// Create Widget
-		AppWidgetHostView hostView = mAppWidgetHost.createView(this, appWidgetId, newAppWidgetProviderInfo);
-		hostView.setAppWidget(appWidgetId, newAppWidgetProviderInfo);
-		// Add it to your layout
-		LinearLayout ll = (LinearLayout) findViewById(R.id.clockWidgetLocation);
-		ll.addView(hostView);
 
 		if(getIntent()!=null&&getIntent().hasExtra("kill")&&getIntent().getExtras().getInt("kill")==1){
 			// Toast.makeText(this, "" + "kill activityy", Toast.LENGTH_SHORT).show();
@@ -287,7 +279,20 @@ public class LockScreenAppActivity extends Activity {
 			// TODO: handle exception
 		}
     }
-    class StateListener extends PhoneStateListener{
+    private void addClockWidget(int appWidgetId, AppWidgetProviderInfo newAppWidgetProviderInfo) {
+    	/* To ensure that the app does not crash if the phone does not have a Google default
+		 * clock widget, check to see if there's anything in AppWidgetProviderInfo
+		 *  */
+		
+		// Create Widget
+		AppWidgetHostView hostView = mAppWidgetHost.createView(this, appWidgetId, newAppWidgetProviderInfo);
+		hostView.setAppWidget(appWidgetId, newAppWidgetProviderInfo);
+		// Add it to your layout
+		LinearLayout ll = (LinearLayout) findViewById(R.id.clockWidgetLocation);
+		ll.addView(hostView);
+	
+}
+	class StateListener extends PhoneStateListener{
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
             super.onCallStateChanged(state, incomingNumber);

@@ -103,8 +103,8 @@ public final class R {
         public static final int firstButton=0x7f0b002b;
         public static final int firstIcon=0x7f0b002a;
         public static final int firstImage=0x7f0b0005;
-        public static final int fourthButton=0x7f0b0030;
-        public static final int fourthIcon=0x7f0b0031;
+        public static final int fourthButton=0x7f0b0031;
+        public static final int fourthIcon=0x7f0b0030;
         public static final int home=0x7f0b0035;
         public static final int ivAmazonMp3=0x7f0b000b;
         public static final int ivGooglePlayMusic=0x7f0b000c;
@@ -116,8 +116,8 @@ public final class R {
         public static final int ll_custom_lock_screen=0x7f0b0027;
         public static final int optionscreen_layout=0x7f0b000e;
         public static final int phone=0x7f0b0036;
-        public static final int secondButton=0x7f0b002c;
-        public static final int secondIcon=0x7f0b002d;
+        public static final int secondButton=0x7f0b002d;
+        public static final int secondIcon=0x7f0b002c;
         public static final int secondImage=0x7f0b001a;
         public static final int show_chart=0x7f0b0025;
         public static final int speedAdjustOK=0x7f0b0024;
@@ -125,8 +125,8 @@ public final class R {
         public static final int speedDisplay=0x7f0b0022;
         public static final int switch_silenced=0x7f0b000f;
         public static final int textView1=0x7f0b0000;
-        public static final int thirdButton=0x7f0b002e;
-        public static final int thirdIcon=0x7f0b002f;
+        public static final int thirdButton=0x7f0b002f;
+        public static final int thirdIcon=0x7f0b002e;
         public static final int thirdImage=0x7f0b001e;
         public static final int tvSpeed=0x7f0b0006;
     }
