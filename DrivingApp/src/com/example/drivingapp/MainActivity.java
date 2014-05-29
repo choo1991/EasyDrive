@@ -72,9 +72,10 @@ public class MainActivity extends Activity {
 	static {
 		//change this to add the values stored in preferences
 		CurrentApps = new String[3];
-		CurrentApps[0] = "com.android.phone";
-		CurrentApps[1] = "com.pandora.android";
-		CurrentApps[2] = "com.google.android.apps.maps";
+		CurrentApps[0] = "com.pandora.android";
+		CurrentApps[1] = "com.google.android.apps.maps";
+		CurrentApps[2] = "com.spotify.mobile.android.ui";
+
 	}
 	//moved up here from initCustomLockScreen so that the intent can be reordered
 	//from other methods
