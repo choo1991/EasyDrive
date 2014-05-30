@@ -50,6 +50,7 @@ public class MainActivity extends Activity {
 	public static boolean INITIAL_CREATION = false;
 	
 	public static int POSTPONE_APP = 0;
+	public static float deviceSpeed;
 	
 	public static Map<String, String> CustomAppsList;
 	static {
@@ -280,8 +281,8 @@ public class MainActivity extends Activity {
     	
     	//Intent intentAccel = new Intent(this, SensorActivity.class);
     	//startActivity(intentAccel);
-    	TextView test = (TextView) findViewById(R.id.tvSpeed);
-		test.setText("0 MPH");
+//    	TextView test = (TextView) findViewById(R.id.tvSpeed);
+//		test.setText("0 MPH");
 		
 		initLocationManager();
 		
@@ -317,9 +318,9 @@ public class MainActivity extends Activity {
     }
     
     public void displayStats() {
-    	Log.i("LATEST_DEBUGGING", "Entered display stats method");
+//    	Log.i("LATEST_DEBUGGING", "Entered display stats method");
     	Intent i = new Intent(this, XYChartBuilder.class);
-    	Log.i("LATEST_DEBUGGING", "Created new intent to go to the class");
+//    	Log.i("LATEST_DEBUGGING", "Created new intent to go to the class");
     	startActivity(i);
     }
     
@@ -359,8 +360,7 @@ public class MainActivity extends Activity {
     	startActivity(i);
     }
     
-    public void displaySpeed(View view)
-    {
+    public void displaySpeed(View view) {
     	TextView test = (TextView) findViewById(R.id.tvSpeed);
 		test.setText("0 MPH");
 		initLocationManager();
@@ -473,14 +473,14 @@ public class MainActivity extends Activity {
 		checkIfDriving(location);
 	}
 	
-	private static float returnCurrentSpeed(Location location) {
+	private void checkIfDriving(Location location) {
 		float speed = location.getSpeed();
-		return speed;
-	}
-	
-	private void checkIfDriving(Location location)
-	{
-		float speed = location.getSpeed();
+		
+		// presumably, this method is being called repeatedly as long as the
+		// app is active. Therefore, if there's a static variable, set it
+		// as the speed.
+		deviceSpeed = speed;
+		
 		long time = location.getTime();
 		// speed is returned in meters per second
 		// 10 mph ~ 4.4 meters per second
@@ -566,8 +566,6 @@ public class MainActivity extends Activity {
     	intent11 = new Intent(this, LockScreenAppActivity.class);
     	intent11.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     	//intent11.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-    	
-    	
     	startActivity(intent11);
 
 	}
