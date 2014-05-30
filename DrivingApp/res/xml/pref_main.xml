@@ -16,12 +16,12 @@
         android:persistent="true"
         android:summary="Storing whether the ring volume is silenced or not." />
 	
-	<SwitchPreference
+	<!--<SwitchPreference
         android:key="button_app_speed_display_key"
         android:title="@string/display_speed_data"
         android:persistent="true"
         android:summary="Show speed of device via dialog for testing purposes only." />
-	<!-- <SwitchPreference
+	<SwitchPreference
         android:key="button_app_accel_display_key"
         android:title="@string/display_accel"
         android:persistent="true"
@@ -34,7 +34,7 @@
 		android:key="button_speed_change_key"
 		android:persistent="true"
 		android:entries="@array/speed_limit"
-		android:summary="Change what speed is required to activate the application."
+		android:summary="Change the speed required to activate the application."
 		android:entryValues="@array/speed_limit_values"
 		android:title="@string/change_speed_min" />	
 	<ListPreference
@@ -49,10 +49,10 @@
 		android:title="@string/change_app"
 		android:summary="Change which apps appear on the Lockscreen" >
 	</PreferenceScreen>
-    <PreferenceScreen
+    <!--<PreferenceScreen
 		android:key="button_about_app"
 		android:title="@string/about_app">
-    </PreferenceScreen>
+    </PreferenceScreen>-->
     <PreferenceScreen
 		android:key="button_help_app"
 		android:title="@string/help">
