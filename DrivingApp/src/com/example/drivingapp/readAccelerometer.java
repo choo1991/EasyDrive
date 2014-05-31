@@ -102,12 +102,12 @@ public class readAccelerometer extends IntentService implements SensorEventListe
             @Override 
             public void run() {     
 	            	//feedback popup test
-	        		Context context = getApplicationContext();
-	        		CharSequence text = "Hello toast!";
-	        		int duration = Toast.LENGTH_SHORT;
-	        		
-	            	Toast toast = Toast.makeText(context, text, duration);
-	        		toast.show();            
+//	        		Context context = getApplicationContext();
+//	        		CharSequence text = "Hello toast!";
+//	        		int duration = Toast.LENGTH_SHORT;
+//	        		
+//	            	Toast toast = Toast.makeText(context, text, duration);
+//	        		toast.show();            
         		} 
 		});   
 		
