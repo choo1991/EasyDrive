@@ -45,15 +45,14 @@
         <activity
             android:name="com.example.drivingapp.SensorActivity"
             android:label="@string/title_activity_sensor" >
-            <intent-filter>
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
-
+            <!--<intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.HOME" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
-        <service android:name="com.example.drivingapp.readAccelerometer" />
+        <service android:name="com.example.drivingapp.readAccelerometer"
+            android:label="@string/readAccel" />
 
         <activity
             android:name="com.example.drivingapp.SpeedAdjustActivity"

@@ -94,6 +94,8 @@ public class MainActivity extends Activity {
         FragmentTransaction.replace(android.R.id.content, PrefsFragment);
         FragmentTransaction.commit();   
         Log.v(LOG_TAG, "Main Activity Created");
+        Intent showAccelData = new Intent(this, readAccelerometer.class);
+    	this.startService(showAccelData);
     }
    
     // This is to see if the setting is preserved across exiting out of app and
@@ -288,8 +290,8 @@ public class MainActivity extends Activity {
 		
 		Intent service = new Intent(this, VolumeCheckService.class);
 		startService(service);
-    	//Intent readAccel = new Intent(this, LockScreenAppActivity.class);
-    	//startActivity(readAccel);
+//    	Intent readAccel = new Intent(this, LockScreenAppActivity.class);
+//    	startActivity(readAccel);
 
     }
     

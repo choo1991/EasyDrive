@@ -34,7 +34,6 @@ public class SensorActivity extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sensor);
 		
 		//get service
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -42,7 +41,7 @@ public class SensorActivity extends Activity implements SensorEventListener {
 		if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
 			mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		}
-		
+		this.finish();
 		 //activities don't destroy themselves, and currently this doesn't!
 		
 		//comment out since we don't need it. readAccel should be the only one listening
@@ -127,7 +126,6 @@ public class SensorActivity extends Activity implements SensorEventListener {
 	  @Override
 	protected void onResume() {
 	    super.onResume();
-	   
 	}
 	
 	@Override
@@ -142,27 +140,26 @@ public class SensorActivity extends Activity implements SensorEventListener {
 	}
 	
 	protected void onStop() {
-		
 		super.onStop();
 		//while(true);
 	}
 	
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_HOME)) { //doesn't :(
-            Toast.makeText(this, "You pressed the home button!", Toast.LENGTH_LONG).show();                     
-            return true;
-        } else if ((keyCode == KeyEvent.KEYCODE_MENU)) { //doesn't work
-            Toast.makeText(this, "You pressed the menu button!", Toast.LENGTH_LONG).show();                     
-            return true;
-        } else if ((keyCode == KeyEvent.KEYCODE_BACK)) { //works!!!! 
-            Toast.makeText(this, "You pressed the back button!", Toast.LENGTH_LONG).show();                     
-            return true;
-        } else  { //doesn't
-            Toast.makeText(this, "You " + KeyEvent.keyCodeToString(keyCode) + " button!", Toast.LENGTH_LONG).show();                     
-            return true;
-        }
-        //return super.onKeyDown(keyCode, event);
-    }
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if ((keyCode == KeyEvent.KEYCODE_HOME)) { //doesn't :(
+//            Toast.makeText(this, "You pressed the home button!", Toast.LENGTH_LONG).show();                     
+//            return true;
+//        } else if ((keyCode == KeyEvent.KEYCODE_MENU)) { //doesn't work
+//            Toast.makeText(this, "You pressed the menu button!", Toast.LENGTH_LONG).show();                     
+//            return true;
+//        } else if ((keyCode == KeyEvent.KEYCODE_BACK)) { //works!!!! 
+//            Toast.makeText(this, "You pressed the back button!", Toast.LENGTH_LONG).show();                     
+//            return true;
+//        } else  { //doesn't
+//            Toast.makeText(this, "You " + KeyEvent.keyCodeToString(keyCode) + " button!", Toast.LENGTH_LONG).show();                     
+//            return true;
+//        }
+//        //return super.onKeyDown(keyCode, event);
+//    }
 	
 	
 	/*

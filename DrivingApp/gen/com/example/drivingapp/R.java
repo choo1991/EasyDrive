@@ -231,6 +231,7 @@ public final class R {
         public static final int pref_title_sync_frequency=0x7f08004a;
         public static final int pref_title_system_sync_settings=0x7f08004b;
         public static final int pref_title_vibrate=0x7f080050;
+        public static final int readAccel=0x7f080051;
         public static final int secondIcon=0x7f08003f;
         public static final int setApps=0x7f08002f;
         public static final int shazam=0x7f080016;

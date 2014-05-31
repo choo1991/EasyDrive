@@ -61,9 +61,6 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		//intentservices can stop either the same way or once onHandleIntent() is done
 		
 		//the only way to have a blocking service is to start a service in its own thread
-		
-		
-		
 		sensorIntent = new Intent(this, SensorActivity.class);
 		//this flag is required when a new activity is started outside of an activity,
 		//such as a service like this
@@ -71,10 +68,8 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		
 		//runnable tasks sent to handler
 		//checkTopAct = new CheckTopActivity();
-		
 		super.onCreate();
 		accelData = new float[3];
-		
 	}
 	
 	public static float[] returnAccelValues() {
@@ -95,13 +90,12 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 	    mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);  
 		
 	  //feedback popup test
-	  		Context context = getApplicationContext();
-	  		CharSequence text = "Hello toast X!";
-	  		int duration = Toast.LENGTH_SHORT;
-	  		
-	      	Toast toast = Toast.makeText(context, text, duration);
-	  		toast.show();  
-	  		
+//	  		Context context = getApplicationContext();
+//	  		CharSequence text = "Hello toast X!";
+//	  		int duration = Toast.LENGTH_SHORT;
+//	  		
+//	      	Toast toast = Toast.makeText(context, text, duration);
+//	  		toast.show();  
 	  		
 	    //toast's new thread is bound to the main UI thread
 		handler.post(new Runnable() { 
@@ -159,7 +153,6 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 	    					break; //just to be safe
 	    				}
 	    			}
-	    			
 	            }
 	        }
 		}
@@ -174,21 +167,16 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 	
     @Override
     public final void onSensorChanged(SensorEvent event) {
-    	Log.v(LOG_TAG, "something changed within the sensor");
 	    // The accelerometer sensor returns a single value.
 		// Many sensors return 3 values, one for each axis (x,y, z in order) 
     	float x = event.values[0];
     	float y = event.values[1];
     	float z = event.values[2];
-    	Log.v(LOG_TAG,"Sensor changed");
-    	String tempArrayText = "X: " + x + " Y: " + y + " Z: " + z;
-		Toast display2 = Toast.makeText(getApplicationContext(), tempArrayText, Toast.LENGTH_SHORT);
-		display2.show();
+    	Log.v(LOG_TAG,"Sensor changed: x=" + x + " y =" + y + " z=" + z + "");
 		
     	accelData[0] = x;
     	accelData[1] = y;
     	accelData[2] = z;
-    	//data += "x: " + x + " y: " + y + " z: " + z + "\n\n";
     	
     	if(x > 5 && !flag) {
     		//multiple sensorIntents are started unless we control it somehow,
@@ -202,11 +190,11 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     		//stopSelf(); 
     		
     		//feedback popup test
-			Context context = getApplicationContext();
-			CharSequence text = "Hello toast toast!" + x;
-			int duration = Toast.LENGTH_SHORT;
-	    	Toast toast = Toast.makeText(context, text, duration);
-			toast.show();   
+//			Context context = getApplicationContext();
+//			CharSequence text = "Hello toast toast!" + x;
+//			int duration = Toast.LENGTH_SHORT;
+//	    	Toast toast = Toast.makeText(context, text, duration);
+//			toast.show();   
 		
     	}
     }
