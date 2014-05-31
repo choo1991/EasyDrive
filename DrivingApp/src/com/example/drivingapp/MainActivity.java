@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -91,12 +92,27 @@ public class MainActivity extends Activity {
         FragmentTransaction FragmentTransaction = FragmentManager.beginTransaction();
         PrefsFragment PrefsFragment = new PrefsFragment();
         PrefsFragment.setActivity(this);
+        setTheme(android.R.style.Theme_Holo);
         FragmentTransaction.replace(android.R.id.content, PrefsFragment);
         FragmentTransaction.commit();   
         Log.v(LOG_TAG, "Main Activity Created");
         Intent showAccelData = new Intent(this, readAccelerometer.class);
     	this.startService(showAccelData);
+    	
     }
+    
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Bundle bundle = intent.getExtras();
+			if (bundle != null) {
+				float x = bundle.getFloat("x");
+				float y = bundle.getFloat("y");
+				float z = bundle.getFloat("z");
+				Log.i("BundleTest", "x: " + x + " y: " + " z: " + z);
+			}
+		}
+	};
    
     // This is to see if the setting is preserved across exiting out of app and
     // then coming back to it

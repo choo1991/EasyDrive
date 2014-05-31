@@ -9,50 +9,36 @@
         android:key="button_app_enabled_key"
         android:title="@string/enabled"
         android:persistent="true"
-        android:summary="Storing whether the app is on or off." />
+        android:summary="@string/enabled_pref" />
 	<SwitchPreference
         android:key="button_enable_silencing"
         android:title="@string/silenced"
         android:persistent="true"
-        android:summary="Storing whether the ring volume is silenced or not." />
-	
-	<!--<SwitchPreference
-        android:key="button_app_speed_display_key"
-        android:title="@string/display_speed_data"
-        android:persistent="true"
-        android:summary="Show speed of device via dialog for testing purposes only." />
-	<SwitchPreference
-        android:key="button_app_accel_display_key"
-        android:title="@string/display_accel"
-        android:persistent="true"
-        android:summary="Show x y z changes of device via dialog for testing purposes only." /> -->
+        android:summary="@string/silenced_pref" />
+	<PreferenceScreen
+		android:key="button_change_applications"
+		android:title="@string/change_app"
+		android:summary="@string/app_pref" >
+	</PreferenceScreen>
 	<PreferenceScreen
 		android:key="button_show_chart"
-		android:title="@string/show_chart">
+		android:title="@string/show_chart"
+		android:summary="@string/chart_pref" >
     </PreferenceScreen>
 	<ListPreference
 		android:key="button_speed_change_key"
 		android:persistent="true"
 		android:entries="@array/speed_limit"
-		android:summary="Change the speed required to activate the application."
+		android:summary="@string/speed_pref"
 		android:entryValues="@array/speed_limit_values"
 		android:title="@string/change_speed_min" />	
 	<ListPreference
 		android:key="button_temp_lock_off"
 		android:persistent="true"
 		android:entries="@array/lock_off_time"
-		android:summary="Temporarily halt the lock screen from appearing"
+		android:summary="@string/postpone_pref"
 		android:entryValues="@array/lock_off_time_values"
 		android:title="@string/change_temp_lock_off" />	
-	<PreferenceScreen
-		android:key="button_change_applications"
-		android:title="@string/change_app"
-		android:summary="Change which apps appear on the Lockscreen" >
-	</PreferenceScreen>
-    <!--<PreferenceScreen
-		android:key="button_about_app"
-		android:title="@string/about_app">
-    </PreferenceScreen>-->
     <PreferenceScreen
 		android:key="button_help_app"
 		android:title="@string/help">

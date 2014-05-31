@@ -18,6 +18,7 @@ public class SetAppsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTheme(android.R.style.Theme_Holo);
 		setContentView(R.layout.activity_set_apps);
 		// maybe turn into a forloop? only problem is how do you dynamically get the other app ids?
 		TextView firstApp = (TextView) findViewById(R.id.customApp1);

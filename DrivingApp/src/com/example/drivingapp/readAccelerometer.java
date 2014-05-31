@@ -35,6 +35,7 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     CheckTopActivity checkTopAct;
     private static float[] accelData;
     private static final String LOG_TAG = "AccelActivity";
+    public static final String NOTIFICATION = "com.example.drivingapp.MainActivity";
     
 	public readAccelerometer() {
 		super("readAccelerometer");
@@ -172,11 +173,12 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     	float x = event.values[0];
     	float y = event.values[1];
     	float z = event.values[2];
-    	Log.v(LOG_TAG,"Sensor changed: x=" + x + " y =" + y + " z=" + z + "");
+    	//Log.v(LOG_TAG,"Sensor changed: x=" + x + " y =" + y + " z=" + z + "");
 		
     	accelData[0] = x;
     	accelData[1] = y;
     	accelData[2] = z;
+    	publishAccelData(x, y, z);
     	
     	if(x > 5 && !flag) {
     		//multiple sensorIntents are started unless we control it somehow,
@@ -198,6 +200,14 @@ public class readAccelerometer extends IntentService implements SensorEventListe
 		
     	}
     }
+    
+    private void publishAccelData(float x, float y, float z) {
+        Intent intent = new Intent(NOTIFICATION);
+        intent.putExtra("x", x);
+        intent.putExtra("y", y);
+        intent.putExtra("z", z);
+        sendBroadcast(intent);
+      }
 
     //detects when the app this service belongs to isn't the one that is currently
     //active on the user's screen (index 0 of running tasks), and by active this doesn't

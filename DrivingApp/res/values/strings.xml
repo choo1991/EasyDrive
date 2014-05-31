@@ -91,4 +91,10 @@
 	<string name="secondIcon">Second Image Icon</string>
 	<string name="thirdIcon">Third Image Icon</string>
 	<string name="fourthIcon">Fourth Image Icon</string>
+	<string name="enabled_pref">Replace the set lockscreen with EasyDrive</string>
+	<string name="silenced_pref">Silence phone when the lockscreen is active</string>
+	<string name="speed_pref">Change the minimum speed required to activate the lockscreen</string>
+	<string name="postpone_pref">Temporarily halt the lockscreen from appearing</string>
+	<string name="app_pref">Select the apps that appear on the EasyDrive lockscreen</string>
+	<string name="chart_pref">Display chart of movement data pulled from the phone</string>
 </resources>
