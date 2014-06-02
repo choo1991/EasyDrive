@@ -46,16 +46,15 @@ public class DataORM {
             "DROP TABLE IF EXISTS " + TABLE_NAME;
     
     public static void insertData(Context context, DataStorageClass dsc) {
-    	Log.i(TAG, "Insert data called...");
+//    	Log.i(TAG, "Insert data called...");
         DatabaseWrapper databaseWrapper = new DatabaseWrapper(context);
-        Log.i(TAG, "New database wrapper created...");
+//        Log.i(TAG, "New database wrapper created...");
         SQLiteDatabase database = databaseWrapper.getWritableDatabase();
-        Log.i(TAG, "Got writable database...");
+//        Log.i(TAG, "Got writable database...");
 		ContentValues values = postToContentValues(dsc);
-		Log.i(TAG, "Created values...");
+//		Log.i(TAG, "Created values...");
 		long postId = database.insert(DataORM.TABLE_NAME, "null", values);
-		Log.i(TAG, "Inserted new Post with ID: " + postId);
-
+//		Log.i(TAG, "Inserted new Post with ID: " + postId);
         database.close();
     }
 
