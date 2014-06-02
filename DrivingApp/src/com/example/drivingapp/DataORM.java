@@ -57,6 +57,13 @@ public class DataORM {
 //		Log.i(TAG, "Inserted new Post with ID: " + postId);
         database.close();
     }
+    
+    public static void deleteAllData(Context context) {
+    	DatabaseWrapper databaseWrapper = new DatabaseWrapper(context);
+    	SQLiteDatabase database = databaseWrapper.getWritableDatabase();
+    	database.delete(TABLE_NAME, null, null);
+    	database.close();
+    }
 
     /**
      * Packs a Post object into a ContentValues map for use with SQL inserts.
