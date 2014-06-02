@@ -173,7 +173,7 @@ public class readAccelerometer extends IntentService implements SensorEventListe
     	float x = event.values[0];
     	float y = event.values[1];
     	float z = event.values[2];
-    	//Log.v(LOG_TAG,"Sensor changed: x=" + x + " y =" + y + " z=" + z + "");
+    	Log.v(LOG_TAG,"Sensor changed: x=" + x + " y =" + y + " z=" + z + "");
 		
     	accelData[0] = x;
     	accelData[1] = y;

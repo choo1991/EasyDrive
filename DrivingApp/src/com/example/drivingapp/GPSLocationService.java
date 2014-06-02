@@ -42,9 +42,11 @@ public class GPSLocationService extends Service {
     private Address lastAddress;
     private Location mLastLocation;
     private float maxSpeed;
-    private final float metersSec_in_KMPH = 3.6f;
+    private final float metersSec_in_MPH = 2.2369f;
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss.SSS");
+    public static final String BROADCAST_ACTION = "com.example.MainActivity.speeddata";
+    Intent intent;
 
     // other modules will call these public methods
     public String getTime() {
@@ -67,7 +69,7 @@ public class GPSLocationService extends Service {
 
     public float getSpeedFloat(){
         if (lastSpeed < 1.0f) { return 0; }
-        float mph = lastSpeed * metersSec_in_KMPH;
+        float mph = lastSpeed * metersSec_in_MPH;
         return mph;
     } 
 
@@ -102,14 +104,14 @@ public class GPSLocationService extends Service {
     // 145.608
     public String getSpeed() {
         if (lastSpeed < 1.0f) { return "000"; }
-        float mph = lastSpeed * metersSec_in_KMPH;
+        float mph = lastSpeed * metersSec_in_MPH;
         String lValue = Integer.toString((int) mph);
         return lValue;
     }
 
     public String getMaxSpeed() {
         if (maxSpeed < 1.0f) { return "0.0"; }
-        String lValue = Float.toString(maxSpeed * metersSec_in_KMPH);
+        String lValue = Float.toString(maxSpeed * metersSec_in_MPH);
         if (lValue.length() < 7) {
             return lValue;
         } else
@@ -134,7 +136,8 @@ public class GPSLocationService extends Service {
     // the usual 'Service' methods below
     @Override
     public void onCreate() {
-        super.onCreate();
+    	intent = new Intent(BROADCAST_ACTION); 
+    	super.onCreate();
         // instantiate the inner class
         gpsLocationListener = new GPSLocationListener();
         // get the system manager
@@ -145,9 +148,9 @@ public class GPSLocationService extends Service {
         locationManager.requestLocationUpdates(
                 locationManager.getBestProvider(criteria, false), 250, 
                 5, gpsLocationListener);
-        Toast toast = Toast.makeText(GPSLocationService.this, "GPS updates requested.", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+//        Toast toast = Toast.makeText(GPSLocationService.this, "GPS updates requested.", Toast.LENGTH_SHORT);
+//        toast.setGravity(Gravity.CENTER, 0, 0);
+//        toast.show();
     }
 
     @Override
@@ -202,6 +205,8 @@ public class GPSLocationService extends Service {
                 maxSpeed = lastSpeed;
             }
             Log.i(TAG, "GPS update received.");
+            intent.putExtra("speed", lastSpeed);
+            sendBroadcast(intent);
         }
 
         @Override

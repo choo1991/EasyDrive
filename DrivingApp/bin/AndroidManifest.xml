@@ -88,6 +88,15 @@
         </service>
 		<service android:name="com.example.drivingapp.VolumeCheckService" >
         </service>
+        <service android:name="com.example.drivingapp.AccelerometerDataService" >    
+        </service>
+        <receiver
+            android:name="receiver.accelerometerReceiver" android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.example.MainActivity.acceldata" ></action>
+                <action android:name="com.example.MainActivity.speeddata" ></action>
+            </intent-filter>
+        </receiver>
         
         <receiver
             android:name="receiver.LockScreenReceiver"

@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -25,6 +26,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.support.v4.app.FragmentManager;
@@ -52,6 +54,9 @@ public class MainActivity extends Activity {
 	
 	public static int POSTPONE_APP = 0;
 	public static float deviceSpeed;
+	
+	private static final String TAG = "AccelerometerDataService";
+	Intent intent;
 	
 	public static Map<String, String> CustomAppsList;
 	static {
@@ -86,8 +91,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_mainscreen);
-        // Display the fragment as the main content.
+        
         android.app.FragmentManager FragmentManager = getFragmentManager();
         FragmentTransaction FragmentTransaction = FragmentManager.beginTransaction();
         PrefsFragment PrefsFragment = new PrefsFragment();
@@ -96,34 +100,40 @@ public class MainActivity extends Activity {
         FragmentTransaction.replace(android.R.id.content, PrefsFragment);
         FragmentTransaction.commit();   
         Log.v(LOG_TAG, "Main Activity Created");
-        Intent showAccelData = new Intent(this, readAccelerometer.class);
-    	this.startService(showAccelData);
-    	
+//        Intent showAccelData = new Intent(this, readAccelerometer.class);
+//    	this.startService(showAccelData);
+        intent = new Intent(this, AccelerometerDataService.class);
+        startService(intent);  
+//        IntentFilter intentFilter = new IntentFilter();      
+//        intentFilter.addAction(AccelerometerDataService.BROADCAST_ACTION);
+//        registerReceiver(a, intentFilter);
     }
     
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			Bundle bundle = intent.getExtras();
-			if (bundle != null) {
-				float x = bundle.getFloat("x");
-				float y = bundle.getFloat("y");
-				float z = bundle.getFloat("z");
-				Log.i("BundleTest", "x: " + x + " y: " + " z: " + z);
-			}
-		}
-	};
-   
-    // This is to see if the setting is preserved across exiting out of app and
-    // then coming back to it
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            showAccelData(intent);       
+        }
+    };
+    
+    private void showAccelData(Intent intent) {
+        float x = intent.getFloatExtra("x", 0.0f); 
+        float y = intent.getFloatExtra("y", 0.0f);
+        float z = intent.getFloatExtra("z", 0.0f);
+        Log.i("AccelService", "x: " + x + " y: " + y + " z: " + z);
+    }
+
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-//        Dialog dialog = new Dialog(this);
-//        dialog.setTitle(retrieveSwitchPreference());
-//        dialog.show();
-//        dialog = null;
-        Log.v(LOG_TAG, "Main Activity Resumed");
+//        accelReceiver = new Receiver();
+//        IntentFilter intentFilter = new IntentFilter();      
+//        intentFilter.addAction(SimpleService.MY_ACTION);
+//        startService(intent);  
+//        registerReceiver(accelReceiver, intentFilter);
+//        startService(intent);
+//        registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerDataService.BROADCAST_ACTION));
+        
     }
     
     // currently a test to see if it can return the current value of the switch
