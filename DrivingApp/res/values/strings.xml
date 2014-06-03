@@ -61,21 +61,40 @@
 		<item name="5">5 MPH</item>
 		<item name="10">10 MPH</item>
 		<item name="15">15 MPH</item>
+		<item name="20">20 MPH</item>
+		<item name="25">25 MPH</item>
+		<item name="30">30 MPH</item>
+		<item name="35">35 MPH</item>
+		<item name="40">40 MPH</item>
     </string-array>
     <string-array name="speed_limit_values">
         <item name="0">0</item>
-        <item name="1">1</item>
         <item name="5">5</item>
 		<item name="10">10</item>
 		<item name="15">15</item>
+		<item name="20">20</item>
+		<item name="25">25</item>
+		<item name="30">30</item>
+		<item name="35">35</item>
+		<item name="40">40</item>
     </string-array>
     <string-array name="lock_off_time">
-        <item name="5000">5000 milliseconds</item>
-        <item name="30000">30000</item>
+        <item name="5000">5 seconds</item>
+        <item name="15000">15 seconds</item>
+        <item name="30000">30 seconds</item>
+        <item name="45000">45 seconds</item>
+        <item name="60000">1 minute</item>
+        <item name="120000">2 minutes</item>
+        <item name="300000">5 minutes</item>
     </string-array>
     <string-array name="lock_off_time_values">
         <item name="5000">5000</item>
+        <item name="15000">15000</item>
         <item name="30000">30000</item>
+        <item name="45000">45000</item>
+        <item name="60000">60000</item>
+        <item name="120000">120000</item>
+        <item name="300000">300000</item>
     </string-array>
     <string name="change_speed_min">Change Minimum Speed</string>
     <string name="change_app">Change Default Applications</string>
@@ -97,4 +116,10 @@
 	<string name="postpone_pref">Temporarily halt the lockscreen from appearing</string>
 	<string name="app_pref">Select the apps that appear on the EasyDrive lockscreen</string>
 	<string name="chart_pref">Display chart of movement data pulled from the phone</string>
+	<string name="help_page">
+	    Easy Drive replaces your normal lock screen with a custom page that links to three custom set apps.
+		\n\nTo use Easy Drive\'s automatic launch feature, set the "enabled" option to ON, and access the "Change Minimum Speed" option to set the speed at which Easy Drive will automatically launch.
+		\n\nYou can change which apps to set on your home screen by accessing the "Change Default Applications" option. You can only select apps from the premade list, and you may only select apps that are currently installed on your device.
+		\n\nTo exit the app, select the EXIT button on the main page. This will stop the Easy Drive screen from automatically loading for a set period of time. You can change this postponement duration by accessing the "Postpone LockScreen" option from the menu page.
+	</string>
 </resources>
