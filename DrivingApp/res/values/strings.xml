@@ -122,4 +122,5 @@
 		\n\nYou can change which apps to set on your home screen by accessing the "Change Default Applications" option. You can only select apps from the premade list, and you may only select apps that are currently installed on your device.
 		\n\nTo exit the app, select the EXIT button on the main page. This will stop the Easy Drive screen from automatically loading for a set period of time. You can change this postponement duration by accessing the "Postpone LockScreen" option from the menu page.
 	</string>
+	<string name="deleteData">Delete Data</string>
 </resources>

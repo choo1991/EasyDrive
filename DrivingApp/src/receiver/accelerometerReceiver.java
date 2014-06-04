@@ -19,7 +19,7 @@ public class accelerometerReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (intent.getAction().equals("com.example.MainActivity.acceldata")) {
-			if (MainActivity.LOCK_SCREEN_ACTIVE) {
+			if (MainActivity.LOCK_SCREEN_ACTIVE || MainActivity.APP_ENABLED && MainActivity.ABOVE_SPEED_LIMIT) {
 				float x = intent.getFloatExtra("x", 0.0f); 
 				float y = intent.getFloatExtra("y", 0.0f);
 				float z = intent.getFloatExtra("z", 0.0f);

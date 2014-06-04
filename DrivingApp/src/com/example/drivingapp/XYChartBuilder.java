@@ -38,6 +38,7 @@ public class XYChartBuilder extends Activity {
     private XYSeriesRenderer mCurrentRenderer;
     /** Button for adding entered data to the current series. */
     private Button mShowChart;
+    private Button mDeleteData;
     /** The chart view that displays the data. */
     private GraphicalView mChartView;
     private List<DataStorageClass> accelData;
@@ -79,6 +80,7 @@ public class XYChartBuilder extends Activity {
 //        DataORM.deleteAllData(this);
         // the top part of the UI components for adding new data points
         mShowChart = (Button) findViewById(R.id.show_chart);
+        mDeleteData = (Button) findViewById(R.id.clear_data);
 
         // set some properties on the main renderer
         mRenderer.setApplyBackgroundColor(true);
@@ -98,27 +100,33 @@ public class XYChartBuilder extends Activity {
         mRenderer.setPointSize(5);
         mRenderer.setInScroll(true);
 //        Log.i(LOG_TAG, "Before getting the database content");
-        accelData = DataORM.getData(this);
+//        accelData = DataORM.getData(this);
 //        Log.i(LOG_TAG, "Number of content in the database: " + accelData.size());
-        for (int i = 1; i < accelData.size(); i++) {
-        	Log.i(LOG_TAG, "Time: " + accelData.get(i).returnTime() + " x: " + accelData.get(i).returnX() + ", y: " + accelData.get(i).returnY() + ", z: " 
-        			+ accelData.get(i).returnZ());
-        }
+//        for (int i = 1; i < accelData.size(); i++) {
+//        	Log.i(LOG_TAG, "Time: " + accelData.get(i).returnTime() + " x: " + accelData.get(i).returnX() + ", y: " + accelData.get(i).returnY() + ", z: " 
+//        			+ accelData.get(i).returnZ());
+//        }
 
-        // add points at x & y - replace later with adding points from database
+        // add points from database
         mShowChart.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {           
-				int size = mDataset.getSeriesCount();
-				for (int i = 0; i < size; i++) {
-				  // always remove the first element because once you remove one element,
-				  // the size of the list becomes size - 1 and so on
-					mDataset.removeSeries(i);
-				}
+        	public void onClick(View v) {
+//				int size = mDataset.getSeriesCount();
+//				for (int i = 0; i < size; i++) {
+//				  // always remove the first element because once you remove one element,
+//				  // the size of the list becomes size - 1 and so on
+//					mDataset.removeSeries(0);
+//				}
+        		mRenderer.removeAllRenderers();
+				mDataset.removeSeries(xSeries);
+				mDataset.removeSeries(ySeries);
+				mDataset.removeSeries(zSeries);
+				
+				accelData = DataORM.getData(getApplicationContext());
 				
 				// create a new renderer for the new series
 				XYSeriesRenderer xRenderer = new XYSeriesRenderer();
 				mRenderer.addSeriesRenderer(xRenderer);
-				Log.i(LOG_TAG, "Before X Series");
+//				Log.i(LOG_TAG, "Before X Series");
 				xSeries = new XYSeries("X");
 				mCurrentSeries = xSeries;
 				for (int i = 0; i < accelData.size(); i++) {
@@ -126,7 +134,7 @@ public class XYChartBuilder extends Activity {
 					float accelX = accelData.get(i).returnX();
 					mCurrentSeries.add(time, (double)accelX);
 				}
-				Log.i(LOG_TAG, "After adding all X points to the series");
+//				Log.i(LOG_TAG, "After adding all X points to the series");
 				mDataset.addSeries(xSeries);
 				// set some renderer properties
 //				xRenderer.setPointStyle(PointStyle.CIRCLE);
@@ -136,12 +144,12 @@ public class XYChartBuilder extends Activity {
 				xRenderer.setDisplayChartValuesDistance(11);
 				mCurrentRenderer = xRenderer;
 				mChartView.repaint();
-				Log.i(LOG_TAG, "After painting the X series");
+//				Log.i(LOG_TAG, "After painting the X series");
 				
 				// create a new renderer for the new series
 				XYSeriesRenderer yRenderer = new XYSeriesRenderer();
 				mRenderer.addSeriesRenderer(yRenderer);
-				Log.i(LOG_TAG, "Before Y Series");
+//				Log.i(LOG_TAG, "Before Y Series");
 				ySeries = new XYSeries("Y");
 				mCurrentSeries = ySeries;
 				for (int i = 0; i < accelData.size(); i++) {
@@ -149,7 +157,7 @@ public class XYChartBuilder extends Activity {
 					float accelY = accelData.get(i).returnY();
 					mCurrentSeries.add(time, (double)accelY);
 				}
-				Log.i(LOG_TAG, "After adding all Y points to the series");
+//				Log.i(LOG_TAG, "After adding all Y points to the series");
 				mDataset.addSeries(ySeries);
 				// set some renderer properties
 //				yRenderer.setPointStyle(PointStyle.TRIANGLE);
@@ -159,12 +167,12 @@ public class XYChartBuilder extends Activity {
 				yRenderer.setDisplayChartValuesDistance(11);
 				mCurrentRenderer = yRenderer;
 				mChartView.repaint();
-				Log.i(LOG_TAG, "After painting the Y series");
+//				Log.i(LOG_TAG, "After painting the Y series");
 				
 				// create a new renderer for the new series
 				XYSeriesRenderer zRenderer = new XYSeriesRenderer();
 				mRenderer.addSeriesRenderer(zRenderer);
-				Log.i(LOG_TAG, "Before Z Series");
+//				Log.i(LOG_TAG, "Before Z Series");
 				zSeries = new XYSeries("Z");
 				mDataset.addSeries(zSeries);
 				mCurrentSeries = zSeries;
@@ -173,7 +181,7 @@ public class XYChartBuilder extends Activity {
 					float accelZ = accelData.get(i).returnZ();
 					mCurrentSeries.add(time, (double)accelZ);
 				}
-				Log.i(LOG_TAG, "After adding all Z points to the series");
+//				Log.i(LOG_TAG, "After adding all Z points to the series");
 				// set some renderer properties
 //				zRenderer.setPointStyle(PointStyle.SQUARE);
 				zRenderer.setFillPoints(true);
@@ -182,12 +190,20 @@ public class XYChartBuilder extends Activity {
 				zRenderer.setDisplayChartValuesDistance(11);
 				mCurrentRenderer = zRenderer;
 				mChartView.repaint();
-				Log.i(LOG_TAG, "After painting the Z series");
+//				Log.i(LOG_TAG, "After painting the Z series");
 
                 // repaint the chart such as the newly added point to be visible
 				mChartView.repaint();
 
             }
+        });
+        
+        mDeleteData.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Log.i(LOG_TAG, "Before deleting: " + DataORM.getData(getApplicationContext()).size());
+				DataORM.deleteAllData(getApplicationContext());
+				Log.i(LOG_TAG, "After deleting: " + DataORM.getData(getApplicationContext()).size());
+			}
         });
     }
 

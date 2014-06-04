@@ -30,11 +30,11 @@ public class InitializeChart extends Activity {
 	}
 	
 	private void addSampleData() {
-	    mCurrentSeries.add(1, 2);
-	    mCurrentSeries.add(2, 3);
-	    mCurrentSeries.add(3, 2);
-	    mCurrentSeries.add(4, 5);
-	    mCurrentSeries.add(5, 4);
+//	    mCurrentSeries.add(1, 2);
+//	    mCurrentSeries.add(2, 3);
+//	    mCurrentSeries.add(3, 2);
+//	    mCurrentSeries.add(4, 5);
+//	    mCurrentSeries.add(5, 4);
 	}
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class InitializeChart extends Activity {
 	    LinearLayout layout = (LinearLayout) findViewById(R.id.chart_area);
 	    if (mChart == null) {
 	        initChart();
-	        addSampleData();
+//	        addSampleData();
 	        mChart = ChartFactory.getCubeLineChartView(this, mDataset, mRenderer, 0.3f);
 	        layout.addView(mChart);
 	    } else {
